@@ -1,0 +1,21 @@
+<div class="modal-overlay">
+    <div class="container">
+      <div class="image-gallery">
+        <!-- Nút mũi tên trái -->
+        <button class="arrow left" (click)="prevImage()">
+          <span>&#10094;</span> <!-- Ký tự mũi tên trái -->
+        </button>
+  
+        <!-- Hiển thị hình ảnh hiện tại -->
+        <div class="image-item">
+          <img [src]="selectedImages[currentImageIndex]" alt="Selected Image" class="image-preview" />
+        </div>
+  
+        <!-- Nút mũi tên phải -->
+        <button class="arrow right" (click)="nextImage()">
+          <span>&#10095;</span> <!-- Ký tự mũi tên phải -->
+        </button>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,82 @@
+<div class="container">
+  <!-- <app-heaher></app-heaher> -->
+  <div class="schedual">
+    <div class="header-schedual">
+      <div>
+        <span class="material-symbols-outlined" [routerLink]="'/home'">
+          arrow_back
+        </span>
+      </div>
+      <div class="title">LỊCH ĐẶT SÂN THEO GIỜ</div>
+    </div>
+    <div class="date-picker-container">
+      <input *ngIf="role === ''" 
+        type="date"
+        id="date"
+        [(ngModel)]="today"
+        (change)="onDateChange($event)"
+        class="date-input"
+      />
+      <input *ngIf="role === 'Admin'" 
+        type="date"
+        id="date"
+        [(ngModel)]="today"
+        [min]="minDate"
+        [max]="maxDate"
+        (change)="onDateChange($event)"
+        class="date-input"
+      />
+    </div>
+    <div class="details">
+      <div class="square"></div>
+      <div class="kind-square">Trống</div>
+      <div class="square" style="background-color:  #ff6f61;"></div>
+      <div class="kind-square">Đã đặt</div>
+      <div class="square" style="background-color:  #d4c951;"></div>
+      <div class="kind-square">Chọn và xem thông tin liên hệ của người đặt sân</div>
+    </div>
+  </div>
+  <ng-container *ngIf="timeSlots">
+    <div class="table-container">
+      <table class="table-auto w-full border-collapse">
+        <tbody>
+          <tr>
+            <td colspan="2" style="border: none" *ngFor="let slot of timeSlots">
+              {{ slot }}
+            </td>
+            <!-- Header for each time slot -->
+          </tr>
+          <tr *ngFor="let field of fields">
+            <td
+              class="fixed-column"
+              style="width: 15px; font-size: 12px; font-weight: bold"
+            >
+              {{ field }}
+            </td>
+            <!-- Fixed field name -->
+            <td
+            *ngFor="let status of mockSchedule[field]; let i = index"
+            [ngClass]="getStatusClass(status.status)"
+            (click)="onCellClick(field, i,status.id)"
+            colspan="2">
+          </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  <div class="order" *ngIf="selectedSlots.length > 0">
+    <div class="time-info">
+      <span class="label">Tổng giờ:</span> <span class="time">{{totalHourSelections}} Phút</span>
+    </div>
+    <div class="price-info">
+      <span class="label">Tổng tiền:</span> <span class="price">{{ totalAmount | number:'1.0-2' }} đ</span>
+    </div>
+  </div>
+  <div class="continue-button">
+    <button (click)="tranferdata()">TIẾP THEO</button>
+  </div>
+</div>
+<app-notification *ngIf="message!=''" [message]="message"></app-notification>
+<app-infor-team *ngIf="idbill!==0" [id]="idbill"   (closeFormEvent)="closeLogin()"></app-infor-team>
+

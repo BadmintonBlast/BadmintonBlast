@@ -1,0 +1,155 @@
+<div class="container">
+  <div class="header">
+    <span class="material-symbols-outlined" style="cursor: pointer">
+      arrow_back
+    </span>
+    <a href="#" class="add-product">
+      <span>+ Thêm Sản Phẩm</span>
+    </a>
+  </div>
+  <div class="product-form">
+    <div class="form-left">
+      <label>Tên Sản Phẩm</label>
+      <input
+        type="text"
+        [(ngModel)]="Product.nameproduct"
+        maxlength="20"
+        placeholder="Nhập tên sản phẩm"
+      />
+      <label>Trạng thái</label>
+      <select
+      [(ngModel)]="Product.available"
+    >
+      <option class="active-status" [value]="1">Active</option>
+      <option class="inactive-status" [value]="0">Inactive</option>
+    </select>
+      <div class="dropdowns">
+        <div>
+          <label>Loại</label>
+          <select [(ngModel)]="Product.idkindproduct">
+            <option value="" disabled selected>Chọn loại sản phẩm</option>
+            <option *ngFor="let kind of Kinds" [value]="kind.idkindproduct">
+              {{ kind.nameproduct }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label>Thương Hiệu</label>
+          <select [(ngModel)]="Product.idbrand">
+            <option value="" disabled selected>Chọn thương hiệu</option>
+            <option *ngFor="let brand of Brands" [value]="brand.idbrand">
+              {{ brand.namebrand }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="dropdowns">
+        <div>
+          <label>Giá</label>
+          <input
+            type="number"
+            [(ngModel)]="Product.price"
+            placeholder="Nhập giá sản phẩm"
+            style="width: 250px"
+          />
+        </div>
+        <div>
+          <label>Ngày</label>
+          <input
+            type="date"
+            [ngModel]="Product.date | date : 'yyyy-MM-dd'"
+            style="width: 250px"
+          />
+        </div>
+      </div>
+
+      <label>Mô tả</label>
+      <div class="NgxEditor__Wrapper">
+        <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+        <ngx-editor
+          [editor]="editor"
+          [(ngModel)]="Product.description"
+          [disabled]="false"
+          [placeholder]="'Type here...'"
+        ></ngx-editor>
+      </div>
+      <p class="note"></p>
+    </div>
+
+    <div class="form-right">
+      <label>Ảnh Sản Phẩm</label>
+      <div class="images-upload">
+        <div class="image-upload-box">
+          <input
+            type="file"
+            multiple
+            id="file-upload"
+            accept="image/*"
+            (change)="onImageSelect($event)"
+            multiple
+            hidden
+          />
+          <label for="file-upload" class="upload-label">
+            <span class="material-icons">photo_camera</span>
+          </label>
+        </div>
+        @for(image of selectedImagesList; track image; let i = $index){
+        <div class="image-upload-box">
+            <img [src]="getImageUrl(image)" class="" alt="Selected Image" />
+            <button (click)="removeImage(i)" class="delete-btn">x</button>
+        </div>
+        }
+      </div>
+
+      <p class="note">Bạn có thể thêm tối đa 9 tấm ảnh về sản phẩm</p>
+      <div class="stock">
+        <div class="stock-input">
+          <label>Màu</label>
+          <input type="text" [(ngModel)]="newColor" />
+          <label>Size</label>
+          <input type="text" [(ngModel)]="newSize" />
+          <label>Số lượng</label>
+          <input type="text" [(ngModel)]="newQuantity" />
+          <button type="button" (click)="addProductStock()">Thêm</button>
+        </div>
+        <table
+          class="product-stock-table"
+          border="1"
+          cellpadding="4"
+          cellspacing="0"
+        >
+          <thead>
+            <tr>
+              <th>Màu</th>
+              <th>Kích thước</th>
+              <th>Số lượng</th>
+              <th>Xóa</th>
+              <th>Sửa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let productStock of productStocks">
+              <td>{{ productStock.namecolor }}</td>
+              <td>{{ productStock.namesize }}</td>
+              <td>{{ productStock.quatity }}</td>
+              <td>
+                <span class="material-symbols-outlined"(click)="removeProductStock(productStock)">
+                  delete
+                  </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="actions">
+        <button class="add-product-btn" (click)="onAddProduct()">Thêm</button>
+        <button class="save-product-btn" (click)=" openModal()">Thương Hiệu</button>
+        <button class="schedule-btn" (click)="openModalBrand()">Loại</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-add-kind-product [isModalOpen]="isModalOpen"></app-add-kind-product>
+<app-add-brand [isModalBrand]="isModalBrand"></app-add-brand>

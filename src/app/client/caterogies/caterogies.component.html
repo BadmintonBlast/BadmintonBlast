@@ -1,0 +1,72 @@
+<app-heaher></app-heaher>
+
+<div class="container">
+  <div class="sidebar">
+    <div class="filter-title">
+      <span class="material-symbols-outlined"> filter_alt </span>BỘ LỘC TÌM KIẾM
+    </div>
+    <div class="filter-option"></div>
+    <div class="filter-group">
+      <div class="filter-title">Thương Hiệu</div>
+      <div class="filter-option" *ngFor="let brands of brand">
+        <input type="radio" id="{{selectedbrandId}}" name="brands" (change)="filterbrand(brands.idbrand,brands.namebrand,$event)"/>
+        <label for="{{brands.idbrand}}">{{ brands.namebrand }}</label>
+        <img [src]="brands.image" />
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-title">Khoảng Giá</div>
+      <input type="number" placeholder="₫ TỪ" style="width: 80px" />
+      <input type="number" placeholder="₫ ĐẾN" style="width: 80px" />
+      <button type="button">ÁP DỤNG</button>
+    </div>
+    <div class="filter-group">
+      <div class="filter-title">Sản phẩm</div>
+      <div class="filter-option" *ngFor="let kindproduct of kindproduct">
+        <input
+          type="radio"
+          id="{{ kindproduct.idkindproduct }}"
+          name="kindproduct"
+          (change)="filterkind(kindproduct.idkindproduct,kindproduct.nameproduct, $event)"
+        />
+        <label for="{{ kindproduct.idkindproduct }}">{{
+          kindproduct.nameproduct
+        }}</label>
+      </div>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="sort-options">
+      <button class="sort-button">Sắp xếp theo</button>
+      <button class="sort-button active">Liên Quan</button>
+      <button class="sort-button">Mới Nhất</button>
+      <button class="sort-button">Bán Chạy</button>
+      <button class="sort-button">Giá</button>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" *ngFor="let product of products" (click)="detailproduct(product.idproduct, product.nameproduct)">
+        <img *ngIf="product.image[0].image4"
+          [src]="product.image[0].image4"
+          alt="{{ product.nameproduct }}"
+          class="product-image"
+        />
+        <div class="product-info">
+          <div class="product-title">{{ product.nameproduct }}</div>
+          <div class="product-price">
+            {{
+              changediscount(product.price, product.deprice) | number : "1.0-0"
+            }}đ<span class="product-discount"
+              >{{ product.price | number : "1.0-0" }}đ</span
+            >
+          </div>
+          <div class="product-rating">
+            <span class="star">★</span>4.9 Đã bán 7,3k
+          </div>
+          <div class="product-location"></div>
+        </div>
+      </div>
+      <!-- Repeat product-card div for more products -->
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

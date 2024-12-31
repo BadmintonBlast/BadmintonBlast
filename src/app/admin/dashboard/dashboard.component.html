@@ -1,0 +1,76 @@
+<div class="revenue">
+    <div class="form-right">
+        <div class="content">
+            <div class="name-content">
+                 Thống kê doanh thu
+            </div>
+            <hr>
+            <div class="show-info" >
+                <div style="background-color: cornflowerblue;">
+                    Tổng số hóa đơn:
+                    <p>{{Statistical?.totalBills||0}}</p>
+                </div>
+                <div style="background-color: rgb(127, 201, 254);">
+                    Tổng số hàng đã bán:
+                    <p>{{totalProduct}}</p>
+                </div>
+                <div style="background-color: rgb(32, 200, 234);">
+                    Doanh thu:
+                    <p>{{ (Statistical?.totalRevenue || 0) | number:'1.0-2' }}<sup>đ</sup></p>
+                </div>
+            </div>
+            <div class="show-info" >
+                <div style="background-color: rgb(255, 255, 255);">
+                    Tổng số hóa đơn đặt sân:
+                    <p>{{statisticalReservation?.totalInvoice}}</p>
+                </div>
+                <div style="background-color: rgb(251, 251, 251);">
+                    Tổng số khách hàng:
+                    <p>{{statisticalReservation?.completedInvoice}}</p>
+                </div>
+                <div style="background-color: rgb(252, 251, 251);">
+                    Doanh thu đặt sân:
+                    <p>{{ (statisticalReservation?.totalRevenue || 0) | number:'1.0-2' }}<sup>đ</sup></p>
+                </div>
+            </div>
+            <hr>
+
+            <div class="form-date">
+                <p>Chọn Thời Gian Xem</p>
+                <div class="date-for-to-btn">
+                    <input type="date" [(ngModel)]="dateStart" (ngModelChange)="onchange()">
+                    <input type="date" [(ngModel)]="dateEnd" (ngModelChange)="onchange()" >
+                    <button (click)="exportCustomerArrayToExcel()">Xuất Excel</button>
+                </div>
+            </div>
+
+            <table id="table" class="info-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sách</th>
+                        <th>Giá bán</th>
+                        <th>Đã bán</th>
+                        <th>Doanh thu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let product of Product.data; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ (product.idproduct) }}</td>
+                    <td>{{ product.nameproduct }}</td>
+                    <td>{{ product.price|number:'1.0-0' }}</td>
+                    <td>{{ product.totalProduct}}</td>
+                    <td>{{ product.totalMoney|number:'1.0-0'}}đ</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+

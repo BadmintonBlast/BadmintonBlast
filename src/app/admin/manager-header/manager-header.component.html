@@ -1,0 +1,25 @@
+<header class="header">
+  <div class="search-container">
+    <span class="material-symbols-outlined"> search </span>
+    <input
+      type="text"
+      placeholder="Tìm kiếm ..."
+      (input)="onInputChange($event)"
+      class="search-input"
+    />
+  </div>
+  <div class="icon-container">
+    <span class="material-symbols-outlined icon"> notifications_active</span>
+    <img
+      *ngIf="adcustomer && adcustomer.imageCustomer"
+      [src]="adcustomer.imageCustomer"
+      alt="Profile picture"
+      class="profile-picture"
+      priority
+      ngSrcset="100w"
+      width="100"
+      height="100"
+    />
+    <span class="greeting">{{ adcustomer.namecustomer }}</span>
+  </div>
+</header>

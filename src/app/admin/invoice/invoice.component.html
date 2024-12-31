@@ -1,0 +1,129 @@
+<div class="main-container">
+  <div class="header">
+    <app-manager-header></app-manager-header>
+  </div>
+  <div class="scrollable-content">
+    <div class="container">
+      <div class="container-invoice">
+        <div class="table-container">
+          <table
+            id="InvoiceTable"
+            mat-table
+            [dataSource]="dataSource"
+            class="mat-elevation-z8 custom-table"
+          >
+            <!-- ID Invoice Column -->
+            <ng-container matColumnDef="Mã hóa đơn">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                Mã hóa đơn
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                {{ element.idInvoice }}
+              </td>
+            </ng-container>
+
+            <!-- Customer Name Column -->
+            <ng-container matColumnDef="Mã khách hàng">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                Mã khách hàng
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                {{ element.idcustomer }}
+              </td>
+            </ng-container>
+
+            <!-- Customer Phone Column -->
+            <ng-container matColumnDef="Số điện thoại">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                Số điện thoại
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                {{ element.customerPhone || 'N/A' }}
+              </td>
+            </ng-container>
+
+            <!-- Total Amount Column -->
+            <ng-container matColumnDef="Tổng tiền">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                Tổng tiền
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                {{ element.totalamount | number:'1.0-0' }} đ
+              </td>
+            </ng-container>
+
+            <!-- Reservation Date Column -->
+            <ng-container matColumnDef="Ngày đặt">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                Ngày đặt
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                {{ element.reservationdate | date:'dd/MM/yyyy' }}
+              </td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="Trạng thái">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                Trạng thái
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                {{ element.status || 'Không xác định' }}
+              </td>
+            </ng-container>
+
+            <!-- Payment Method Column -->
+            <ng-container matColumnDef="Phương thức thanh toán">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                Phương thức thanh toán
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                {{ element.paymentMethod || 'N/A' }}
+              </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="Hành động">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                <span class="material-symbols-outlined" style="font-size: 22px;">
+                  settings
+                </span>
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                <span
+                  style="font-size: 15px; margin-left: 8px; cursor: pointer"
+                  [matMenuTriggerFor]="menu"
+                  class="material-symbols-outlined"
+                  >more_vert</span
+                >
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>Chỉnh sửa</button>
+                </mat-menu>
+              </td>
+            </ng-container>
+
+            <!-- Table Rows -->
+            <tr
+              mat-header-row
+              *matHeaderRowDef="displayedColumns"
+              class="table-header-row"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns"
+              class="table-row"
+            ></tr>
+          </table>
+        </div>
+        <div class="change-page">
+          <button class="report">
+            <span class="material-symbols-outlined"> print_error </span>Xuất báo cáo
+          </button>
+          <button class="report">
+            <span class="material-symbols-outlined"> add </span>Thêm hóa đơn
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

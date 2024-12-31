@@ -1,0 +1,38 @@
+<div class="modal-overlay">
+  <div class="profile-container">
+    <div class="profile-image">
+      <div class="close-icon">
+        <span class="material-symbols-outlined"> close </span>
+      </div>
+      <img [src]="this.customer.imageCustomer" alt="" />
+      <select [(ngModel)]="this.customer.status"(ngModelChange)="updateCustomer()" [ngClass]="this.customer.status ? 'active-status' : 'inactive-status'">
+        <option class="active-status" [value]="true">Active</option>
+        <option class="inactive-status" [value]="false">Inactive</option>
+      </select>
+      <select
+        [(ngModel)]="this.customer.role"
+        (ngModelChange)="updateCustomer()"
+        [ngClass]="this.customer.role"
+      >
+        <option class="Staff" value="Staff">Nhân viên</option>
+        <option class="Customer" value="Customer">Khách hàng</option>
+        <option class="Admin" value="Admin">Quản trị viên</option>
+      </select>
+    </div>
+    <div class="profile-details">
+      <h3>Thông tin</h3>
+      <p>
+        <strong>Ngày sinh: </strong
+        >{{ this.customer.birthday | date : "dd/mm/yyyy" }}
+      </p>
+      <p><strong>Số điện thoại: </strong>{{ this.customer.phone }}</p>
+      <p><strong>Email: </strong> {{ this.customer.email }}</p>
+      <p>
+        <strong>Địa chỉ: </strong> {{ this.customer.hamlet }} ,
+        {{ this.customer.village }} , {{ this.customer.district }},{{
+          this.customer.province
+        }}
+      </p>
+    </div>
+  </div>
+</div>

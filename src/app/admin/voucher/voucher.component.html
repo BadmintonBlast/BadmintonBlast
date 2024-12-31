@@ -1,0 +1,105 @@
+<div class="main-container">
+  <div class="header">
+    <app-manager-header (searchTerm)="search($event)"></app-manager-header>
+  </div>
+  <div class="scrollable-content">
+    <div class="container-customer">
+      <div class="table-container">
+        <table
+          id="ExampleMaterialTable"
+          mat-table
+          [dataSource]="coupon"
+          class="mat-elevation-z8"
+        >
+          <ng-container matColumnDef="Mã giảm giá">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Mã giảm giá
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.idcoupon }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Số giảm giá">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Khuyến mãi
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.promotion }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Ngày bắt đầu">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Ngày bắt đầu
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.startdate }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Ngày kết thúc">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Ngày kết thúc
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.enddate }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Số lượng">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Số lượng
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.quality }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Hành động">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              <span class="material-symbols-outlined" style="font-size: 22px;"> settings </span>
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              <span
+                style="margin-left: 5px; cursor: pointer; font-size: 15px"
+                [matMenuTriggerFor]="menu"
+                class="material-symbols-outlined"
+              >
+                more_vert
+              </span>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="detail(element.idcoupon)">Chi tiết</button>
+              </mat-menu>
+            </td>
+          </ng-container>
+          <tr
+            class="table-header-row"
+            mat-header-row
+            *matHeaderRowDef="displayedColumns"
+          ></tr>
+          <tr
+            class="table-row"
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+          ></tr>
+        </table>
+      </div>
+
+      <div class="change-page">
+        <button class="report" (click)="exportCustomerArrayToExcel()">
+          <span class="material-symbols-outlined"> print_error </span>Xuất báo
+          cáo
+        </button>
+        <button class="report" (click)="addCoupon()">
+          <span class="material-symbols-outlined"> add </span>Thêm
+        </button>
+        <app-paging
+          [totalPages]="Math.ceil(totalcoupon / pageSize)"
+          [currentPage]="pageIndex"
+          (pageChanged)="onPageChanged($event)"
+        ></app-paging>
+      </div>
+    </div>
+  </div>
+</div>
+<app-add-voucher *ngIf="addCouponhide" (closeFormEvent)="addCoupon()"></app-add-voucher>
+<app-add-voucher *ngIf="idcoupon!=0" (closeFormEvent)="detail(0)" [idcoupon]="idcoupon"></app-add-voucher>

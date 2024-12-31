@@ -1,0 +1,35 @@
+<div class="modal-overlay" *ngIf="isModalOpen">
+    <div class="container">
+      <h3>Thêm Loại Sản Phẩm</h3>
+      <form (ngSubmit)="onSubmit()">
+        <div>
+          <label for="nameproduct">Tên sản phẩm:</label>
+          <input
+            type="text"
+            id="nameproduct"
+            [(ngModel)]="newKindProduct.nameproduct"
+            name="nameproduct"
+            required
+          />
+        </div>
+        <div>
+          <label for="image">Ảnh:</label>
+          <input
+            type="file"
+            id="image"
+            (change)="onImageSelected($event)"
+            name="image"
+            accept="image/*"
+            required
+          />
+        </div>
+        <div *ngIf="imagePreview" class="image-preview">
+          <p>Xem trước ảnh:</p>
+          <img [src]="imagePreview" alt="Image preview" />
+        </div>
+        <button type="submit">Lưu</button>
+        <button type="button" (click)="closeModal()">Đóng</button>
+      </form>
+    </div>
+  </div>
+  

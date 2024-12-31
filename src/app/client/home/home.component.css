@@ -1,0 +1,171 @@
+.container {
+  position: relative;
+  top: 90px;
+  background-color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+
+.container-banner {
+  padding: 25px 25px 0 25px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.banner {
+  width: 70%;
+  overflow: hidden;
+  position: relative;
+  margin-right: 20px;
+}
+
+#slideshow {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.banner-slide {
+  width: 100%;
+  display: flex;
+}
+
+.image-banner {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.last-banner {
+  width: 30%;
+  height: 400px;
+}
+
+.last-banner img {
+  width: 100%;
+  height: 190px;
+  margin-bottom: 17px;
+}
+
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  user-select: none;
+}
+
+.prev {
+  left: 10px;
+  border-radius: 3px 0 0 3px;
+}
+
+.next {
+  right: 10px;
+  border-radius: 0 3px 3px 0;
+}
+
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.container-category {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  background-color: rgb(252, 252, 252) !important;
+}
+
+.category-item {
+  width: 119px;
+  height: 140px;
+  border: 1px solid rgba(184, 184, 184, 0.224);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-right: 0.1px;
+  transition: all 0.2s ease; /* Thêm hiệu ứng chuyển đổi mượt mà */
+}
+
+.category-item:hover {
+  border: 1px solid rgba(100, 100, 100, 0.5); /* Thay đổi màu viền khi hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ khi hover */
+  transform: translateY(-1px); /* Tạo hiệu ứng nâng lên khi hover */
+}
+
+.container-image {
+  display: flex;
+  flex-direction: column;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%; /* Tạo khung tròn */
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Đảm bảo rằng mọi phần của hình ảnh nằm trong khung */
+  background-color: #e8b1f59e; /* Có thể thêm màu nền nếu cần */
+  margin-bottom: 10px;
+}
+
+.category-icon {
+  width: 100%; /* Đảm bảo hình ảnh bao phủ toàn bộ khung */
+  height: 100%;
+  object-fit: contain; /* Đảm bảo hình ảnh nằm hoàn toàn trong khung mà không bị cắt */
+}
+.category-name {
+  font-size: 14px;
+  color: #333;
+  max-width: 100px;
+  word-wrap: break-word; /* Ensures long text breaks onto multiple lines */
+}
+
+.suggest {
+  z-index: 3; /* Chỉ thấp hơn header */
+  background-color: white;
+  margin-left: 35px;
+  width: 94.5%;
+  height: 40px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #7a377acf;
+  margin-bottom: 10px;
+  transition: position 0.3s, top 0.3s; /* Hiệu ứng chuyển động */
+}
+.suggest.fixed {
+  position: fixed; /* Đặt thành fixed khi cần */
+  top:   80px; /* Dưới header */
+}
+.suggest span {
+  font-size: 24px;
+  font-weight: bold;
+  background: linear-gradient(
+    to right,
+    #ff1100,
+    #ed5454,
+    #f7ab1e
+  ); /* Gradient nền */
+  -webkit-background-clip: text; /* Chỉ định clip nền cho chữ (trên Safari) */
+  background-clip: text; /* Chỉ định clip nền cho chữ (trên các trình duyệt hỗ trợ) */
+  color: transparent; /* Làm màu chữ trong suốt */
+}

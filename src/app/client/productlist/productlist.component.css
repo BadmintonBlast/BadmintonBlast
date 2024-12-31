@@ -1,0 +1,114 @@
+.container-list {
+  padding: 0 35px;
+  background-color: #f0f0f0ee;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  margin: 0 auto;
+  gap: 5px;
+}
+
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+  margin-left: 12px;
+  width: 90%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.discount-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: #ea6c9f24;
+  color: rgb(122, 7, 76);
+  padding: 2px 6px;
+  font-weight: 900;
+  font-size: 12px;
+}
+
+.out-of-stock {
+  position: absolute;
+  top: 40%;
+  left: 15%;
+  background-color: #dcd0d079;
+  color: red;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px;
+  width: 120px;
+  text-align: center;
+  transform: rotate(-45deg); /* Diagonal positioning */
+  z-index: 1; /* Ensure the badge stays on top of the image */
+  border: 1px solid red; /* Red border */
+  line-height: 1.2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-info {
+  padding: 12px;
+}
+
+.product-title {
+  font-size: 14px;
+  margin-bottom: 8px;
+  height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 2;
+  color: #726868;
+  -webkit-box-orient: vertical;
+}
+
+.product-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.tag {
+  background-color: #dc10624a;
+  color: rgb(19, 11, 11);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.product-price {
+  font-weight: 900;
+  font-size: 12px;
+  color: #dc102bf1;
+}
+
+.product-sold {
+  font-size: 12px;
+  color: #999;
+}
+
+.frame-price-sold {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

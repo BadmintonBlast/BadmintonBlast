@@ -1,0 +1,95 @@
+.container-admin {
+  display: flex;
+  height: 100%; 
+}
+.sidebar {
+  width: 60px;
+  background: linear-gradient(
+    to right, 
+    rgba(23, 134, 245, 0.6),  /* Xanh trong suốt */
+    rgba(52, 118, 216, 0.6),  /* Tím trong suốt */
+    rgba(37, 144, 220, 0.6)  /* Tím trong suốt */
+  );
+  color: #a2a3b7;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: width 0.3s ease;
+  z-index: 100;
+}
+.sidebar:hover {
+  width: 195px;
+}
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.logo-item
+{
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 17px;
+  margin-bottom: 40px;
+}
+.sidebar-item:not(.logo-item):hover {
+  background-color: #44447a94;
+}
+.sidebar-icon {
+  font-size: 30px;
+  display: flex;
+  color: #ffffff;
+  align-items: center;
+}
+
+
+.sidebar-icon img {
+  max-width: 30px;
+  max-height: 30px;
+}
+.sidebar-text {
+  margin-left: 10px;
+  opacity: 0;
+  color: #ffffff;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+}
+.sidebar:hover .sidebar-text {
+  opacity: 1;
+}
+.components-title {
+  padding: 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #565674;
+  display: none;
+}
+.sidebar:hover .components-title {
+  display: block;
+}
+.main-content {
+  width: 95%;
+  margin-left: 60px;
+}
+.main-content {
+  margin-left: 60px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sidebar-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.sidebar-item.selected {
+  background-color: #e0e0e0; /* Màu nền khi biểu tượng được chọn */
+  font-weight: bold; /* Làm đậm văn bản khi biểu tượng được chọn */
+}

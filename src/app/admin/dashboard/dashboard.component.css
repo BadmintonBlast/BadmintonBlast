@@ -1,0 +1,113 @@
+.revenue {
+  display: flex;
+  height: 100vh;
+  margin: 0;
+}
+
+.form-left {
+  width: 300px;
+  min-height: 100vh;
+  margin-right: 2%;
+  background-color: #ffffff;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+.form-right {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 2%;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: bold;
+  margin: 10px 0;
+  text-align: center;
+  color: #97978d;
+}
+
+.content {
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.name-content {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.show-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.show-info div {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  /* background-color: white; */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 0 10px;
+}
+
+.form-date {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-for-to-btn {
+  display: flex;
+  position: relative;
+}
+
+.date-for-to-btn input {
+  width: 200px;
+  padding: 10px;
+  margin-right: 20px;
+  outline: none;
+}
+.date-for-to-btn input:focus
+{
+    border: none;
+}
+
+.date-for-to-btn button {
+  position: absolute;
+  right: 0;
+  padding: 10px;
+  background-color: #97978d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.info-table th,
+.info-table td {
+  border: 1px solid #97978d; /* Thêm viền cho cả th và td */
+  padding: 8px;
+  text-align: center;
+}
+
+.info-table th {
+  background-color: #97978d;
+}
+
+.info-table tbody td,
+.info-table tfoot td {
+  background-color: white;
+}

@@ -1,0 +1,101 @@
+<app-heaher></app-heaher>
+<div class="container" *ngIf="this.product">
+  <div class="image-gallery">
+    <img [src]="this.selectedImage" alt="Product" class="main-image" />
+    <div class="thumbnail-container">
+      <img
+        *ngFor="let image of product.image; let i = index"
+        [src]="image.image4"
+        (click)="selectImage(i)"
+        [ngClass]="{ selected: ImageIndex === i }"
+        alt="Thumbnail"
+        class="thumbnail"
+      />
+    </div>
+  </div>
+  <div class="product-info">
+    <h1 class="product-title">{{ product.nameproduct }}</h1>
+    <div class="rating">
+      <span class="star">
+        <mat-icon *ngFor="let star of fullStars">star</mat-icon>
+        <mat-icon *ngIf="hasHalfStar">star_half</mat-icon>
+        <mat-icon *ngFor="let star of emptyStars">star_border</mat-icon></span
+      >
+      <span style="margin-right: 15px"></span>
+      <span style="margin-right: 15px">{{ this.totalpreview }} Đánh Giá</span>
+      <!-- <span>9.5k Đã Bán</span> -->
+    </div>
+    <div class="price">
+      <span class="original-price" *ngIf="product.deprice != 0"
+        >{{ product.price | number : "1.0-0" }}đ</span
+      >
+      <span *ngIf="product.deprice == 0"
+        >{{ product.price | number : "1.0-0" }}đ</span
+      >
+      <span *ngIf="product.deprice != 0"
+        >{{
+          changediscount(product.price, product.deprice) | number : "1.0-0"
+        }}đ</span
+      >
+      <span class="discount" *ngIf="product.deprice != 0"
+        >{{ product.deprice }}% GIẢM</span
+      >
+    </div>
+    <div class="vouchers">
+      <span  *ngFor="let coupon of coupon" class="voucher">{{coupon.description}}</span>  
+    </div>
+    <div
+      class="options"
+      *ngIf="product.productstocks && product.productstocks.length > 0"
+    >
+      <div class="option-title">Kích Thước</div>
+      <div class="option-buttons">
+        <button
+          class="option-button"
+          *ngFor="let stock of product.productstocks; let i = index"
+          [ngClass]="{ selected: selectedIndex === i }"
+          (click)="selectButton(i)"
+        >
+          {{ stock.namesize }}
+          <span *ngIf="stock.namecolor">-{{ stock.namecolor }}</span>
+        </button>
+      </div>
+    </div>
+    <div class="quantity">
+      <span>Số Lượng</span>
+      <button class="quantity-button" (click)="quantity('-')">-</button>
+      <input type="text" [value]="this.quantityValue" class="quantity-input" />
+      <button class="quantity-button" (click)="quantity('+')">+</button>
+      <span>158084 sản phẩm có sẵn</span>
+    </div>
+    <div class="action-buttons">
+      <button class="add-to-cart" (click)="addCart('')">Thêm Vào Giỏ Hàng</button>
+      <button class="buy-now" (click)="addCart('route')">Mua Ngay</button>
+    </div>
+  </div>  
+</div>
+<div class="social-share-bar">
+  <div class="share-buttons">
+    <span>Chia sẻ:</span>
+    <div class="fb-share-button" [attr.data-href]="currentUrl" data-layout="button_count" data-size="">
+      <a target="_blank" [href]="currentUrl" class="fb-xfbml-parse-ignore">Chia sẻ</a>
+    </div>
+  </div>
+  <div class="info-section">
+    <div class="info-item liked">
+      <img src="/api/placeholder/20/20" alt="Heart" />
+      <span>Đã thích (330)</span>
+    </div>
+    <div class="info-item guarantee">
+      <img src="/api/placeholder/20/20" alt="Shield" />
+      <span>Bảo Hành</span>
+    </div>
+    <div class="info-item return-policy">
+      <span>Trả hàng miễn phí 15 ngày</span>
+    </div>
+  </div>
+</div>
+<div class="description" *ngIf="product.description" [innerHTML]="product.description"></div>
+<app-preview-product [IdProduct]="productId"></app-preview-product>
+<app-footer></app-footer>
+<app-notification *ngIf="hidenotify" [message]="message"></app-notification>

@@ -1,0 +1,107 @@
+/* Overlay bao phủ toàn màn hình */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6); /* Nền tối với độ trong suốt */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* Hiển thị trên tất cả các thành phần khác */
+}
+
+/* Hộp container chính của modal */
+.container {
+  background-color: white; /* Màu nền */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+  width: 400px; /* Chiều rộng modal */
+  max-width: 90%; /* Đảm bảo tương thích trên màn hình nhỏ */
+  padding: 20px; /* Khoảng cách bên trong */
+  text-align: left; /* Canh trái nội dung */
+  position: relative; /* Để các phần tử con tương đối với container */
+}
+
+/* Tiêu đề */
+.container h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+/* Label */
+.container label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Input */
+.container input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Input focus */
+.container input:focus {
+  outline: none;
+  border-color: #007bff; /* Màu xanh khi focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2); /* Đổ bóng khi focus */
+}
+
+/* Nút */
+.container button {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  background-color: #007bff; /* Màu xanh */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Nút hover */
+.container button:hover {
+  background-color: #0056b3; /* Màu đậm hơn khi hover */
+}
+
+/* Nút "Đóng" */
+.container button[type="button"] {
+  background-color: #6c757d; /* Màu xám */
+  margin-left: 10px;
+}
+
+.container button[type="button"]:hover {
+  background-color: #5a6268; /* Màu xám đậm hơn */
+}
+.image-preview {
+  margin-top: 15px;
+  text-align: center;
+
+  p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #555;
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 150px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}

@@ -1,0 +1,5 @@
+<div class="modal-overlay"  (click)="closeForm()"  >
+    <div *ngIf="isVisible" class="container" >
+        <div *ngIf="message"   [innerHTML]="message"></div>
+    </div>
+</div>

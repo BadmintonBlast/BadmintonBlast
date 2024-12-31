@@ -1,0 +1,41 @@
+<div class="preview-list">
+    <div class="preview-item" *ngFor="let preview of previews">
+      <div class="preview-header">
+        <span> {{nameCustomer[preview.idcustomer]}}</span>
+        <span class="star">
+          <mat-icon *ngFor="let star of getStars(preview.preview1).fullStars"
+            >star</mat-icon
+          >
+          <mat-icon *ngIf="getStars(preview.preview1).hasHalfStar"
+            >star_half</mat-icon
+          >
+          <mat-icon *ngFor="let star of getStars(preview.preview1).emptyStars"
+            >star_border</mat-icon
+          >
+        </span>
+        <span class="preview-date">{{
+          preview.dateprevew | date : "short"
+        }}</span>
+      </div>
+      <div class="preview-content">
+        <p>
+          <strong>Comment:</strong>
+          {{ preview.comment || "No comment available" }}
+        </p>
+        <p>
+         
+          <span style="margin-right: 15px"
+            >{{ preview.preview1 || 0 }} Đánh Giá</span
+          >
+        </p>
+      </div>
+    </div>
+    <!-- Pagination -->
+    <app-paging
+      [totalPages]="Math.ceil(totalPreviews / pageSize)"
+      [currentPage]="pageIndex"
+      (pageChanged)="onPageChanged($event)"
+    >
+    </app-paging>
+  </div>
+  

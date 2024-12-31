@@ -1,0 +1,241 @@
+<app-heaher></app-heaher>
+<div class="container">
+  <div class="menu-container">
+    <div
+      class="menu-item"
+      [ngClass]="{ active: menu === 'thongtin' }"
+      (click)="hidemenu('thongtin')"
+    >
+      <span class="material-symbols-outlined"> account_box </span>
+      <div>Thông Tin</div>
+    </div>
+    <div
+      class="menu-item"
+      [ngClass]="{ active: menu === 'donmua' }"
+      (click)="hidemenu('donmua')"
+    >
+      <span class="material-symbols-outlined"> list_alt </span>
+      <div>Đơn Mua</div>
+    </div>
+    <div
+      *ngIf="role === 'admin'"
+      class="menu-item"
+      [ngClass]="{ active: menu === 'trangquanly' }"
+      (click)="hidemenu('trangquanly')"
+    >
+      <span class="material-symbols-outlined"> admin_panel_settings </span>
+      <div>Trang quản lý</div>
+    </div>
+    <div class="menu-item" (click)="logout()">
+      <span class="material-symbols-outlined"> output </span>
+      <div>Đăng Xuất</div>
+    </div>
+  </div>
+
+  <div class="infor-menu-container" *ngIf="menu === 'thongtin'">
+    <div class="name-infor">
+      <div>Hồ Sơ Của Tôi</div>
+    </div>
+    <div class="content-infor" *ngIf="adcustomer">
+      <div class="content-left">
+        <div class="content-form-input" style="margin-top: 40px">
+          <div style="margin-left: 40px; margin-right: 20px; color: #666666">
+            Tên
+          </div>
+          <input
+            type="text"
+            [(ngModel)]="adcustomer.namecustomer"
+            placeholder="Tên khách hàng"
+          />
+        </div>
+        <div class="content-form-input" style="margin-top: 35px">
+          <div style="margin-left: 40px; margin-right: 20px; color: #666666">
+            Số điện thoại
+          </div>
+          <input type="text" [(ngModel)]="adcustomer.phone" [placeholder]="'Vui lòng nhập số điện thoại'" />
+        </div>
+        <div class="content-form-input" style="margin-top: 35px">
+          <div style="margin-left: 40px; margin-right: 20px; color: #666666">
+            Email
+          </div>
+          <input type="text" [(ngModel)]="adcustomer.email" disabled="true" />
+        </div>
+        <div class="content-form-input" style="margin-top: 35px">
+          <div style="margin-left: 40px; margin-right: 20px; color: #666666">
+            Ngày sinh
+          </div>
+          <input
+            type="date"
+            id="birthday"
+            [(ngModel)]="adcustomer.birthday"
+            name="birthday"
+          />
+        </div>
+        <div class="content-form-input">
+          <div
+            style="margin-left: 40px; margin-right: 100px; color: #666666"
+          ></div>
+          <button (click)="uploadProfile()">Lưu</button>
+        </div>
+      </div>
+      <div class="content-right">
+        <div
+          class="image-upload-container"
+          style="margin-top: 35px; text-align: center"
+        >
+          <div class="image-container">
+            <img
+              id="profileImage"
+              [src]="profileImageUrl"
+              alt="{{ profileImageUrl }}"
+            />
+          </div>
+          <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            style="display: none"
+          />
+          <label for="fileInput" class="upload-btn">Chọn ảnh</label>
+        </div>
+
+        <div class="content-form-input">
+          <div style="margin-right: 20px; color: #666666">Thành Phố/Tỉnh</div>
+          <input
+            type="text"
+            [(ngModel)]="adcustomer.province"
+            placeholder="Tỉnh"
+          />
+        </div>
+        <div class="content-form-input">
+          <div style="margin-right: 20px; color: #666666">Quận/Huyện</div>
+          <input
+            type="text"
+            [(ngModel)]="adcustomer.district"
+            placeholder="Quận"
+          />
+        </div>
+        <div class="content-form-input">
+          <div style="margin-right: 20px; color: #666666">Xã</div>
+          <input
+            type="text"
+            [(ngModel)]="adcustomer.village"
+            placeholder="Xã"
+          />
+        </div>
+        <div class="content-form-input">
+          <div style="margin-right: 20px; color: #666666">Ấp</div>
+          <input type="text" [(ngModel)]="adcustomer.hamlet" placeholder="Ấp" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--GIỎ HÀNG-->
+  <div class="infor-menu-container" *ngIf="menu == 'donmua'">
+    <div class="nav-container">
+      <div class="nav-tabs">
+        <div
+          *ngFor="let status of statuses"
+          class="nav-tab"
+          [class.active]="selectedStatus === status.name"
+          (click)="changeStatus(status.name)"
+        >
+          {{ status.displayName }}
+        </div>
+      </div>
+      <!-- <div class="search-bar">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Bạn có thể tìm kiếm theo tên"
+        />
+      </div> -->
+    </div>
+    <ng-container *ngIf="bills" >
+      <div class="card" *ngFor="let bill of bills" >
+      
+        <div class="header">
+          <!-- <button class="like-button">Yêu thích+</button> -->
+          <div class="actions">
+            <button
+              class="action-button"
+              *ngIf="bill.status == 900"
+              (click)="onStatusChange(bill.idbill)"
+            >
+              Hủy
+            </button>
+            <!-- <button class="action-button"></button> -->
+          </div>
+        </div>
+  
+        <div class="status">{{ bill.pay }}</div>
+  
+        <!-- Check if orders exist and loop over them -->
+        <div class="product" *ngIf="bill.orders">
+          <div *ngFor="let order of bill.orders">
+            <!-- Get product info asynchronously -->
+            <div class="listproduct">
+              <div
+                *ngIf="order.productDetails?.image?.length > 0"
+                class="product-image"
+              >
+                <img
+                  [src]="order.productDetails.image[0].image4"
+                  alt="{{ order.productDetails.nameproduct }}"
+                />
+              </div>
+  
+              <div class="product-details">
+                <div class="product-name">{{ order.nameproduct }}</div>
+                <div class="product-variant">
+                  Phân loại hàng: {{ order.size }} {{ order.color }}
+                </div>
+                <div class="product-return">Trả hàng miễn phí 15 ngày</div>
+                <div class="product-price">
+                  Số lượng
+                  <span> x{{ order.quatity }}</span>
+                  <div>
+                    <span class="original-price">{{
+                      order.productDetails.price | number : "1.0-0"
+                    }}</span>
+                    <span class="discounted-price"
+                      >{{ order.price | number : "1.0-0" }}đ</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="total">
+          Thành tiền: {{ bill.totalamount | number : "1.0-0" }}đ
+        </div>
+        <div class="footer">
+          <span class="rating-reminder">{{
+            bill.dateorder | date : "dd/MM/yyyy"
+          }}</span>
+          <div class="action-buttons" *ngIf="bill.status == 905||bill.status===903">
+            <button *ngIf="billStatuses[bill.idbill]===false" class="rate-button" (click)="preview(bill.idbill)">
+              Đánh Giá
+            </button>
+            <button *ngIf="billStatuses[bill.idbill]" class="rate-button" >
+            Đã đánh Giá
+            </button>
+          </div>
+          <div class="action-buttons" *ngIf="bill.status===902" >
+            <button class="rate-button" (click)="Comfirm(bill.idbill)" >
+              Xác nhận đã giao
+              </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+   
+  </div>
+</div>
+<app-footer></app-footer>
+<app-notification *ngIf="hidenotify" [message]="message"></app-notification>
+<app-preview *ngIf="idbill!==0" [idBill]="idbill" (closeFormEvent)="closePreview()"></app-preview>

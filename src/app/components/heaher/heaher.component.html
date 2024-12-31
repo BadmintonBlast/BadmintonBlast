@@ -1,0 +1,39 @@
+<header>
+  <div class="main-header">
+    <div class="logo" [routerLink]="['/home']">
+      <img src="/assets/images/logo.png" alt="" />
+      Badminton Blast
+    </div>
+    <div class="search-container">
+    <div class="search-bar">
+      <input type="text" placeholder="Giảm đến 50%" [(ngModel)]="inputValue" (keyup.enter)="onEnter()" />
+      <button (click)="onSubmit()"><span class="material-symbols-outlined"> search </span></button>
+      <div class="suggestions">
+        <div>Giày yonex</div>
+        <div>Áo Li-ning</div>
+        <div>Balo yonex</div>
+        <div>Vợt Mizuno</div>
+      </div>
+    </div>
+  </div>
+    <div class="button-bar">
+      <span class="material-symbols-outlined" (click)="cart()"> remove_shopping_cart </span>
+      <span (click)="checklogin()" class="material-symbols-outlined">
+        account_circle
+      </span>
+    </div>
+  </div>
+  <div class="menu">
+    <a [routerLink]="['/datsan']" class="menu-item">Đặt Sân</a>
+    <a (click)="hideProduct(1,'Giày')" class="menu-item">Giày</a>
+    <a (click)="hideProduct(3,'Áo')" class="menu-item">Áo</a>
+    <a (click)="hideProduct(2,'Vợt')" class="menu-item">Vợt</a>
+    <a (click)="hideProduct(7,'Balo')" class="menu-item">Balo</a>
+    <a (click)="hideProduct(6,'Quần')" class="menu-item">Quần</a>
+    <a (click)="hideProduct(10,'Váy')" class="menu-item">Váy</a>
+    
+</div>
+
+</header>
+<app-login-admin *ngIf="isLoginOpen" [loginstatus]="isLoginOpen" (closeFormEvent)="closeLogin()"></app-login-admin>
+<app-notification *ngIf="hidenotify"  [message]="message"></app-notification>

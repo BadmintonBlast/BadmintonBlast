@@ -1,0 +1,88 @@
+
+
+<div class="modal-overlay">
+<div class="container">
+    <div class="container-frame" *ngIf="!showRegister" >
+      <div class="image-container">
+        <img src="assets/images/login.png" />
+      </div>
+      <div class="login-container">
+        <div class="frame-login">
+          <h2>Login</h2>
+          <h3>
+              Welcome back! Please login to your<br>
+              account
+          </h3>  
+          <div class="input-container">
+            <label for="">Email/Phone</label>
+            <input type="text" />
+          </div>
+          <div class="input-container">
+            <label for="">Password</label>
+            <input type="text" />
+          </div>
+          <div class="frame-remember-forgetpassword">
+              <div class="remember-me">
+                <input type="checkbox" />
+                <label for="">Remember me</label>
+              </div>
+              <div class="forgot-password">
+                <a href="#">Forgot Password?</a>
+              </div>
+          </div>
+          <button>Login</button>
+          <div class="register-now">
+            Don't have an account? <a style="color: blue;" (click)="showRegisterForm()">Register Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-frame" *ngIf="showRegister" >
+        <div class="login-container">
+          <div class="frame-register">
+            <h2>Register</h2> 
+            <div class="input-container">
+              <div class="otp-input-wrapper">
+                <input mat-raised-button
+                ngbTooltip='hi thợ djflashes'
+                type="text" placement="top"
+                placeholder="Email/OTP" />
+                <button class="otp-button" >Send</button>
+              </div>
+            </div>
+            <div class="input-container" >
+                <div class="otp-input-wrapper" >
+                  <input type="text" [disabled]="isOtpDisabled"  placeholder="OTP"  [(ngModel)]="otpCode" />
+                  <button class="otp-button" [disabled]="isOtpDisabled"(click)="verifyOTP()">Verify OTP</button>
+                </div>
+              </div>     
+              <!-- Chỉ hiện khi OTP đúng -->
+              <div >
+              <div class="input-container" >
+                <label for="password">Password</label>
+                <input type="password" [disabled]="isInputDisabledPass" />
+              </div>    
+              <div class="input-container" >
+                <label for="password">Confirm Password</label>
+                <input type="password" [disabled]="isInputDisabledPass" />
+              </div>
+            <button [disabled]="isInputDisabledPass">Register</button>
+            <div class="register-now">
+              Already have an account? <a style="color: blue;"  (click)="showRegisterForm()">Login Now</a>
+            </div>
+        </div>
+          </div>
+        </div>
+        <div class="image-container">
+          <img src="assets/images/register.png" />
+        </div>
+      </div>
+      </div>    
+ 
+</div>
+
+
+
+
+

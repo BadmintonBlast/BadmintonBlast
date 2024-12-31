@@ -1,0 +1,190 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    position: fixed; /* Giữ khung cố định trên màn hình */
+    top: 0; /* Đảm bảo nó nằm ở vị trí đầu trang */
+    left: 0;
+    z-index: 1000; /* Đảm bảo nó nằm trên các phần tử khác nếu cần */
+    background-color: rgba(255, 255, 255, 0.9); /* Màu nền để làm khung nổi bật */
+    overflow: hidden; /* Đảm bảo không có cuộn trong khi chuyển đổi */
+  }
+
+  .container-frame {
+    display: flex;
+    width: 50%;
+    height: 80%;
+    background-color: white !important;
+    border: 2px solid rgb(222, 227, 229) !important;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+    box-sizing: border-box; /* Để padding và border không làm tăng kích thước tổng thể */
+    position: absolute;
+    top: 10%;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  }
+
+  /* Chia khung thành hai phần */
+  .image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Giữ nguyên tỷ lệ, hình ảnh sẽ được cắt nếu cần để vừa khung */
+  }
+
+  .login-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: space-around;
+  }
+
+  /* Định dạng cho khung login */
+  .frame-login {
+    width: 80%; /* Chiếm 90% chiều rộng của khung cha */
+    max-width: 400px; /* Giới hạn chiều rộng tối đa của khung */
+    padding: 20px; /* Padding bên trong khung */
+  }
+  .frame-register {
+    width: 80%; /* Chiếm 90% chiều rộng của khung cha */
+    max-width: 400px; /* Giới hạn chiều rộng tối đa của khung */
+    padding: 0px 20px; /* Padding bên trong khung */
+  }
+  .frame-register h2 {
+    font-size: 35px;
+    color: rgb(47, 45, 45);
+    margin-bottom: 10px;
+  }
+  .input-container {
+    position: relative; 
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column; /* Khoảng cách giữa các trường nhập liệu */
+  }
+
+  .input-container input {
+  
+    width: calc(
+      100% - 16px
+    ); /* Đảm bảo chiều rộng tính toán từ toàn bộ chiều rộng trừ padding */
+    padding: 8px; /* Khoảng cách phía trên và dưới của input */
+    border: none; /* Loại bỏ khung viền mặc định của input */
+    border-bottom: 1px solid rgb(47, 45, 45); /* Thêm gạch dưới */
+    outline: none; /* Loại bỏ viền khi input được focus */
+    font-size: 16px; /* Cỡ chữ */
+    transition: border-color 0.3s ease; /* Hiệu ứng mượt khi thay đổi màu đường gạch */
+    box-sizing: border-box; /* Để padding được tính vào kích thước tổng thể của input */
+  }
+
+  .input-container input:focus {
+    border-bottom: 1px solid blue; /* Đổi màu gạch khi input được focus */
+  }
+  input::placeholder {
+    color: rgb(170, 170, 170);
+    font-size: 16px; /* Kích thước chữ */
+  }
+  .otp-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Khoảng cách giữa input và button */
+  }
+
+  .otp-input-wrapper input {
+    flex: 1; /* Đảm bảo input chiếm hết không gian còn lại */
+    font-size: 16px;
+  }
+
+  .otp-button {
+    font-size: 15px;
+    background-color: rgb(151, 71, 255);
+    color: white;
+    border: none;
+    cursor: pointer;
+    height: 30px;
+    width: 100px;
+    transition: background-color 0.3s;
+  }
+
+  .otp-button:hover {
+    background-color: rgb(111, 70, 182); /* Hiệu ứng khi hover nút */
+  }
+
+  .frame-login h2 {
+    font-size: 35px;
+    color: rgb(47, 45, 45);
+    margin-bottom: 20px;
+  }
+
+  .frame-login h3 {
+    font-size: 20px;
+    color: rgb(170, 170, 170);
+    margin-bottom: 20px;
+  }
+
+  label {
+    font-size: 20px;
+    color: rgb(170, 170, 170); /* Màu chữ */
+  }
+
+  .frame-remember-forgetpassword {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  button {
+    margin-top: 25px;
+    margin-bottom: 20px;
+    width: 100%;
+    font-weight: bold !important;
+    font-size: 20px;
+    height: 40px;
+    color: white !important;
+    background-color: rgb(151, 71, 255);
+    border: none;
+  }
+
+  button:hover {
+    background-color: rgb(111, 70, 182); /* Đổi màu khi hover */
+  }
+
+  .frame-newuser {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .frame-newuser a {
+    color: rgb(151, 71, 255); /* Màu của liên kết */
+    text-decoration: none; /* Loại bỏ gạch chân liên kết */
+  }
+
+  .frame-newuser a:hover {
+    text-decoration: underline; /* Gạch chân liên kết khi hover */
+  }
+

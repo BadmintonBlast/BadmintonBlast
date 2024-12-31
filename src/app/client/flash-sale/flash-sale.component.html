@@ -1,0 +1,19 @@
+<div class="flash-sale">
+  <div class="flash-sale-header">
+    <div class="flash-sale-title">FLASH SALE</div>
+    <div class="flash-sale-timer"> Chỉ Hôm Nay</div>
+  </div>
+  <div class="flash-sale-grid">
+    <div class="product-card" *ngFor="let product of products" (click)="detailproduct(product.idproduct,product.nameproduct)" >
+      <div class="product-discount">{{ product.price | number : "1.0-0" }}đ</div>
+      <img *ngIf="product.image[0].image4" [src]="product.image[0].image4" alt="" class="product-image" />
+      <div class="discount-container">
+        <div class="discount-status" [style.width.%]="product.deprice"> <!-- Giả sử bạn muốn hiển thị 20% -->
+        </div>
+        <div class="overlay-text">{{ product.deprice }}%</div> <!-- Thẻ hiển thị phần trăm -->
+    </div>
+    <div class="product-name">{{ product.nameproduct }}</div>
+    </div>
+    <!-- Repeat for other products -->
+  </div>
+</div>

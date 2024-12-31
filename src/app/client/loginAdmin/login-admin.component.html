@@ -1,0 +1,147 @@
+<div class="modal-overlay" *ngIf="loginstatus">
+  <div class="container" *ngIf="showRegister">
+    <div>
+      <span
+        class="material-symbols-outlined"
+        style="cursor: pointer"
+        (click)="closeForm()"
+      >
+        close
+      </span>
+    </div>
+    <h2>ĐĂNG KÝ</h2>
+    <p (click)="showRegisterForm()" stype="cursor:poiner">
+      Đã có tài khoản, <span>đăng nhập tại đây!</span>
+    </p>
+    <input
+      type="text"
+      [(ngModel)]="customer.namecustomer"
+      placeholder="Tên"
+      required
+    />
+    <div class="horizontal-layout">
+      <input
+        type="email"
+        [(ngModel)]="customer.email"
+        name="email"
+        [disabled]="isemail"
+        placeholder="Email"
+        required
+      />
+      <button (click)="checkEmail(customer.email)">Gửi</button>
+    </div>
+    <input
+      type="text"
+      [(ngModel)]="otp"
+      (ngModelChange)="onOTPChange($event, login.email)"
+      maxlength="6"
+      placeholder="Nhập mã xác thực"
+      required
+    />
+
+    <input
+      type="password"
+      [(ngModel)]="customer.passwordHash"
+      placeholder="Mật khẩu"
+      required
+      [disabled]="isDisabled"
+      [ngClass]="{ unlocked: changeColor, locked: !changeColor }"
+    />
+    <button type="submit" (click)="register()">Đăng ký</button>
+    <div class="social-login">
+      <!-- <p>Hoặc đăng nhập bằng</p>
+      <div class="social-buttons">
+        <button class="social-btn facebook">Facebook</button>
+        <button class="social-btn google">Google</button>
+      </div> -->
+    </div>
+  </div>
+  <div class="container" *ngIf="showlogin">
+    <div>
+      <span
+        class="material-symbols-outlined"
+        style="cursor: pointer"
+        (click)="closeForm()"
+      >
+        close
+      </span>
+    </div>
+    <h2>ĐĂNG NHẬP</h2>
+    <p>
+      Chưa có tài khoản?
+      <span (click)="showRegisterForm()">Đăng ký tại đây?</span>
+    </p>
+    <input
+      type="email"
+      [(ngModel)]="login.email"
+      placeholder="Email"
+      required
+    />
+    <input
+      type="password"
+      [(ngModel)]="login.password"
+      placeholder="Mật khẩu"
+      required
+    />
+    <div class="forget" (click)="showForget()">{{ routerforget }}</div>
+    <button (click)="submitlogin(login.email, login.password)">
+      Đăng nhập
+    </button>
+    <!-- <div class="social-login">
+      <p>Hoặc đăng nhập bằng</p>
+      <div class="social-buttons">
+        <button class="social-btn facebook">Facebook</button>
+        <button class="social-btn google">Google</button>
+      </div>
+    </div> -->
+  </div>
+
+  <div class="container" *ngIf="forget">
+    <div>
+      <span
+        class="material-symbols-outlined"
+        style="cursor: pointer"
+        (click)="closeForm()"
+      >
+        close
+      </span>
+    </div>
+    <h2>Quên Mật Khẩu</h2>
+    <p  stype="cursor:poiner">
+      Kiểm tra Email của bạn <span>để nhận mã</span>
+    </p>
+    <input
+      type="text"
+      [(ngModel)]="otp"
+      (ngModelChange)="onOTPChange($event, login.email)"
+      maxlength="6"
+      placeholder="Nhập mã xác thực"
+      required
+    />
+    <input
+      type="password"
+      [(ngModel)]="newPassword"
+      placeholder="Mật khẩu mới"
+      required
+      [disabled]="isDisabled"
+      [ngClass]="{ unlocked: changeColor, locked: !changeColor }"
+    />
+    <input
+      type="password"
+      [(ngModel)]="confirmPassword"
+      placeholder="Xác nhận lại mật khẩu"
+      required
+      [disabled]="isDisabled"
+      [ngClass]="{ unlocked: changeColor, locked: !changeColor }"
+    />
+    <button type="submit" (click)="changePassword()">Đổi mật khẩu</button>
+    <!-- <div class="social-login">
+      <p>Hoặc đăng nhập bằng</p>
+      <div class="social-buttons">
+        <button class="social-btn facebook">Facebook</button>
+        <button class="social-btn google">Google</button>
+      </div>
+    </div> -->
+  </div>
+</div>
+<app-notification *ngIf="hidenotify" [message]="message"></app-notification>

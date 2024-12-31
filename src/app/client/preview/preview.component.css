@@ -1,0 +1,140 @@
+/* CSS cho overlay và modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+/* Container chứa các phần trong modal */
+.rating-container {
+    width: 450px;
+    padding: 25px;
+    background-color: #fff;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    overflow-y: auto;
+    max-height: 80vh; /* Cho phép scroll nếu quá dài */
+    position: relative; /* Để có thể đặt close icon */
+}
+
+/* Close icon */
+.close-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px; /* Đưa dấu '×' ra góc trái */
+    font-size: 30px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Tiêu đề modal */
+.rating-container h2 {
+    font-size: 26px;
+    margin-bottom: 25px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Phần đánh giá sản phẩm */
+.product-review {
+    margin-bottom: 30px;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Tên sản phẩm */
+.product-review h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+/* Hình ảnh sản phẩm */
+.product-images {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.product-images img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Đánh giá sao */
+.stars {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    font-size: 30px;
+    color: #ddd;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.star.selected {
+    color: #ffcc00; /* Màu vàng cho sao được chọn */
+}
+
+/* Phần bình luận */
+textarea {
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: vertical; /* Cho phép thay đổi chiều cao */
+    min-height: 80px; /* Đặt chiều cao tối thiểu */
+    box-sizing: border-box;
+}
+
+/* Nút gửi đánh giá */
+.submit-btn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #417bbd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+.submit-btn:hover {
+    background-color: #365f8d;
+}
+
+/* Đảm bảo responsive */
+@media (max-width: 480px) {
+    .rating-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .product-images img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .stars {
+        font-size: 25px;
+    }
+
+    .submit-btn {
+        padding: 10px 20px;
+    }
+}

@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="frame-name">
+    <div>Product</div>
+    <div class="frame-button">
+      <div class="form-search">
+        <span class="search-button material-symbols-outlined">search</span>
+        <input type="text" placeholder="Search product..." type="text"
+        [(ngModel)]="keyword"
+        (input)="getAllProducts()"/>
+      </div>
+      <button (click)="exportProductArrayToExcel()">
+        <span class="material-symbols-outlined"> print </span>
+      </button>
+      <button (click)="openAddProduct()">
+        <span class="material-symbols-outlined"> playlist_add </span>
+      </button>
+      <button>
+        <span class="material-symbols-outlined"> page_info </span>
+      </button>
+    </div>
+  </div>
+
+  <div class="frame-content">
+    <div class="table">
+      <table
+        id="ExampleMaterialTable"
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8"
+      >
+        <!-- ID Column -->
+        <ng-container matColumnDef="idproduct">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let element">{{ element.idproduct }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="nameproduct">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.nameproduct }}</td>
+        </ng-container>
+
+        <!-- Price Column -->
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef>Price</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.price | number:'1.2-2' }}
+          </td>
+        </ng-container>
+        <!-- Available Stock Column -->
+        <ng-container matColumnDef="namebrand">
+          <th mat-header-cell *matHeaderCellDef>Brand</th>
+          <td mat-cell *matCellDef="let element">{{ element.namebrand}}</td>
+        </ng-container>
+        <!-- Status Column -->
+        <ng-container matColumnDef="available">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let element">
+            <select
+              [(ngModel)]="element.available"
+              [ngClass]="element.available ? 'active-status' : 'inactive-status'"
+            >
+              <option class="active-status" [value]="1">Active</option>
+              <option class="inactive-status" [value]="0">Inactive</option>
+            </select>
+          </td>
+        </ng-container>
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <span
+              style="margin-left: 40px"
+              [matMenuTriggerFor]="menu"
+              class="material-symbols-outlined"
+            >
+              more_vert
+            </span>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="editProduct(element.idproduct )">
+                Edit
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+        <!-- Table Rows -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="change-page">
+    <app-paging
+      [totalPages]="Math.ceil(totalProducts / pageSize)"
+      [currentPage]="pageIndex"
+      (pageChanged)="onPageChanged($event)"
+    ></app-paging>  
+  </div>
+</div>
+<app-add-product
+  *ngIf="statusAddProduct"
+  [idProduct]="idProduct"
+  (statusAddProduct)="handleAddProductStatus($event)"
+></app-add-product>
+<app-notification
+  *ngIf="notification"
+  [message]="notificationMessage"
+></app-notification>
+A

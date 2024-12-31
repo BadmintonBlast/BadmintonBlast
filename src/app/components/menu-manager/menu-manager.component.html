@@ -1,0 +1,89 @@
+<div class="container-admin">
+  <div class="sidebar">
+    <div class="sidebar-item logo-item">
+      <span class="sidebar-icon">
+        <img src="assets/images/logo.png" alt="Logo" />
+      </span>
+      <span class="sidebar-text">Badminton Blast</span>
+    </div>
+
+    <div
+      class="sidebar-item"
+      [class.selected]="manager === 'thongke'"
+      (click)="selectIcon('thongke')"
+    >
+      <span class="material-symbols-outlined sidebar-icon">home</span>
+      <span class="sidebar-text">THỐNG KÊ</span>
+    </div>
+
+    <div
+      class="sidebar-item"
+      [class.selected]="manager === 'sanpham'"
+      (click)="selectIcon('sanpham')"
+    >
+      <span class="material-symbols-outlined sidebar-icon">inventory</span>
+      <span class="sidebar-text">SẢN PHẨM</span>
+    </div>
+    <div
+      class="sidebar-item"
+      [class.selected]="manager === 'loaisanpham'"
+      (click)="selectIcon('loaisanpham')"
+    >
+      <span class="material-symbols-outlined sidebar-icon"> category </span>
+      <span class="sidebar-text">LOẠI SẢN PHẨM</span>
+    </div>
+    <div
+      class="sidebar-item"
+      [class.selected]="manager === 'donhang'"
+      (click)="selectIcon('donhang')"
+    >
+      <span class="material-symbols-outlined sidebar-icon">shopping_bag</span>
+      <span class="sidebar-text">ĐƠN HÀNG</span>
+    </div>
+
+    <div
+      class="sidebar-item"
+      [class.selected]="manager === 'khachhang'"
+      (click)="selectIcon('khachhang')"
+    >
+      <span class="material-symbols-outlined sidebar-icon"
+        >perm_contact_calendar</span
+      >
+      <span class="sidebar-text">KHÁCH HÀNG</span>
+    </div>
+    <div
+      class="sidebar-item"
+      [class.selected]="manager === 'datsan'"
+      (click)="selectIcon('datsan')"
+    >
+      <span class="material-symbols-outlined sidebar-icon">quick_reorder</span>
+      <span class="sidebar-text">ĐẶT SÂN</span>
+    </div>
+    <div
+      class="sidebar-item"
+      [class.selected]="manager === 'phieugiamgia'"
+      (click)="selectIcon('phieugiamgia')"
+    >
+      <span class="material-symbols-outlined sidebar-icon">
+        featured_seasonal_and_gifts
+      </span>
+      <span class="sidebar-text">Voucher</span>
+    </div>
+    <div class="sidebar-item" (click)="logout()">
+      <span class="material-symbols-outlined sidebar-icon"> logout </span>
+      <span class="sidebar-text">ĐĂNG SUẤT</span>
+    </div>
+  </div>
+  <div class="main-content">
+    <app-dashboard *ngIf="manager === 'thongke'"></app-dashboard>
+    <app-manager-customer
+      *ngIf="manager === 'khachhang'"
+    ></app-manager-customer>
+    <app-manager-product *ngIf="manager === 'sanpham'"></app-manager-product>
+    <app-add-product *ngIf="manager === 'themsanpham'"></app-add-product>
+    <app-order *ngIf="manager === 'donhang'"></app-order>
+    <app-voucher *ngIf="manager === 'phieugiamgia'"></app-voucher>
+    <app-brand-manager *ngIf="manager === 'loaisanpham'"></app-brand-manager>
+    <app-invoice *ngIf="manager==='datsan'"></app-invoice>
+  </div>
+</div>

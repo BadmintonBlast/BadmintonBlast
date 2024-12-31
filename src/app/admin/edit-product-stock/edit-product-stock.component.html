@@ -1,0 +1,51 @@
+<div class="modal-overlay" >
+    <div class="container">
+      <h3>Thêm/Chỉnh sửa Sản phẩm</h3>
+      <form #productForm="ngForm" (ngSubmit)="onSubmit()">
+        <!-- Name Color -->
+        <div>
+          <label for="namecolor">Màu sắc:</label>
+          <input
+            type="text"
+            id="namecolor"
+            [(ngModel)]="productData.namecolor"
+            name="namecolor"
+            placeholder="Nhập màu sắc"
+            required
+          />
+        </div>
+  
+        <!-- Name Size -->
+        <div>
+          <label for="namesize">Kích cỡ:</label>
+          <input
+            type="text"
+            id="namesize"
+            [(ngModel)]="productData.namesize"
+            name="namesize"
+            placeholder="Nhập kích cỡ"
+            required
+          />
+        </div>
+  
+        <!-- Quantity -->
+        <div>
+          <label for="quatity">Số lượng:</label>
+          <input
+            type="number"
+            id="quatity"
+            [(ngModel)]="productData.quatity"
+            name="quatity"
+            placeholder="Nhập số lượng"
+            required
+          />
+        </div> 
+        <!-- Submit and Cancel Buttons -->
+        <div class="buttons">
+          <button type="submit" [disabled]="productForm.invalid">Lưu</button>
+          <button type="button" (click)="closeModal()">Đóng</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

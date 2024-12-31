@@ -1,0 +1,43 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .pagination button {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    margin: 6px;
+    height: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    width: 30px;
+    border: 1px solid #ddd;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .pagination button.active {
+    background-color: #5380e8;
+    color: white;
+  }
+  
+  .pagination button:hover:not(.active) {
+    background-color: #ddd;
+  }
+  
+  .pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  /* Đặt kiểu cho dấu ba chấm */
+  .pagination button {
+    border: none;
+    padding: 8px;
+    background: none;
+    cursor: default;
+  }
+  

@@ -1,0 +1,46 @@
+<app-heaher></app-heaher>
+<div class="swap">
+  <div class="container" (mouseenter)="onMouseEnter()" 
+  (mouseleave)="onMouseLeave()">
+    <div class="container-banner">
+      <div class="banner">
+        <div
+          *ngFor="let slide of slides; let i = index"
+          class="banner-slide"
+          [ngStyle]="{ display: slideIndex === i + 1 ? 'block' : 'none' }"
+        >
+          <img
+            class="image-banner"
+            [src]="slide.imgUrl"
+            alt="Slide {{ i + 1 }}"
+          />
+        </div>
+        <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+        <a class="next" (click)="plusSlides(1)">&#10095;</a>
+      </div>
+      <div class="last-banner">
+        <img src="/assets/banner/6.png" alt="" />
+        <img src="/assets/banner/5.png" alt="" />
+      </div>
+    </div>
+    <div class="container-category">
+      <div class="category-item" *ngFor="let kind of kindproduct">
+        <div class="container-image" (click)="showkindproduct(kind.idkindproduct,kind.nameproduct)">
+          <img
+            [src]="kind.image"
+            alt="{{ kind.nameproduct }}"
+            class="category-icon"
+          />
+        </div>
+        <span class="category-name">{{ kind.nameproduct }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<app-brand></app-brand>
+<app-topsale></app-topsale>
+<app-flash-sale></app-flash-sale>
+<div class="suggest"><span>GỢI Ý</span></div>
+<app-productlist [productList]="productsracker"></app-productlist>
+<div></div>
+<app-footer></app-footer>

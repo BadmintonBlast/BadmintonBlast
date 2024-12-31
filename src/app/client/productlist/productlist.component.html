@@ -1,0 +1,29 @@
+<div class="container-list">
+  <div class="product-grid">
+    <div class="product-card" *ngFor="let product of productList" (click)="detailproduct(product.idproduct, product.nameproduct)">
+      <!-- Out of Stock Badge -->
+      <div class="out-of-stock" *ngIf="product.available <= 0">
+        <span>HẾT HÀNG</span>
+      </div>
+
+      <img [src]="product.image[0].image4" alt="Product" class="product-image" />
+      
+      <span class="discount-badge" *ngIf="product.deprice > 0">
+        -{{ product.deprice }}%
+      </span>
+
+      <div class="product-info">
+        <div class="product-tags">
+          <span class="tag" *ngFor="let coupon of coupon">{{ coupon.description }}</span>
+        </div>
+        <h3 class="product-title">{{ product.nameproduct }}</h3>
+        <div class="frame-price-sold">
+          <div class="product-price">
+            {{ product.price | number: '1.0-0' }}đ
+          </div>
+          <!-- <div class="product-sold">Đã bán 24k</div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

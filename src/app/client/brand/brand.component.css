@@ -1,0 +1,165 @@
+/* brand */
+
+.container2 {
+  margin-top: 100px;
+  padding: 0 10px 0 10px;
+  background-color: #f0f0f0ee; /* Chọn màu nền nhẹ hơn */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ cho hộp */
+  display: flex;
+  height: 350px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  margin-top: 30px;
+  width: calc(100% - 50px); /* Đảm bảo có khoảng cách giữa 100% và -50px */
+  background-color: #ffffff;
+  border-bottom: 1px solid #8267828b;
+  border-top: 1px solid #77777744;
+  padding: 10px 0 10px 0;
+  margin-bottom: 0px;
+}
+
+.brand-mall {
+  margin-left: 10px;
+  color: #eb115ae8;
+  font-weight: bold;
+  font-size: 18px;
+}
+.benefits {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+}
+.benefit-item {
+  display: flex;
+  align-items: center;
+}
+.view-all {
+  color: #ee4d2d;
+  background-color: #f0f0f0;
+  text-decoration: none;
+  float: right;
+}
+.main-content {
+  justify-content: center;
+  padding: 5px 0 5px 0;
+  width: calc(100% - 50px);
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+
+}
+.bannersmall {
+  width: 38%;
+  position: relative;
+}
+.bannersmall img {
+  width: 100%;
+  height: 300px;
+  height: auto;
+}
+.banner-nav {
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.banner-nav button {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+.product-grid {
+  width: 100%;
+  display: flex;
+  text-align: center;
+  flex-direction: row;
+}
+.product-item {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  justify-content: center;
+  align-items: center;
+}
+.container-image {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    135deg,
+    #553eea82,
+    #a27af29f,
+    #c00c7b9f
+  ); /* Màu xanh tím */
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.container-image img {
+  width: 50px; /* Sử dụng 100% để hình ảnh chiếm toàn bộ chiều rộng */
+  height: 50px; /* Sử dụng 100% để hình ảnh chiếm toàn bộ chiều cao */
+  border-radius: 50%; /* Nếu muốn bo tròn các góc của hình ảnh */
+}
+
+.brand-name {
+  min-width: 60px; /* Thiết lập chiều rộng tối thiểu */
+  height: auto; /* Cho phép chiều cao tự động điều chỉnh */
+  padding: 5px 10px; /* Thêm khoảng cách bên trong */
+  border-radius: 15px;
+  font-size: 12px;
+  margin-top: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Cập nhật box-shadow */
+  transition: all 0.2s ease; /* Thêm hiệu ứng chuyển đổi mượt mà */
+  cursor: pointer;
+}
+
+.brand-name:hover {
+  /* Sửa lại để áp dụng hiệu ứng hover cho chính phần tử */
+  transform: translateY(-2px); /* Tạo hiệu ứng nâng lên khi hover */
+}
+
+.promotion {
+  color: #ee4d2d;
+  margin-top: 5px;
+}
+.product-scroll-container {
+  position: relative; /* Đặt vị trí của khung sản phẩm */
+  width: 60%; /* Chiều rộng 100% */
+  overflow: hidden; /* Ẩn nội dung bị tràn */
+}
+
+.product-grid {
+  display: flex; /* Hiển thị sản phẩm theo hàng */
+  transition: transform 0.3s ease; /* Hiệu ứng chuyển động mượt mà khi cuộn */
+}
+
+.product-item {
+  flex: 0 0 20%; /* Để 6 sản phẩm hiện tại (100% / 6) */
+  text-align: center;
+}
+
+.scroll-button {
+  position: absolute; /* Đặt vị trí tuyệt đối để nằm trên khung nội dung */
+  top: 50%; /* Căn giữa theo chiều dọc */
+  transform: translateY(-50%); /* Căn giữa chính xác */
+  background-color: rgba(255, 255, 255, 0.7); /* Nền trong suốt */
+  border: none; /* Bỏ viền */
+  cursor: pointer; /* Con trỏ tay khi hover */
+  z-index: 10; /* Đảm bảo nút nằm trên các phần tử khác */
+}
+
+.scroll-button.left {
+  left: 10px; /* Căn lề trái */
+}
+
+.scroll-button.right {
+  right: 10px; /* Căn lề phải */
+}

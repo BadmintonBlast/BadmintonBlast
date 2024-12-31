@@ -1,0 +1,84 @@
+<div class="container-header">
+  <div class="header-logo">
+    <img src="assets/images/logo.png" alt="Logo" width="80" />
+    <div class="name">Blask</div>
+  </div>
+  <div class="header-search">
+    <input type="text" placeholder="Tìm kiếm..." />
+    <button>
+      <span class="material-symbols-outlined"> search </span>
+    </button>
+  </div>
+  <div class="contract">
+    <span class="material-symbols-outlined"> support_agent </span> 
+    <div >HOTLINE:   0384753419</div>
+  </div>
+  <div class="header-actions">
+    <button class="cart-button">
+      <span class="material-symbols-outlined">shopping_cart</span>
+      <span class="cart-count" style="font-size: 13px; font-weight: bold"
+        >0</span
+      >
+      <!-- Số lượng trong giỏ hàng -->
+    </button>
+    <button><span class="material-symbols-outlined"> person </span></button>
+  </div>
+</div>
+<div class="container-menu">
+  <div>
+    <span class="material-symbols-outlined">home</span>
+    TRANG CHỦ
+  </div>
+  <div (mouseenter)="toggleProductContainer()">
+    <span class="material-symbols-outlined">shopping_bag</span>
+    SẢN PHẨM
+    <span
+      class="material-symbols-outlined arrow"
+      [ngClass]="{ rotated: isProductVisible }"
+      >expand_more</span
+    >
+  </div>
+  <div>
+    <span class="material-symbols-outlined">sports_tennis</span>
+    ĐẶT SÂN
+  </div>
+  <div>
+    <span class="material-symbols-outlined">local_offer</span>
+    SALES OFF
+  </div>
+</div>
+<div
+  class="container-product"
+  *ngIf="isProductVisible"
+  (mouseenter)="showProductContainer()"
+  (mouseleave)="hideProductContainer()"
+>
+  <div class="product-item">
+    <div class="product-title">VỢT CẦU LÔNG</div>
+    <div *ngFor="let brand of Brands" class="brand-name">
+      {{ brand.namebrand }}
+    </div>
+  </div>
+  <div class="product-item">
+    <div class="product-title">GIÀY CẦU LÔNG</div>
+    <div *ngFor="let brand of Brands" class="brand-name">
+      {{ brand.namebrand }}
+    </div>
+  </div>
+  <div class="product-item">
+    <div class="product-title">ÁO CẦU LÔNG</div>
+    <div *ngFor="let brand of Brands" class="brand-name">
+      {{ brand.namebrand }}
+    </div>
+  </div>
+  <div class="product-item">
+    <div class="product-title">QUẦN CÂU LÔNG</div>
+    <div *ngFor="let brand of Brands" class="brand-name">
+      {{ brand.namebrand }}
+    </div>
+  </div>
+</div>
+
+
+ 
+

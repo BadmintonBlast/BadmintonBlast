@@ -1,0 +1,64 @@
+<div class="header">
+  <button class="back-button" routerLink="/datsan">
+    <span class="material-symbols-outlined"> arrow_back </span>
+  </button>
+
+  <h1 class="title">ĐẶT LỊCH NGÀY TRỰC QUAN</h1>
+</div>
+
+<div class="container">
+  <div class="booking-info">
+    <div class="info-row">Ngày: {{ date }}</div>
+    <div class="info-row">
+      Lịch đặt sân:
+      <div *ngFor="let item of listimefield">
+        {{ item.field }}: {{ item.startTime }} - {{ item.endTime }}
+      </div>
+    </div>
+    <div class="info-row">Tổng giờ: {{ this.totalHourSelections }} Phút</div>
+    <div class="info-row">
+      Tổng tiền:
+      <span class="price">{{ this.totalAmount | number : "1.0-2" }} đ</span>
+    </div>
+  </div>
+
+  <div class="form">
+    <div class="form-group">
+      <label class="form-label">TÊN CỦA BẠN</label>
+      <input
+        type="text"
+        class="form-input"
+        placeholder="Nhập tên của bạn"
+        [(ngModel)]="nameCustomer"
+      />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">SỐ ĐIỆN THOẠI</label>
+      <input
+        type="tel"
+        class="form-input"
+        placeholder="Nhập số điện thoại"
+        [(ngModel)]="phoneCustomer"
+      />
+    </div>
+    <div class="form-group">
+      <label class="form-label">GHI CHÚ *(THÔNG TIN GHI CHÚ SẼ HIỂN THỊ CHO NGƯỜI CẦN TÌM ĐỘI)</label>
+
+      <div class="NgxEditor__Wrapper" style="color: black">
+        <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+        <ngx-editor
+          [editor]="editor"
+          [(ngModel)]="html"
+          [disabled]="false"
+          [placeholder]="'Type here...'"
+        ></ngx-editor>
+      </div>
+      <div  id="paypal-container"></div>
+      <button class="submit-button" (click)="reservation()">
+        XÁC NHẬN & THANH TOÁN
+      </button>
+    </div>
+  </div>
+  <app-notification *ngIf="message !== ''" [message]="message"></app-notification>
+</div>

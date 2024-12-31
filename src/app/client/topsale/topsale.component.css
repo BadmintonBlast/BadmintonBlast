@@ -1,0 +1,93 @@
+.container-topsale {
+    padding: 0 35px 0 35px;
+    background-color: #f0f0f0ee; /* Chọn màu nền nhẹ hơn */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .header {
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1px;
+  }
+  .title {
+    margin-left: 10px;
+    color: #eb115ae8;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .view-all {
+    color:#eb115ae8;;
+    text-decoration: none;
+  }
+  .container-product {
+    background-color: rgb(255, 255, 255);
+  }
+  .product-grid {
+    margin-left: 10px;
+    margin-right: 10px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    overflow-x: auto;
+  }
+  .product-item {
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    text-align: center;
+  }
+  .product-image {
+    width: 80%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+  .top-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ee4d2d;
+    color: white;
+    padding: 2px 8px;
+    font-size: 12px;
+    border-radius: 2px;
+  }
+  .sales-info {
+    background-color: rgba(206, 72, 161, 0.594);
+    color: white;
+    font-size: 12px;
+    padding: 5px;
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+    right: 0;
+  }
+  .product-name {
+    margin-top: 10px;
+    font-size: 14px;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .next-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 10; /* Đảm bảo nút hiện lên trên */
+}

@@ -1,0 +1,72 @@
+.header-right {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  top: 0;
+  right: 0;
+  width: 92%;
+  height: 100px;
+  background-color: #272848;
+  color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  flex-direction: row-reverse;
+}
+
+.frame-icon {
+  margin-right: 20px;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgb(255, 251, 251);
+  border-radius: 10px 10px 10px 10px;
+  cursor: pointer; /* Thêm thuộc tính này để đổi con trỏ chuột */
+  overflow: hidden; /* Đảm bảo ảnh không vượt ra khỏi phần tử nếu tỉ lệ không khớp */
+}
+.frame-icon span {
+  font-size: 40px;
+  color: rgb(244, 234, 234);
+}
+
+.frame-icon img {
+  width: 100%; /* Đặt chiều rộng ảnh theo phần tử cha */
+  height: 100%; /* Đặt chiều cao ảnh theo phần tử cha */
+  object-fit: cover; /* Đảm bảo ảnh hiển thị đầy đủ trong khung và duy trì tỉ lệ */
+  border-radius: 10px;
+}
+.body-manager {
+  justify-content: center;
+  right: 0;
+  display: flex;
+  position: fixed;
+  top: 100px;
+  align-items: center;
+  width: 92%;
+  height: calc(100vh - 100px);
+  background-color: rgba(244, 244, 244, 0.998);
+  color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  flex-direction: row-reverse;
+  cursor: pointer; /* Thêm thuộc tính này để đổi con trỏ chuột */
+}
+
+@media (max-width: 1500px) {
+  .header-right {
+    height: 60px;
+  }
+  .frame-icon span {
+    font-size: 30px;
+    color: rgb(244, 234, 234);
+  }
+  .frame-icon {
+    height: 30px;
+    width: 30px;
+  }
+  .body-manager {
+    top: 60px;
+    height: calc(100vh - 60px);
+  }
+}

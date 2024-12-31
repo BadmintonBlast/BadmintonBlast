@@ -1,0 +1,137 @@
+<div class="main-container">
+  <div class="header">
+    <app-manager-header (searchTerm)="search($event)"></app-manager-header>
+  </div>
+  <div class="scrollable-content">
+    <div
+      class="container"
+      *ngIf="statusAddProduct == false && statusDetailProduct == false"
+    >
+      <div class="container-product">
+        <div class="table-container">
+          <table
+            id="ExampleMaterialTable"
+            mat-table
+            [dataSource]="dataSource"
+            class="mat-elevation-z8 custom-table"
+          >
+            <!-- Name Column -->
+            <ng-container matColumnDef="Tên">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                Tên
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                {{ element.nameproduct }}
+              </td>
+            </ng-container>
+            <!-- Price Column -->
+            <ng-container matColumnDef="Giá">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                Giá
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                {{ element.price | number : "1.0-0" }}đ
+              </td>
+            </ng-container>
+
+            <!-- Brand Column -->
+            <ng-container matColumnDef="Thương hiệu">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                Thương hiệu
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                {{ element.namebrand }}
+              </td>
+            </ng-container>
+            <!-- Status Column -->
+            <ng-container matColumnDef="Trạng thái">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                Trạng thái
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                <select
+                  [(ngModel)]="element.available"
+                  [ngClass]="
+                    element.available ? 'active-status' : 'inactive-status'
+                  "
+                >
+                  <option class="active-status" [value]="1">Active</option>
+                  <option class="inactive-status" [value]="0">Inactive</option>
+                </select>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Giảm giá">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                Giảm giá
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                {{ element.deprice }}%
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Ngày nhập">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                Ngày nhập
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                {{ element.date | date : "dd/MM/yyyy" }}
+              </td>
+            </ng-container>
+            <!-- Actions Column -->
+            <ng-container matColumnDef="Hành động">
+              <th class="table-header" mat-header-cell *matHeaderCellDef>
+                <span class="material-symbols-outlined" style="font-size: 22px;">
+                  settings
+                  </span>
+              </th>
+              <td class="table-cell" mat-cell *matCellDef="let element">
+                <span
+                  style="font-size: 15px; margin-left: 8px; cursor: pointer"
+                  [matMenuTriggerFor]="menu"
+                  class="material-symbols-outlined"
+                  >more_vert</span
+                >
+                <mat-menu #menu="matMenu">
+                  <button
+                    mat-menu-item
+                    (click)="editProduct(element.idproduct)"
+                  >
+                    Chỉnh sửa
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+            <!-- Table Rows -->
+            <tr
+              mat-header-row
+              *matHeaderRowDef="displayedColumns"
+              class="table-header-row"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns"
+              class="table-row"
+            ></tr>
+          </table>
+        </div>
+        <div class="change-page">
+          <button class="report">
+            <span class="material-symbols-outlined"> print_error </span>Xuất báo
+            cáo
+          </button>
+          <button class="report" (click)="openAddProduct()">
+            <span class="material-symbols-outlined"> add </span>Thêm
+          </button>
+          <app-paging
+            [totalPages]="Math.ceil(totalProducts / pageSize)"
+            [currentPage]="pageIndex"
+            (pageChanged)="onPageChanged($event)"
+          ></app-paging>
+        </div>
+      </div>
+    </div>
+    <app-detail-product
+      *ngIf="statusDetailProduct === true"
+    ></app-detail-product>
+    <app-add-product *ngIf="statusAddProduct === true"></app-add-product>
+  </div>
+</div>

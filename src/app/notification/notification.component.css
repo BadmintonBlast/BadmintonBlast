@@ -1,0 +1,45 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  .container {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    padding: 5px; 
+    color: blueviolet;
+    justify-content: center;
+    position: fixed;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Tạo bóng đổ để container nổi bật */
+    animation: pulse 2s infinite; /* Thêm hoạt ảnh pulse */
+  }
+  
+  /* Hoạt ảnh pulse */
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+  }
+  

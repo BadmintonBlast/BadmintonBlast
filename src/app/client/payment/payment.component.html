@@ -1,0 +1,78 @@
+<app-heaher></app-heaher>
+<main class="checkout">
+  <div class="container">
+    <!-- Địa chỉ giao hàng -->
+    <section class="shipping-address" *ngIf="dataCustomer">
+      <h2>Địa chỉ giao hàng</h2>
+      <div class="address-box">
+        <p><strong>{{dataCustomer.namecustomer}}</strong></p>
+        <p>{{this.address}}</p>
+        <p>Điện thoại: {{dataCustomer.phone}}</p>
+        <a class="change-address" (click)="changeAdress()" >Thay đổi</a>
+      </div>
+    </section>
+    <!-- Danh sách sản phẩm -->
+    <section class="product-list">
+      <h2>Đơn hàng</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Sản phẩm</th>
+            <th>Giá chưa giảm</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of productBuy">
+            <ng-container *ngFor="let id of productOrderIds[item.idproduct]">
+              <td>{{ id.nameproduct }}</td>
+              <td>{{ id.price | number: '1.0-2' }}</td>
+              <td>{{item.quatity}}</td>
+              <td *ngIf="id.deprice!=0">{{preprice(id.price,id.deprice)| number:'1.0-2'}}</td>
+              <td *ngIf="id.deprice==0">{{id.price}}</td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <!-- Tổng thanh toán -->
+    <section class="total-payment">
+      <h2>Tổng cộng</h2>
+      <div class="payment-summary">
+        <p>Tổng tiền hàng: <span>{{this.totalPrice | number:'1.0-2'}}đ</span></p>
+        <p>Phí vận chuyển: <span>20,000đ</span></p>
+        @if(this.coupon)
+        {
+          <p>Voucher: <span>{{this.dataCoupon.promotion| number:'1.0-2'}}đ</span></p>
+        }     
+        <p>
+          <strong>Thành tiền: <span>{{this.totalbuy | number:'1.0-2'}}đ</span></strong>
+        </p>
+      </div>
+      <h2>Chọn hình thức thanh toán</h2>
+      <form>
+        <label class="payment-option">
+          <input type="radio" name="paymentMethod" value="cash"  [(ngModel)]="selectedPaymentMethod" />
+          Thanh toán khi nhận hàng (COD)
+        </label>
+        <!-- <label class="payment-option">
+          <input type="radio" name="paymentMethod" value="bank"  />
+          Thanh toán qua ngân hàng
+        </label>
+        <label class="payment-option">
+          <input type="radio" name="paymentMethod" value="momo" />
+          Thanh toán qua ví MoMo
+        </label> -->
+        <label class="payment-option">
+          <input type="radio" name="paymentMethod" value="paypal"  [(ngModel)]="selectedPaymentMethod" />
+          Thanh toán qua PayPal
+        </label>
+      </form>
+      <div *ngIf="displayPaypal" id="paypal-container"></div>
+      <button class="btn-payment" (click)="payment()">Đặt hàng</button>
+    </section>
+  </div>
+</main>
+<app-notification *ngIf="displayNotification" [message]="message"></app-notification>
+<app-footer></app-footer>

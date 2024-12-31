@@ -1,0 +1,36 @@
+<div class="modal-overlay"  >
+    <div class="container">
+      <span class="material-symbols-outlined" (click)="closeModal()"style="cursor: pointer;">
+        close
+        </span>
+      <h2 *ngIf="!this.idcoupon">Thêm Voucher</h2>
+      <h2 *ngIf="this.idcoupon">Cập nhật Voucher</h2>
+      <form (ngSubmit)="insertCoupon()">
+        <div class="form-group">
+          <label for="promotion">Giảm Giá:</label>
+          <input type="number" id="promotion" name="promotion" [(ngModel)]="coupon.promotion" required>
+        </div>
+        <div class="form-group">
+          <label for="startdate">Ngày Bắt Đầu:</label>
+          <input type="date" id="startdate" name="startdate" [(ngModel)]="coupon.startdate" required>
+        </div>
+        <div class="form-group">
+          <label for="enddate">Ngày Kết Thúc:</label>
+          <input type="date" id="enddate" name="enddate" [(ngModel)]="coupon.enddate" required>
+        </div>
+        <div class="form-group">
+          <label for="quality">Số Lượng:</label>
+          <input type="number" id="quality" name="quality" [(ngModel)]="coupon.quality" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Mô Tả:</label>
+          <input id="description" name="description" [(ngModel)]="coupon.description" rows="4" required>
+        </div>
+        <div class="form-group">
+          <button type="submit" *ngIf="!this.idcoupon" class="btn"  >Thêm Voucher</button>
+          <button type="submit" *ngIf="this.idcoupon" class="btn"  >Cập nhật Voucher</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /login
+Disallow: /cart
+Disallow: /checkout
+Allow: /home
+Allow: /sanpham
+Allow: /giohang
+Sitemap: https://yourdomain.com/sitemap.xml

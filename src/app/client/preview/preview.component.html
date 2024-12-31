@@ -1,0 +1,42 @@
+<div class="modal-overlay" >
+    <div class="rating-container">
+      <span class="close-icon" (click)="closeModal()">&#10005;</span>
+      <h2>Đánh giá sản phẩm</h2>
+  
+      <!-- Loop through each product in the order and display a review section -->
+      <div *ngFor="let order of orderDetails.orders">
+        <div class="product-review">
+          <h3>{{ order.nameproduct }}</h3>
+          
+          <!-- Product images -->
+          <div class="product-images">
+            <img [src]="order.productDetails.image[0].image4" alt="{{ order.nameproduct }}">
+          </div>
+  
+          <!-- Star rating for each product -->
+          <div class="stars">
+            <span 
+              class="star" 
+              *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" 
+              [ngClass]="{'selected': selectedRating[order.idorder] > i}"
+              (click)="rateProduct(order.idorder, i + 1)">
+              &#9733;
+            </span>
+          </div>
+  
+          <!-- Comment section -->
+          <textarea 
+          [(ngModel)]="comments[order.idorder]" 
+          (ngModelChange)="onCommentChange(order.idorder, comments[order.idorder])"
+          placeholder="Để lại bình luận của bạn..." 
+          rows="4" 
+          cols="50">
+        </textarea>
+        </div>
+      </div>
+  
+      <!-- Submit button for all products -->
+      <button class="submit-btn" (click)="submitAllReviews()">Gửi đánh giá</button>
+    </div>
+  </div>
+  <app-notification *ngIf="message!=''" [message]="message"></app-notification>

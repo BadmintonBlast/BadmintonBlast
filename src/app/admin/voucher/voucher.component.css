@@ -1,0 +1,156 @@
+/* Fix the header at the top */
+/* Ensures full-width fixed header */
+.header {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 60px;
+  width: calc(100% - 60px);
+  z-index: 90;
+}
+
+/* Main container to handle header and scrollable content */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+}
+
+/* Offset the content below the fixed header */
+.scrollable-content {
+  margin-top: 60px; /* Adjust to the height of .header */
+  overflow-y: auto;
+  padding: 30px 20px 20px 20px;
+  flex-grow: 1;
+}
+
+.container-product {
+  width: 100%;
+  border-radius: 3px;
+}
+.header-product {
+  height: 20px;
+  padding: 5px 10px 5px 10px;
+  display: flex;
+  font-size: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-weight: bold;
+}
+.button-add {
+  background-color: #95c6ee;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* table */
+.table-container {
+  width: 100%;
+  height: 415px;
+  overflow-x: auto;
+}
+/* Styles for the table */
+.custom-table {
+  width: 100%;
+  background-color: #ffffff;
+  border-collapse: collapse;
+}
+
+.mat-elevation-z8 {
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+/* Header styles */
+.table-header {
+  color: rgb(0, 0, 0);
+  text-align: left;
+  font-size: 15px;
+  font-weight: bolder;
+  background-color: #97978d !important;
+  padding: 5px;
+}
+
+.table-header-row {
+  height: 15px;
+  font-size: 14px;
+  color: black;
+  border-bottom: 1px solid #3f51b5;
+}
+
+/* Cell styles */
+.table-cell {
+  padding: 6px 8px; /* Giảm padding trên dưới và trái phải */
+  height: auto; /* Đảm bảo chiều cao ô sẽ tự động điều chỉnh */
+  font-size: 14px; /* Giảm kích thước chữ nếu cần */
+}
+
+/* Styles for select options */
+select {
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.active-status {
+  font-size: 10px;
+  color: green;
+  outline: none;
+}
+
+.inactive-status {
+  font-size: 10px;
+  color: red;
+}
+.table-row {
+  height: 10px;
+}
+/* Row hover effect */
+.table-row:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.mat-row,
+.mat-header-row {
+  height: 10px; /* Giảm chiều cao tối thiểu của hàng */
+}
+.change-page {
+  display: flex;
+  justify-content: space-between;
+}
+.report {
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  margin-top: 5px;
+  height: 35px;
+  padding: 0 12px; /* Khoảng cách giữa nội dung và cạnh nút */
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  border: 1px solid rgb(193, 189, 189);
+}
+.report:hover {
+  color: #fbfafa;
+  background-color: #375771c3;
+}
+
+.mat-mdc-menu-content {
+  margin: 0;
+  padding: 0px 0;
+  outline: 0;
+}
+.mat-mdc-menu-item {
+  color: #367bca;
+  font-weight: 100;
+  min-height: 10px;
+}

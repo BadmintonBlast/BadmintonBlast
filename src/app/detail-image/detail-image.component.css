@@ -1,0 +1,50 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  .modal-overlay .container {
+    display: flex;
+    flex-direction: column;
+    height: 85%;
+    width: 65%;
+    padding: 30px;
+    border-radius: 15px;
+    position: fixed;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .image-gallery {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Đảm bảo hình không bị tràn ra ngoài */
+  }
+  
+  .image-item {
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Giữ tỷ lệ và đảm bảo hình nằm trong khung */
+    border-radius: 10px;
+  }
+  

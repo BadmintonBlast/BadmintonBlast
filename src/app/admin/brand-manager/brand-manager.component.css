@@ -1,0 +1,69 @@
+.scrollable-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.left-panel,
+.right-panel {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.table-container {
+  height: 450px;
+  overflow-x: auto;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+}
+img {
+  width: 50px;
+  height: 50px;
+}
+.table-header-row {
+  height: 15px;
+  font-size: 14px;
+  color: black;
+  border-bottom: 1px solid #3f51b5;
+}
+.table-header {
+  color: rgb(0, 0, 0);
+  text-align: left;
+  font-weight: bolder;
+  background-color: #97978d !important;
+}
+.table-cell {
+  font-size: 14px; /* Giảm kích thước chữ nếu cần */
+}
+.mat-mdc-menu-content {
+  margin: 0;
+  padding: 0px 0;
+  outline: 0;
+}
+.mat-mdc-menu-item {
+  color: #367bca;
+  font-weight: 100;
+  min-height: 10px;
+}
+.mat-row,
+.mat-header-row {
+  height: 10px; /* Giảm chiều cao tối thiểu của hàng */
+}
+.table-row {
+  height: 10px;
+}
+/* Row hover effect */
+.table-row:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+.mat-elevation-z8 {
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+}

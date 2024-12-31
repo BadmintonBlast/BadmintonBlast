@@ -1,0 +1,96 @@
+<app-manager-header></app-manager-header>
+<div class="scrollable-content">
+  <div class="container">
+    <!-- Khung bên trái -->
+    <div class="left-panel">
+      <div class="table-container">
+        <table
+          id="LeftTable"
+          mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z8 custom-table"
+        >
+          <ng-container matColumnDef="Mã nhãn hàng">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Mã nhãn hàng
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.idbrand }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Hình ảnh">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Hình ảnh
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+            <img [src]="element.image">
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Tên">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Tên
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.namebrand }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <div class="change-page">
+        <app-paging
+        [totalPages]="Math.ceil(totalBrand / pageSizeBrand)"
+        [currentPage]="pageindexBrand"
+        (pageChanged)="onPageChangedBrand($event)"
+      ></app-paging>
+      </div>
+    </div>
+
+    <!-- Khung bên phải -->
+    <div class="right-panel">
+      <div class="table-container">
+        <table
+          id="RightTable"
+          mat-table
+          [dataSource]="datakindProduct"
+          class="mat-elevation-z8 custom-table"
+        >
+          <ng-container matColumnDef="Mã nhãn hàng">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Mã nhãn hàng
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.idkindproduct}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Hình ảnh">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Hình ảnh
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+                <img [src]="element.image">
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Tên">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Tên
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.nameproduct }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <div class="change-page">
+        <app-paging
+        [totalPages]="Math.ceil(totalBrand / pageSizeKindProduct)"
+        [currentPage]="pageindexKindProduct"
+        (pageChanged)="onPageChanged($event)"
+      ></app-paging>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+    <div class="modal-overlay">
+        <div class="container">
+        <div class="frame-name">
+            <span (click)="closeAddUser()" class="material-symbols-outlined">
+            close </span
+            >User
+        </div>
+        <div class="frame-content">
+            <div class="frame-left">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="customer.namecustomer" required />
+            <label>Phone</label>
+            <input type="text" [(ngModel)]="customer.phone" required />
+            <label>Email</label>
+            <input type="text" [(ngModel)]="customer.email" required />
+            <label>Role</label>
+            <input type="text" [(ngModel)]="customer.role" required />
+            <label>Status</label>
+            <input type="texto" [(ngModel)]="customer.status" required />
+            </div>
+            <div class="frame-right">
+            <label>Province</label>
+            <input type="text" [(ngModel)]="customer.province" required />
+            <label>District</label>
+            <input type="text" [(ngModel)]="customer.district" required />
+            <label>Village</label>
+            <input type="text" [(ngModel)]="customer.village" required />
+            <label>Hamlet</label>
+            <input type="text" [(ngModel)]="customer.hamlet" required />
+            </div>
+        </div>
+        </div>
+    </div>

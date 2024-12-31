@@ -1,0 +1,32 @@
+<div class="container2">
+    <div class="header" (mouseenter)="onMouseEnter()" 
+    (mouseleave)="onMouseLeave()">
+      <span  class="brand-mall">THƯƠNG HIỆU</span>
+      </div>
+          <div class="main-content" >
+            <div class="bannersmall">
+              <img [src]="images[currentImageIndex]" id="bannerImage" />
+              <div class="banner-nav">
+                <button class="prev" (click)="prevImage()">❮</button>
+                <button class="next" (click)="nextImage()">❯</button>
+              </div>
+            </div>
+        <div class="product-scroll-container" >
+            <button class="scroll-button left" (click)="scrollLeft()">&#10094;</button>
+            <div class="product-grid" #productGrid (mouseenter)="onMouseEnter()" 
+            (mouseleave)="onMouseLeave()">
+              <div
+                class="product-item"
+                *ngFor="let brand of visibleBrands; let i = index"
+              >
+                <div class="container-image">
+                  <img [src]="brand.image" alt="Unilever product" />
+                </div>
+                <div class="brand-name">{{ brand.namebrand }}</div>
+              </div>
+            </div>
+          
+            <button class="scroll-button right" (click)="scrollRight()">&#10095;</button>
+          </div>
+          
+    </div>

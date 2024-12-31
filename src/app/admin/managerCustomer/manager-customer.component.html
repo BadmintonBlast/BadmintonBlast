@@ -1,0 +1,129 @@
+<div class="main-container">
+  <div class="header">
+    <app-manager-header (searchTerm)="search($event)"></app-manager-header>
+  </div>
+  <div class="scrollable-content">
+    <div class="container-product">
+      <div class="table-container">
+        <table
+          id="ExampleMaterialTable"
+          mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z8"
+        >
+          <ng-container matColumnDef="Mã khách hàng">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>ID</th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.idcustomer }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Tên khách hàng">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Tên Người Dùng
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.namecustomer }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Số điện thoại">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>SĐT</th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ maskPhoneNumber(element.phone) }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Email
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.email }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Trạng thái">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Trạng Thái
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              <select
+                [(ngModel)]="element.status"
+                [ngClass]="element.status ? 'active-status' : 'inactive-status'"
+                [disabled]="true" 
+              >
+                <option [value]="true" >Active</option>
+                <option [value]="false">Inactive</option>
+              </select>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Vai trò">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Vai Trò
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              <select [(ngModel)]="element.role" [ngClass]="element.role" [disabled]="true">
+                <option class="Staff" value="Staff">Staff</option>
+                <option class="Customer" value="Customer">Customer</option>
+                <option class="Admin" value="Admin">Admin</option>
+              </select>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Hành động">
+            <th class="table-header" mat-header-cell *matHeaderCellDef><span class="material-symbols-outlined"  style="font-size: 22px;">
+              settings
+              </span>
+              </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              <span
+                style="margin-left: 0px; cursor: pointer; font-size: 15px"
+                [matMenuTriggerFor]="menu"
+                class="material-symbols-outlined"
+              >
+                more_vert
+              </span>
+              <mat-menu #menu="matMenu">
+                <button
+                  mat-menu-item
+                  (click)="editCustomer(element.idcustomer)"
+                >
+                  Details
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+          <tr
+            class="table-header-row"
+            mat-header-row
+            *matHeaderRowDef="displayedColumns"
+          ></tr>
+          <tr
+            class="table-row"
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+          ></tr>
+        </table>
+      </div>
+
+      <div class="change-page">
+        <button class="report" (click)="exportCustomerArrayToExcel()">
+          <span class="material-symbols-outlined"> print_error </span>Xuất báo
+          cáo
+        </button>
+        <app-paging
+          [totalPages]="Math.ceil(totalCustomers / pageSize)"
+          [currentPage]="pageIndex"
+          (pageChanged)="onPageChanged($event)"
+        ></app-paging>
+      </div>
+
+      <app-detail-customer
+        *ngIf="statusUser"
+        [customerId]="selectedCustomerId"
+        (statusUser)="handleAddUserStatus($event)"
+      ></app-detail-customer>
+    </div>
+  </div>
+</div>

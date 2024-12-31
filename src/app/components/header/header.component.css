@@ -1,0 +1,295 @@
+.container-header {
+  position: fixed; /* Đặt vị trí là cố định */
+  top: 0; /* Gắn header ở phía trên cùng của trang */
+  left: 0; /* Gắn header ở phía bên trái của trang */
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+  height: 50px; /* Chiều cao của header */
+  border-bottom: 1px solid rgb(185, 201, 255); /* Đường viền dưới */
+  display: flex; /* Sử dụng Flexbox để căn giữa */
+  justify-content: space-between; /* Căn giữa nội dung theo chiều ngang */
+  align-items: center; /* Căn giữa nội dung theo chiều dọc */
+  z-index: 20; /* Đảm bảo header nằm trên các phần tử khác */
+  background-color: #e6e7f2; /* Màu nền của sidebar */
+}
+
+.header-logo {
+  display: flex;
+  flex: 0.5;
+  margin-left: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0 10px 30px;
+}
+.header-logo img {
+  width: 50px;
+  height: 50px;
+}
+.name {
+  font-weight: bold;
+  font-size: 20px;
+}
+.header-search {
+  width: 530px;
+  text-align: center;
+  background-color: #fafafa;
+  display: flex; /* Căn chỉnh các phần tử theo chiều ngang */
+}
+
+.header-search input {
+  width: 500px;
+  height: 20px;
+  padding: 5px;
+  font-size: 15px;
+  border: none !important;
+  background-color: #fafafa;
+  outline: none;
+}
+
+.header-search input:focus {
+  outline: none !important;
+}
+
+.header-search button {
+  height: 30px; /* Cùng chiều cao với thanh tìm kiếm */
+  padding: 5px;
+  width: 30px;
+  margin-left: 5px; /* Tạo khoảng cách giữa nút và input */
+  border: none;
+  background-color: #314bdce1;
+  color: rgb(255, 255, 255);
+
+  cursor: pointer;
+}
+.header-search button span {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.header-actions {
+  flex: 1;
+  text-align: right;
+  padding-right: 10px;
+}
+.cart-button {
+  position: relative; /* Để định vị số lượng */
+  background: none; /* Không có nền */
+  border: none; /* Không có viền */
+  cursor: pointer; /* Hiệu ứng con trỏ */
+}
+
+.cart-count {
+  position: absolute; /* Định vị tuyệt đối */
+  top: -8px; /* Điều chỉnh vị trí dọc */
+  right: -8px; /* Điều chỉnh vị trí ngang */
+  background-color: rgba(97, 133, 229, 0.819); /* Màu nền cho số lượng */
+  color: white; /* Màu chữ */
+  border-radius: 50%; /* Bo góc tròn */
+  padding: 3px; /* Giảm đệm để làm nhỏ hơn */
+  font-size: 10px; /* Giảm kích thước chữ */
+  font-weight: bold; /* Đậm chữ */
+  min-width: 14px; /* Đặt chiều rộng tối thiểu nhỏ hơn */
+  height: 14px; /* Giảm chiều cao */
+  line-height: 14px; /* Căn giữa chữ theo chiều dọc */
+  text-align: center; /* Căn giữa chữ */
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); /* Giảm bóng cho số lượng */
+}
+
+.header-actions button {
+  margin-right: 20px;
+  height: 30px;
+  width: 50px;
+  border: 1px solid #8b8fbde8;
+  background-color: transparent !important;
+  color: #2167de;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.header-actions button span {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.header-actions button:hover {
+  background-color: #555; /* Hiệu ứng khi di chuột */
+}
+
+.header-actions button:active {
+  background-color: #222222; /* Màu khi bấm */
+  transform: scale(0.95); /* Nút thu nhỏ nhẹ khi bấm */
+}
+
+.contract {
+  flex: 1;
+  display: flex;
+  margin-left: 50px;
+  align-items: center;
+  font-weight: bold;
+  color: #0f0f0fc0;
+  justify-content: center;
+  border-bottom: 1px solid black;
+}
+.contract span {
+  color: rgb(62, 62, 231);
+  margin-right: 10px;
+}
+.container-menu {
+  position: fixed; /* Đặt vị trí là cố định */
+  top: 50px; /* Đặt menu ngay bên dưới header */
+  left: 0; /* Gắn menu ở phía bên trái của trang */
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+  display: flex; /* Sử dụng flexbox */
+  flex-direction: row; /* Chiều ngang cho các mục */
+  justify-content: center; /* Căn giữa menu */
+  background-color: #314bdcf6; /* Màu nền của sidebar */
+  padding: 5px; /* Đệm cho menu */
+  font-size: 15px;
+  font-weight: 500;
+  color: rgb(249, 249, 249); /* Màu chữ */
+  gap: 70px; /* Khoảng cách giữa các mục menu */
+  z-index: 15; /* Đảm bảo menu nằm trên các phần tử khác */
+  box-shadow: 0 4px 4px rgba(103, 102, 102, 0.5); /* Đổ bóng ở phía dưới */
+}
+
+.container-menu div {
+  display: flex; /* Sử dụng flexbox để căn chỉnh */
+  justify-content: center; /* Căn giữa nội dung trong từng mục */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  padding: 4px 15px; /* Đệm cho từng mục, tăng đệm bên trái và bên phải */
+  cursor: pointer; /* Đổi con trỏ thành dạng bàn tay khi hover */
+  transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+  border-radius: 4px; /* Bo góc cho từng mục */
+}
+
+.container-menu div:hover {
+  color: rgb(255, 247, 88);
+}
+
+.arrow {
+  margin-left: 5px; /* Khoảng cách giữa văn bản và biểu tượng */
+  font-size: 20px; /* Kích thước biểu tượng */
+  transition: transform 0.3s; /* Hiệu ứng chuyển động khi hover */
+}
+
+.arrow {
+  margin-left: 5px; /* Khoảng cách giữa văn bản và biểu tượng */
+  font-size: 15px; /* Kích thước biểu tượng */
+  transition: transform 0.3s; /* Hiệu ứng chuyển động khi hover */
+}
+
+.arrow.rotated {
+  transform: rotate(180deg); /* Xoay biểu tượng khi container mở */
+}
+
+.container-product {
+  position: fixed; /* Đặt vị trí tương đối */
+  display: flex; /* Sử dụng flexbox */
+  flex-wrap: wrap; /* Cho phép các mục tự động xuống dòng khi cần */
+  justify-content: center; /* Căn giữa các cột */
+  align-items: flex-start; /* Căn theo chiều dọc ở đầu */
+  gap: 20px; /* Khoảng cách giữa các cột */
+  padding: 10px; /* Đệm cho container */
+  width: 100%; /* Đặt chiều rộng 100% */
+  z-index: 20; /* Đặt chỉ số z để đảm bảo nằm trên các phần tử khác */
+  background-color: #fff; /* Màu nền */
+  border-radius: 4px; /* Bo góc */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng để tách biệt */
+  top: 95px;
+}
+
+.product-item {
+  flex: 1 1 calc(25% - 40px); /* Chiếm không gian bằng nhau */
+  text-align: center; /* Căn giữa văn bản trong từng mục */
+  padding: 10px; /* Đệm cho từng mục */
+  color: rgb(26, 51, 66);
+  border-radius: 4px; /* Bo góc */
+  transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+}
+
+.product-title {
+  font-weight: bold; /* In đậm cho tiêu đề */
+  font-size: 15px; /* Kích thước chữ cho tiêu đề */
+  margin-bottom: 10px; /* Khoảng cách dưới tiêu đề */
+}
+
+.brand-name {
+  transition: color 0.3s, font-size 0.3s; /* Hiệu ứng chuyển đổi cho màu và kích thước */
+}
+
+/* Khi hover vào brand-name */
+.brand-name:hover {
+  color: rgb(237, 41, 41); /* Đổi màu chữ khi hover */
+  font-size: 16px; /* Tăng kích thước chữ khi hover */
+}
+
+.brand-name {
+  margin-top: 5px; /* Khoảng cách giữa tên sản phẩm và thương hiệu */
+  font-size: 15px; /* Kích thước chữ cho tên thương hiệu */
+  color: #555; /* Màu chữ cho thương hiệu */
+}
+
+.container-body {
+  width: 100%;
+  padding-top: 94px; /* Khoảng cách cho cả header và menu */
+  background-color: #f5f1f139; /* Màu nền của sidebar */
+}
+@media screen and (max-width: 768px) {
+  .container-header {
+    flex-direction: row; /* Giữ các phần tử khác nằm ngang */
+    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    height: auto; /* Tự động điều chỉnh chiều cao */
+    flex-wrap: wrap; /* Cho phép phần tử wrap xuống dòng nếu cần */
+  }
+
+  .header-search {
+    width: 100%; /* Đặt chiều rộng 100% cho thanh tìm kiếm */
+    margin-top: 10px; /* Tạo khoảng cách phía trên */
+    order: 2; /* Đưa thanh tìm kiếm xuống dưới */
+  }
+  .contract {
+    font-size: 10px;
+    margin-left: 20px;
+  }
+  .header-logo,
+  .name,
+  .header-actions {
+    order: 1; /* Giữ các phần tử khác ở trên thanh tìm kiếm */
+    flex: 1; /* Giữ các phần tử này nằm ngang với kích thước tương ứng */
+  }
+  .header-actions {
+    display: flex;
+  }
+  .header-logo {
+    margin-left: 0; /* Bỏ khoảng cách thừa bên trái */
+    padding: 5px; /* Điều chỉnh padding */
+    display: flex; /* Giữ logo và các phần khác theo hàng ngang */
+    justify-content: flex-start; /* Căn trái logo */
+  }
+
+  .header-actions {
+    padding-right: 10px; /* Điều chỉnh padding phải cho phù hợp */
+    text-align: right; /* Giữ nút căn phải */
+  }
+  .container-menu {
+    top: 100px; /* Đặt menu ngay bên dưới header */
+    padding: 5px; /* Đệm cho menu */
+    font-size: 10px;
+    gap: 20px; /* Khoảng cách giữa các mục menu */
+  }
+
+  .container-menu div {
+    padding: 2px 5px; /* Đệm cho từng mục, tăng đệm bên trái và bên phải */
+  }
+
+  .container-menu div:hover {
+    color: rgb(213, 190, 38);
+  }
+  .container-product
+  {
+    top: 140px; /* Đặt container sản phẩm ngay bên dư��i header */
+    padding: 5px; /* Đệm cho container */
+    font-size: 8px;
+    gap: 20px; /* Khoảng cách giữa các mục sản phẩm */
+  }
+
+}

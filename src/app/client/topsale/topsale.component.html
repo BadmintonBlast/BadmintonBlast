@@ -1,0 +1,21 @@
+<div class="container-topsale">
+    <div class="header">
+        <h2 class="title">BÁN CHẠY THÁNG NÀY</h2>
+        <!-- <a href="#" class="view-all">Xem Tất Cả ❯</a> -->
+    </div>
+   <div class="container-product">
+    <div class="product-grid">
+        <div class="product-item" *ngFor="let product of products;let i=index" (click)="detailproduct(product.idproduct,product.nameproduct)">
+          <img *ngIf="product.image && product.image[0]?.image4" [src]="product.image[0].image4" class="product-image" alt="{{product.nameproduct}}">
+          <span class="top-badge">TOP</span>
+          <!-- Kiểm tra sự tồn tại của productSale và hiển thị totalAmount -->
+          <div class="sales-info" *ngIf="productSale[i]">
+           Bán {{ productSale[i].totalQuantity }} sp/ tháng
+          </div>
+          <p class="product-name">{{ product.nameproduct }}</p>
+        </div>
+      </div>
+      
+   </div>
+    <!-- <button class="next-button">❯</button> -->
+</div>

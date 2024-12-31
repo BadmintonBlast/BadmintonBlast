@@ -1,0 +1,258 @@
+.container {
+  width: 100%;
+  overflow-x: hidden;
+}
+.table-container {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ cho hộp */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif; /* Định dạng font chữ */
+}
+
+/* Định dạng hàng sân */
+tbody > tr > td {
+  position: sticky;
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+  font-weight: bold;
+  font-size: 12px; /* Kích thước chữ */
+}
+
+/* Màu nền cho các ô trạng thái */
+.bg-red-500 {
+  background-color: #ff6f61; /* Hồng */
+  color: white; /* Màu chữ */
+  font-size: 14px; /* Kích thước chữ trong ô trạng thái */
+}
+.bg-transparent {
+  background-color: transparent;
+  color: white;
+  font-size: 14px;
+}
+
+.bg-yellow-400 {
+  background-color: #ffef3c; /* Trắng xanh */
+  color: black; /* Màu chữ */
+  font-size: 14px; /* Kích thước chữ trong ô trạng thái */
+}
+.bg-green-400 {
+  background-color: #4caf50; /* Xanh lá */
+  color: white; /* Màu chữ */
+  font-size: 14px; /* Kích thước chữ trong �� trạng thái */
+}
+.bg-white {
+  background-color: #ffffff; /* Trắng */
+  color: black; /* Màu chữ */
+  font-size: 14px; /* Kích thước chữ trong ô trạng thái */
+}
+
+/* Định dạng khi hover chuột vào các ô */
+tbody td:hover {
+  background-color: #b2ebf2; /* Màu xanh nhạt khi hover */
+  cursor: pointer;
+}
+
+/* Tùy chỉnh kích thước bảng tổng thể */
+table {
+  margin: 5px auto; /* Căn giữa bảng */
+}
+.time-detail {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #120d0d;
+  font-size: 14px; /* Kích thước chữ */
+  text-align: center; /* Căn giữa */
+  margin-bottom: 10px; /* Khoảng cách giữa các �� */
+}
+.table-container {
+  position: relative; /* Required for absolute positioning of the fixed column */
+  overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+.table-auto {
+  border-collapse: collapse; /* Ensure borders are collapsed */
+  width: 100%; /* Full width of the container */
+}
+
+.fixed-header {
+  position: sticky; /* Make header sticky */
+  top: 0; /* Stick to the top of the table */
+  background-color: white; /* Background color for visibility */
+  z-index: 1; /* Ensure it is above other content */
+}
+
+.fixed-column {
+  position: sticky;
+  left: 0;
+  background-color: white;
+  z-index: 2;
+}
+
+.schedual {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100px;
+  padding: 20px;
+  background: linear-gradient(to right, #1a82e4, #0072ff, #7b2ff7);
+}
+.header-schedual {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+}
+.header-schedual :first-child {
+  cursor: pointer;
+  color: white;
+  position: absolute;
+  left: 10px;
+}
+.header-schedual .title {
+  font-size: 28px;
+  color: white;
+  font-weight: bold;
+}
+.date-picker-container {
+  width: 95%;
+  display: flex;
+  justify-content: flex-end;
+  text-align: center;
+}
+
+.date-input {
+  max-width: 250px; /* Điều chỉnh kích thước tối đa */
+  width: 100%; /* Để input chiếm toàn bộ chiều rộng */
+  padding: 10px; /* Tăng khoảng cách bên trong để ô input bự hơn */
+  border: 1px solid #ccc; /* Viền nhẹ */
+  border-radius: 8px; /* Bo góc input */
+  font-size: 16px; /* Cỡ chữ lớn hơn */
+  background-color: #f9f9f9; /* Màu nền sáng */
+  transition: all 0.3s ease; /* Hiệu ứng chuyển tiếp khi focus vào input */
+}
+
+.date-input:focus {
+  border-color: #4caf50; /* Màu viền khi input được focus */
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.4); /* Hiệu ứng bóng mờ khi focus */
+  outline: none; /* Xóa đường viền mặc định */
+}
+
+.date-input::placeholder {
+  color: #888; /* Màu chữ placeholder */
+  font-style: italic; /* Kiểu chữ nghiêng */
+}
+
+.date-input:disabled {
+  background-color: #f1f1f1; /* Màu nền khi input bị khóa */
+  border-color: #ddd; /* Viền nhạt khi input bị khóa */
+}
+
+.date-input {
+  width: 100%; /* Đảm bảo input chiếm toàn bộ chiều rộng của container */
+  padding: 10px 15px; /* Tăng khoảng cách bên trong */
+  font-size: 16px; /* Cỡ chữ lớn */
+  border: 1px solid #ccc; /* Viền nhẹ cho input */
+  border-radius: 8px; /* Bo góc input */
+  background-color: #fff; /* Màu nền sáng */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Thêm bóng nhẹ */
+  transition: all 0.3s ease; /* Hiệu ứng chuyển tiếp khi focus vào input */
+  appearance: none; /* Loại bỏ style mặc định của trình duyệt */
+  -webkit-appearance: none; /* Loại bỏ style mặc định trên Safari */
+  -moz-appearance: none; /* Loại bỏ style mặc định trên Firefox */
+}
+
+/* Hiệu ứng khi người dùng focus vào input */
+.date-input:focus {
+  border-color: #4caf50; /* Màu viền khi focus */
+  background-color: #e8f5e9; /* Màu nền sáng hơn khi focus */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Bóng mờ rõ hơn khi focus */
+  outline: none; /* Loại bỏ viền mặc định khi focus */
+}
+
+/* Hiệu ứng khi hover vào input */
+.date-input:hover {
+  border-color: #4caf50; /* Màu viền khi hover */
+}
+
+/* Tùy chọn: Thêm placeholder với màu sắc */
+.date-input::placeholder {
+  color: #888; /* Màu cho placeholder */
+}
+.details {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin-bottom: 5px;
+}
+.square {
+  margin-right: 15px;
+  width: 30px; /* Chiều rộng 50px */
+  height: 30px; /* Chiều cao 50px */
+  border-radius: 5px;
+  background-color: #f1f1f1; /* Màu nền (tùy chọn) */
+}
+.kind-square {
+  color: white;
+  margin-right: 15px;
+  height: 30px;
+  font-weight: bold;
+  align-content: center;
+}
+.order {
+  display: flex;
+  margin: 30px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.time-info,
+.price-info {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.time,
+.price {
+  margin-left: 5px;
+  font-size: 18px;
+}
+
+.continue-button {
+  text-align: center;
+}
+
+button {
+  position: absolute; /* Đặt nút ở vị trí tuyệt đối trong phần tử cha */
+  bottom: 0; /* Đảm bảo nút luôn nằm ở phía dưới cùng */
+  left: 50%; /* Căn giữa nút theo chiều ngang */
+  transform: translateX(
+    -50%
+  ); /* Điều chỉnh lại vị trí nút để căn giữa chính xác */
+  padding: 15px 30px;
+  background-color: #3897d3; /* Màu nền */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2e4eb5; /* Hiệu ứng hover */
+}

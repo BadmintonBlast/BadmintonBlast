@@ -1,0 +1,160 @@
+
+.main-header {
+  padding-top: 10px;
+  background: linear-gradient(to right,  #1a82e4, #0072ff, #7b2ff7);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Thêm thuộc tính để cố định */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Đảm bảo nằm trên các thanh khác */
+}
+
+
+.logo {
+  width: 15%;
+  padding-left: 5%;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.search-container {
+  width: 60%;
+  padding: 3px;
+  position: relative;
+}
+.search-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, #0927bd, #da5fd5, #dfd8d8);
+  border-radius: 6px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.search-container:hover::before {
+  opacity: 1;
+}
+.search-bar {
+  position: relative;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+}
+
+.search-bar input {
+  width: 90%;
+  height: 20px;
+  border-radius: 2px;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+.search-bar button {
+  background-color: rgb(72, 129, 235);
+  border: none;
+  padding: 10px;
+  height: 30px;
+  border-radius: 2px;
+  margin-left: 5px;
+  cursor: pointer;
+  /* Thêm các thuộc tính mới để căn giữa icon */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.suggestions {
+  border-radius: 2px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 93%;
+  margin-top: 5px;
+  background-color: white;
+  font-size: 12px;
+  border: 1px solid #ddd;
+  border-top: none;
+  color: #000;
+  display: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  
+}
+.suggestions div {
+  padding: 10px;
+  cursor: pointer;
+}
+.suggestions div:hover {
+  background-color: #f1f1f1;
+}
+
+.button-bar {
+  width: 15%;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.button-bar span {
+  font-size: 30px;
+  margin-right: 25px;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.menu {
+  background: linear-gradient(to right, #1a82e4, #0072ff, #7b2ff7);
+    color: white;
+    display: flex;
+    padding: 5px;
+    height: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    flex-direction: row;
+    top: 60px;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 200;
+    justify-content: center;
+    padding-bottom:10px;
+}
+
+
+.menu-item {
+  text-decoration: none; /* Bỏ gạch chân */
+  /* background: linear-gradient(to right, #ffffff, #ff00cc, #ffffff);  */
+  font-weight: bold; /* Chữ đậm */
+  -webkit-background-clip: text; /* Chỉ định clip nền cho chữ (trên Safari) */
+  background-clip: text; /* Chỉ định clip nền cho chữ (trên các trình duyệt hỗ trợ) */
+  color: rgb(255, 255, 255); /* Làm màu chữ trong suốt */
+  padding: 8px 12px; /* Padding cho không gian */
+  cursor: pointer; /* Con trỏ chuột sẽ là pointer */
+  transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+}
+
+.menu-item:hover {
+  background-color: rgba(244, 244, 244, 0.1); /* Màu nền khi di chuột */
+  border-radius: 4px; /* Bo góc */
+}
+
+.menu label {
+  cursor: pointer;
+  margin-right: 50px;
+}

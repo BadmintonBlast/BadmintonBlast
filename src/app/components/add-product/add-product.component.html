@@ -1,0 +1,177 @@
+<div class="modal-overlay">
+  <div class="container">
+    <div class="frame-name">
+      <span (click)="closeAddproduct()" class="material-symbols-outlined">
+        close </span
+      >Products
+    </div>
+    <div class="frame-content">
+      <div class="frame-left">
+        <div>Update Image</div>
+        <div class="frame-updateImage">
+          <label for="file-upload" class="custom-file-upload">
+            <input
+              id="file-upload"
+              type="file"
+              accept="image/*"
+              multiple
+              (change)="onImageSelect($event)"
+            />
+            <span class="material-symbols-outlined"> photo_camera </span>
+          </label>
+          <!-- Khung chứa hình ảnh đã chọn -->
+          <div class="selected-images">
+            <!-- Hiển thị tối đa 3 hình ảnh -->
+            <ng-container
+              *ngFor="
+                let image of selectedImagesList.slice(0, 2);
+                let i = index
+              "
+            >
+              <div class="image-container">
+                <img [src]="image" class="image-preview" alt="Selected Image" />
+              </div>
+            </ng-container>
+            <!-- Nếu có hơn 3 hình, hiển thị dấu cộng với số lượng ảnh còn lại -->
+            <div
+              (click)="allImage()"
+              class="image-container extra-images"
+              *ngIf="selectedImagesList.length > 2"
+            >
+              <img
+                [src]="selectedImagesList[2]"
+                class="image-preview"
+                alt="Selected Image"
+              />
+              <span class="extra-text"
+                >+{{ selectedImagesList.length - 2 }}</span
+              >
+            </div>
+          </div>
+        </div>
+        <!-- add-product.component.html -->
+        <div>Stocks</div>
+        <div class="Fill-product">
+          <div class="Fill">
+            <label for="size-input">Size</label>
+            <input id="size-input" type="text" [(ngModel)]="newSize" />
+            <label for="color-input">Color</label>
+            <input id="color-input" type="text" [(ngModel)]="newColor" />
+            <label for="quantity-input">Number</label>
+            <input
+              style="width: 6%"
+              id="quantity-input"
+              type="number"
+              [(ngModel)]="newQuantity"
+            />
+            <button (click)="addProductStock()">Add</button>
+          </div>
+        </div>
+        <!-- Hiển thị danh sách sản phẩm đã thêm -->
+        <div class="size-list" *ngIf="checkStock">
+          <table>
+            <tr style="font-weight: 200">
+              <td>Size</td>
+              <td>Color</td>
+              <td>Quantity</td>
+              <td>Action</td>
+            </tr>
+            <tr *ngFor="let product of paginatedProductStocks">
+              <td>{{ product.namesize }}</td>
+              <td>{{ product.namecolor }}</td>
+              <td>{{ product.quatity }}</td>
+              <td>
+                <span
+                  (click)="removeProductStock(product)"
+                  class="material-symbols-outlined close-icon"
+                >
+                  close
+                </span>
+              </td>
+            </tr>
+          </table>
+          <!-- Phân trang -->
+          <div class="pagination">
+            <button
+              *ngFor="
+                let page of [].constructor(
+                  Math.ceil(productStocks.length / pageSize)
+                );
+                let i = index
+              "
+              (click)="changePage(i + 1)"
+              [class.active]="currentPage === i + 1"
+            >
+              {{ i + 1 }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="frame-right">
+        <label>Name</label>
+        <div class="product-input">
+          <input type="text" [(ngModel)]="Product.nameproduct" />
+        </div>
+        <label>Detail</label>
+        <div class="product-input">
+          <textarea id="product-description" [(ngModel)]="Product.description" rows="4"></textarea>
+        </div>
+        <div>
+          <label>Price</label>
+          <label style="margin-left: 300px">Status</label>
+        </div>
+        <div class="product-input">
+          <input type="number" [(ngModel)]="Product.price"  />
+          <select style="margin-left: 10px; width: 200px" [(ngModel)]="Product.available">
+            <option value=""></option>
+            <option value="1">Còn hàng</option>
+            <option value="0">Hết hàng</option>
+            <option value="">Không bán nữa</option>
+          </select>
+        </div>
+        <label>Categories</label>
+        <div class="product-input">
+          <select id="product-category" [(ngModel)]="Product.idkindproduct" (change)="updateKindProductName()">
+            <option value="{{Product.idkindproduct}}"></option>
+            <option
+              *ngFor="let category of Kinds"
+              [value]="category.idkindproduct"
+            >
+              {{ category.nameproduct }}
+            </option>
+          </select>
+          <button (click)="onAddCategory()">Add</button>
+        </div>
+        <label for="product-brand">Brand</label>
+        <div class="product-input">
+          <select id="product-brand" [(ngModel)]="Product.idbrand" (change)="updateBrandName()">
+            <option value=""></option>
+            <option *ngFor="let brand of Brands" [value]="brand.idbrand">
+              {{ brand.namebrand }}
+            </option>
+          </select>
+          <button (click)="onAddBrand()">Add</button>
+        </div>
+        
+        <div class="product-input">
+          <button
+            style="
+              margin-right: 200px;
+              background-color: rgb(255, 255, 255);
+              border: 1px solid rgba(151, 71, 255, 1);
+              color: rgba(151, 71, 255, 1);
+            "
+            (click)="closeAddproduct()" 
+          >
+            Cancel
+          </button>
+          <button (click)="onAddProduct()">Add Product</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-detail-image
+  *ngIf="allImages == true"
+  [selectedImages]="selectedImagesList"
+></app-detail-image>

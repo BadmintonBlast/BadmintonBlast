@@ -1,0 +1,156 @@
+<div class="main-container">
+  <div class="header">
+    <app-manager-header (searchTerm)="search($event)"></app-manager-header>
+  </div>
+  <div class="scrollable-content">
+    <!-- Bảng đơn hàng -->
+    <div class="status-container">
+      <div
+        *ngFor="let status of orderStatuses"
+        class="status-item"
+        [class.active]="selectedStatus === status.code"
+        (click)="selectStatus(status.code)"
+      >
+        {{ status.description }}
+      </div>
+    </div>
+
+    <div class="container-product">
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <!-- Mã đơn hàng -->
+          <ng-container matColumnDef="idbill">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>Mã</th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.idbill }}
+            </td>
+          </ng-container>
+
+          <!-- Tên khách hàng -->
+          <ng-container matColumnDef="namecustomer">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Tên Khách Hàng
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.namecustomer }}
+            </td>
+          </ng-container>
+
+          <!-- Số điện thoại -->
+          <ng-container matColumnDef="phone">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>SĐT</th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.phone }}
+            </td>
+          </ng-container>
+
+          <!-- Tổng tiền -->
+          <ng-container matColumnDef="totalamount">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Tổng Tiền
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.totalamount | number : "1.0-0" }}đ
+            </td>
+          </ng-container>
+
+          <!-- Ngày mua -->
+          <ng-container matColumnDef="dateorder">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Ngày Mua
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.dateorder | date : "dd/MM/yyyy" }}
+            </td>
+          </ng-container>
+
+          <!-- Trạng thái -->
+          <ng-container matColumnDef="status">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Trạng Thái
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              <select
+                [(ngModel)]="element.status"
+                [ngStyle]="{ color: getStatusColor(element.status) }"
+                (change)="onStatusChange(element.idbill,element.status)"
+              >
+                <option
+                  *ngFor="let status of orderStatuses"
+                  [value]="status.code"
+                  [ngStyle]="{ color: getStatusColor(status.code) }"
+                >
+                  {{ status.description }}
+                </option>
+              </select>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="pay">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Thanh toán
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              {{ element.pay }}
+            </td>
+          </ng-container>
+          <!-- Hành động -->
+          <ng-container matColumnDef="actions">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              <span class="material-symbols-outlined"> settings </span>
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              <span
+                style="font-size: 15px; margin-left: 8px; cursor: pointer"
+                [matMenuTriggerFor]="menu"
+                class="material-symbols-outlined"
+              >
+                more_vert
+              </span>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="detail(element.idbill)">Chi tiết</button>
+              </mat-menu>
+            </td>
+          </ng-container>
+          <!-- Header và Body -->
+          <tr
+            class="table-header-row"
+            mat-header-row
+            *matHeaderRowDef="displayedColumns"
+          ></tr>
+          <tr
+            class="table-row"
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+          ></tr>
+        </table>
+      </div>
+    </div>
+    <!-- Phân trang -->
+    <div class="change-page">
+      <app-paging
+        [totalPages]="Math.ceil(totalBills / pageSize)"
+        [currentPage]="pageIndex"
+        (pageChanged)="onPageChanged($event)"
+      ></app-paging>
+      <div>
+        <label for="dateStart">Ngày bắt đầu:</label>
+        <input
+          id="dateStart"
+          type="date"
+          [(ngModel)]="dateStart"
+          class="date-input"
+        />
+
+        <label for="dateEnd">Ngày kết thúc:</label>
+        <input
+          id="dateEnd"
+          type="date"
+          [(ngModel)]="dateEnd"
+          class="date-input"
+        />
+        <button class="filter-button" (click)="applyFilter()">Lọc</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-notification *ngIf="message!=''" [message]="message"></app-notification>

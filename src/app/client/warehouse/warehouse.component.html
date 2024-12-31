@@ -1,0 +1,147 @@
+<app-heaher></app-heaher>
+<div class="container-cart">
+  <div class="cart">
+    <table>
+      <thead>
+        <tr style="background-color: #b1bac346">
+          <th>
+            <input type="checkbox" [checked]="checkall" (click)="checkAll()" />
+          </th>
+          <th>THÔNG TIN SẢN PHẨM</th>
+          <th>ĐƠN GIÁ</th>
+          <th>SỐ LƯỢNG</th>
+          <th>SIZE</th>
+          <th>COLOR</th>
+          <th>THÀNH TIỀN</th>
+          <th>XÓA</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let cart of cartList">
+        <tr *ngFor="let product of productOrderIds[cart.idproduct]">
+          <td>
+            <input
+              type="checkbox"
+              (click)="checkidCart(cart.idcart)"
+              [checked]="idcart[cart.idcart]"
+            />
+          </td>
+          <td>
+            <div class="product">
+              <img *ngIf="product.image[0].image4" [src]="product.image[0].image4" alt="Balo" />
+              <div>
+                <div class="name">{{ product.nameproduct }}</div>
+                <div></div>
+              </div>
+            </div>
+          </td>
+          <td class="price">
+            {{ preprice(product.price, product.deprice) | number : "1.0-0" }}đ
+          </td>
+          <td>
+            <div class="quantity">
+              <div class="frame-input">
+                <button (click)="quanlity('-', cart)">-</button>
+                <input type="text" [value]="cart.quatity" />
+                <button (click)="quanlity('+', cart)">+</button>
+              </div>
+            </div>
+          </td>
+          <td class="size">{{ cart.size }}</td>
+          <td class="size">{{ cart.color }}</td>
+          <td class="price">
+            {{ totalquantity(preprice(product.price, product.deprice), cart.quatity) | number : "1.0-2" }}đ
+          </td>
+          <td>
+            <span class="material-symbols-outlined"style="cursor: pointer"
+            (click)="closeCart(cart.idcart)">
+              delete
+              </span>
+          </td>
+        </tr>
+        <!-- Thêm các sản phẩm khác tương tự ở đây -->
+      </tbody>
+    </table>
+  </div>
+  <div class="summary">
+    <div class="infor">
+      <div class="title">THÔNG TIN ĐƠN HÀNG</div>
+      <div class="total-mount">
+        Tổng tiền:
+        <span style="font-weight: bold; color: red; float: right"
+          >{{ this.totalAll | number : "1.0-2" }}đ</span
+        >
+      </div>
+      <div class="total-mount">
+        <div style="margin-bottom: 5px">
+          Giá tổng sản phẩm:
+          <span style="color: rgb(95, 90, 90); float: right">
+            {{ this.totalbuy | number : "1.0-2" }}đ</span
+          >
+        </div>
+        <div style="margin-bottom: 5px">
+          Giảm giá:
+          <span style="color: rgb(95, 90, 90); float: right"
+            >Áp dụng tại trang thanh toán</span
+          >
+        </div>
+        <div style="margin-bottom: 5px">
+          Phí vận chuyển:
+          <span style="color: rgb(95, 90, 90); float: right"
+            >Được tính tại trang thanh toán</span
+          >
+        </div>
+      </div>
+      <div class="coupon" *ngIf="couponList">
+        <div>Mã khuyến mãi có thể áp dụng:</div>
+        <div class="coupon-tags" >
+          <span
+            class="coupon-tag"
+            *ngFor="let coupon of couponList; let i = index"
+            [ngClass]="{ selected: selectedCoupon === i }"
+            (click)="changeCoupon(i)"
+            >{{ coupon.description }}</span
+          >
+        </div>
+      </div>
+
+      <div class="checkout-btn" (click)="payment()">THANH TOÁN</div>
+      <div
+        style="
+          display: block;
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          color: #1a94ff;
+          text-decoration: none;
+        "
+      >
+        Tiếp tục mua hàng
+      </div>
+    </div>
+    <div style="margin-top: 20px">
+      <div>Hỗ trợ thanh toán với</div>
+      <div style="margin-top: 10px">
+        <img
+          class="payment"
+          src="/assets/images/Momo.png"
+          alt="momo"
+          style="margin-right: 10px"
+        />
+        <img
+          class="payment"
+          src="/assets/images/Zalopay.png"
+          alt="zalopay"
+          style="margin-right: 10px"
+        />
+        <img
+          class="payment"
+          src="/assets/images/VNpay.png"
+          alt="vnpay"
+          style="margin-right: 5px"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+<app-notification *ngIf="hidenotify" [message]="message"></app-notification>
