@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Output,EventEmitter } from '@angular/core';
 import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-confirm',
@@ -8,15 +8,12 @@ import { NgClass } from '@angular/common';
   styleUrl: './confirm.component.css'
 })
 export class ConfirmComponent {
-
-
+  @Output() closeFormEvent = new EventEmitter<void>();
+  @Output() executeEvent = new EventEmitter<void>();
   delete(): void {
-
-    console.log('Delete button clicked');
+    this.executeEvent.emit()
   }
-
   closeModal(): void {
-    // Đóng modal, reset trạng thái nếu cần
-    console.log('Modal closed');
+    this.closeFormEvent.emit()
   }
 }

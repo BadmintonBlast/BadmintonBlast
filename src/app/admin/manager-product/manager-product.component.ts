@@ -4,7 +4,6 @@ import { ProductService } from '../../../services/product/product.service';
 import { TableUtil } from '../managerCustomer/tableUtil';
 import { MatTableDataSource } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-import { NgFor, NgIf } from '@angular/common';
 import { PagingComponent } from '../../components/paging/paging.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,6 +16,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatMenuModule, MatMenu } from '@angular/material/menu';
 import { DetailProductComponent } from '../detail-product/detail-product.component';
 import { ManagerHeaderComponent } from '../manager-header/manager-header.component';
+import { ConfirmComponent } from '../../components/confirm/confirm.component';
 
 @Component({
   selector: 'app-manager-product',
@@ -34,6 +34,8 @@ import { ManagerHeaderComponent } from '../manager-header/manager-header.compone
     MatMenuModule,
     MatMenu,
     ManagerHeaderComponent,
+    ConfirmComponent,
+    NotificationComponent,
   ],
   templateUrl: './manager-product.component.html',
   styleUrls: ['./manager-product.component.css'],
@@ -122,7 +124,6 @@ export class ManagerProductComponent {
       })
     );
 
-    console.log(productData); // In ra dữ liệu để kiểm tra
     TableUtil.exportArrayToExcel(productData, 'Product');
   }
 
@@ -135,15 +136,38 @@ export class ManagerProductComponent {
   openAddProduct() {
     this.statusAddProduct = true;
   }
+  idProductDelete: number = 0;
   // Function to close the add product component
+  message: string = '';
+  removeProduct() {
+    console.log(this.idProductDelete);
+    this.notification=false;
+    this.productService.deleteProductById(this.idProductDelete).subscribe({
+      next: (result) => {
+        // Xử lý thành công
+        this.idProductDelete = 0;
+        this.message = 'Sản phẩm đã được xóa thành công!';
 
-  showNotification() {
-    this.notificationMessage = 'This is a dynamic notification!';
+        this.getAllProducts();
+        setTimeout(() => {
+          this.message = ''; // Xóa thông báo sau 2 giây
+        }, 2000);
+      },
+      error: (err) => {
+        console.log(err);
+        this.message = 'Sản phẩm đã được đặt mua, nên thao tác xóa không được phép.';
+        setTimeout(() => {
+          this.message = ''; // Xóa thông báo sau 2 giây
+        }, 2000);
+      }
+    });
+   
+  }
+  
+  
+
+  showNotification(idProduct: number) {
+    this.idProductDelete = idProduct;
     this.notification = true;
-
-    // Tắt thông báo sau 3 giây
-    setTimeout(() => {
-      this.notification = false;
-    }, 3000);
   }
 }

@@ -35,8 +35,22 @@ export class BrandService {
   }
   
   updateBrand(brand: IBrand): Observable<IBrand> {
-    return this.http.put<IBrand>(`${environment.apiUrl}Brands`, brand);
+    const formData = new FormData();
+  
+    // Thêm các thuộc tính vào FormData
+    formData.append('idbrand', brand.idbrand.toString());
+    formData.append('namebrand', brand.namebrand);
+    formData.append('description', brand.description);
+  
+    // Nếu có file ảnh, thêm nó vào FormData
+    if (brand.image) {
+      formData.append('image', brand.image, brand.image.name);
+    }
+  
+    // Gửi yêu cầu PUT tới API
+    return this.http.put<IBrand>(`${environment.apiUrl}Brands?id=${brand.idbrand}`, formData);
   }
+  
   deleteBrand(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.apiUrl}Brands/${id}`);
   }

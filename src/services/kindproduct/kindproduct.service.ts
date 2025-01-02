@@ -23,13 +23,17 @@ export class KindproductService {
     return this.http.post<Ikindproduct>(`${environment.apiUrl}KindProducts/Insert`, formData);
   }
   updateKindProduct(product: Ikindproduct): Observable<Ikindproduct> {
-    return this.http.put<Ikindproduct>(`${environment.apiUrl}KindProducts/${product.idkindproduct}`, product);
+    const formData = new FormData();
+    formData.append('Idkindproduct',product.idkindproduct.toString());
+    formData.append('Nameproduct', product.nameproduct);
+    formData.append('Image', product.image);
+    return this.http.put<Ikindproduct>(`${environment.apiUrl}KindProducts/${product.idkindproduct}`, formData );
   }
 
-  getIdKindProduct(product: Ikindproduct): Observable<Ikindproduct> {
-    return this.http.get<Ikindproduct>(`${environment.apiUrl}KindProducts/${product.idkindproduct}`);
+  getIdKindProduct(id:number): Observable<Ikindproduct> {
+    return this.http.get<Ikindproduct>(`${environment.apiUrl}KindProducts/${id}`);
   }
-  deleteKindProduct(product: Ikindproduct): Observable<void> {
-    return this.http.delete<void>(`${environment.apiUrl}KindProducts/${product.idkindproduct}`);
+  deleteKindProduct(id:number): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}KindProducts/${id}`);
   }
 }

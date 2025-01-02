@@ -1,6 +1,7 @@
 <div class="modal-overlay" >
     <div class="container">
-      <h3>Thêm Loại Sản Phẩm</h3>
+      <h3 *ngIf="idkindProduct!=0">Sửa Loại Sản Phẩm</h3>
+      <h3 *ngIf="idkindProduct==0">Thêm Loại Sản Phẩm</h3>
       <form (ngSubmit)="onSubmit()">
         <div>
           <label for="nameproduct">Tên sản phẩm:</label>

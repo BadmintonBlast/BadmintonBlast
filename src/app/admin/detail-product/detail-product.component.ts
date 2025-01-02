@@ -32,7 +32,7 @@ import { Image } from '../../../interfaces/i-Product';
 import { NotificationComponent } from '../../notification/notification.component';
 import { timeout } from 'rxjs';
 import { EditProductStockComponent } from '../edit-product-stock/edit-product-stock.component';
-
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-detail-product',
   standalone: true,
@@ -47,6 +47,7 @@ import { EditProductStockComponent } from '../edit-product-stock/edit-product-st
     NgxEditorModule,
     NotificationComponent,
     EditProductStockComponent,
+    RouterLink 
   ],
   templateUrl: './detail-product.component.html',
   styleUrl: './detail-product.component.css',

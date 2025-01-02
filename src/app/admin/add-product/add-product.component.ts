@@ -31,6 +31,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AddKindProductComponent } from '../add-kind-product/add-kind-product.component';
 import { AddBrandComponent } from '../add-brand/add-brand.component';
 import { EditProductStockComponent } from '../edit-product-stock/edit-product-stock.component';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-add-product',
   standalone: true,
@@ -45,6 +46,7 @@ import { EditProductStockComponent } from '../edit-product-stock/edit-product-st
     NgxEditorModule,
     AddKindProductComponent,
     AddBrandComponent,
+    RouterLink
   ],
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css'],

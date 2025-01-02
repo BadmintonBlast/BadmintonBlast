@@ -177,7 +177,6 @@ export class UserbookingComponent implements OnInit, OnDestroy {
         endTime: this.listTimeChoose[this.listTimeChoose.length - 1].endTime,
       });
     }
-    console.log(this.postTimeField);
   }
   message = '';
   convertVNDToUSD(amountVND: number, exchangeRate: number): number {

@@ -81,7 +81,7 @@
     }
 
     deleteProductById(id: number): Observable<void> {
-      return this.http.get<void>(`${environment.apiUrl}Products/Delete/${id}`);
+      return this.http.delete<void>(`${environment.apiUrl}Products/Delete/${id}`);
     }
 
     addProduct(formData: FormData,): Observable<any> {

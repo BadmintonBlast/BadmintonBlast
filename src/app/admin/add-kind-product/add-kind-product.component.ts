@@ -23,6 +23,16 @@ constructor(private KindproductService: KindproductService)
 {
 
 }
+ngOnInit()
+{
+  if(this.idkindProduct>0)
+  {
+    this.KindproductService.getIdKindProduct(this.idkindProduct).subscribe((kindproduct) => {
+      this.newKindProduct = kindproduct;
+      this.imagePreview=String(kindproduct.image)
+    });
+  }
+}
 onImageSelected(event: Event): void {
   const fileInput = event.target as HTMLInputElement;
   if (fileInput.files && fileInput.files.length > 0) {
@@ -39,18 +49,34 @@ onImageSelected(event: Event): void {
 }
 
   onSubmit(): void {
-    this.KindproductService.insertKindProduct(this.newKindProduct).subscribe({
+   if(this.idkindProduct>0)
+   {
+    console.log(this.newKindProduct)
+     this.KindproductService.updateKindProduct(this.newKindProduct).subscribe({
+      next: (response) => {
+        console.log('Thêm thành công:', response);
+        alert('Cập nhật thương hiệu thành công!');
+        this.closeModal();
+      },
+      error: (err) => {
+        alert('Lỗi cập nhật thương hiệu thất bại!');
+      }
+    });
+   }else
+   {
+    this.KindproductService.updateKindProduct(this.newKindProduct).subscribe({
       next: (response) => {
         console.log('Thêm thành công:', response);
         alert('Thêm thương hiệu thành công!');
+        this.closeModal();
       },
       error: (err) => {
-        console.error('Có lỗi xảy ra:', err);
         alert('Thêm thương hiệu thất bại!');
       }
     });
     
-    this.closeModal();
+    
+   }
   }
 
   closeModal(): void {

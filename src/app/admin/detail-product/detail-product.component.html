@@ -1,6 +1,6 @@
 <div class="container">
     <div class="header">
-      <span class="material-symbols-outlined" style="cursor: pointer">
+      <span class="material-symbols-outlined" style="cursor: pointer" [routerLink]="'menu/sanpham'">
         arrow_back
       </span>
       <a class="add-product">
@@ -16,14 +16,20 @@
           maxlength="20"
           placeholder="Nhập tên sản phẩm"
         />
-        <p class="note"></p>
-        <label>Trạng thái</label>
-        <select
-        [(ngModel)]="Product.available"
-      >
-        <option class="active-status" [value]="1">Active</option>
-        <option class="inactive-status" [value]="0">Inactive</option>
-      </select>
+        <p class="note">Nhập giảm giá khi có giảm giá</p>
+        <div class="dropdowns">
+          <div>
+            <label>Giảm giá</label>
+            <input type="number" [(ngModel)]="Product.deprice"/>
+          </div>
+          <div>
+            <label>Trạng thái</label>
+            <select [(ngModel)]="Product.available">
+              <option class="active-status" [value]="1">Active</option>
+              <option class="inactive-status" [value]="0">Inactive</option>
+            </select>
+          </div>
+        </div>
         <div class="dropdowns">
           <div>
             <label>Loại</label>

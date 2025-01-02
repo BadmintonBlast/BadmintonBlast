@@ -123,13 +123,13 @@
               <mat-menu #menu="matMenu">
                 <button
                   mat-menu-item
-                  (click)="editBrand(element.idbrand)"
+                  (click)="editKindProduct(element.idkindproduct)"
                 >
                   Chỉnh sửa
                 </button>
                 <button
                   mat-menu-item
-                  (click)="deleteBrand(element.idbrand)"
+                  (click)="deleteKindProduct(element.idkindproduct)"
                 >Xóa</button>
               </mat-menu>
             </td>
@@ -148,3 +148,8 @@
     </div>
   </div>
 </div>
+<app-confirm *ngIf="notification" (closeFormEvent)="notification=false" (executeEvent)="removeBrand()"></app-confirm>
+<app-confirm *ngIf="notificationKindProduct" (closeFormEvent)="notificationKindProduct=false" (executeEvent)="removeKindProduct()"></app-confirm>
+<app-notification *ngIf="message!=''" [message]="message"></app-notification>
+<app-add-brand *ngIf="idBrandEdit" [idBrand]="idBrandEdit" (closeFormEvent)="idBrandEdit=0"></app-add-brand>
+<app-add-kind-product *ngIf="idKindProductEdit"  [idkindProduct]="idKindProductEdit" (closeFormEvent)="idKindProductEdit=0"></app-add-kind-product>

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="header">
-    <span class="material-symbols-outlined" style="cursor: pointer">
+    <span class="material-symbols-outlined" style="cursor: pointer" [routerLink]="'menu/sanpham'">
       arrow_back
     </span>
     <a href="#" class="add-product">
@@ -16,15 +16,11 @@
         maxlength="20"
         placeholder="Nhập tên sản phẩm"
       />
+      <p class="note">Nhập giảm giá khi có giảm giá</p>
       <div class="dropdowns">
         <div>
-          <label>Loại</label>
-          <select [(ngModel)]="Product.idkindproduct">
-            <option value="" disabled selected>Chọn loại sản phẩm</option>
-            <option *ngFor="let kind of Kinds" [value]="kind.idkindproduct">
-              {{ kind.nameproduct }}
-            </option>
-          </select>
+          <label>Giảm giá</label>
+          <input type="number" [(ngModel)]="Product.deprice"/>
         </div>
         <div>
           <label>Trạng thái</label>

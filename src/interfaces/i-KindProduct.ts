@@ -1,6 +1,6 @@
 export interface Ikindproduct
 {
     idkindproduct:number;
-    nameproduct: string;
+    nameproduct: string|'';
     image:File;
 }

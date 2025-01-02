@@ -1,6 +1,7 @@
 <div class="modal-overlay" >
   <div class="container">
-    <h3>Thêm Thương Hiệu</h3>
+    <h3 *ngIf="idBrand!=0">Sửa Thương Hiệu</h3>
+    <h3 *ngIf="idBrand==0">Thêm Thương Hiệu</h3>
     <form (ngSubmit)="onSubmit()">
       <div>
         <label for="namebrand">Tên thương hiệu:</label>
