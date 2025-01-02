@@ -30,7 +30,7 @@ getIdProductStock(id :number): Observable<IProductStock> {
    return this.http.get<IProductStock[]>(`${environment.apiUrl}ProductStock/Product/${idproduct}`);
  }        
 
- deleteProductId(Id: string): Observable<IProductStock> {
-  return this.http.delete<IProductStock>(`${environment.apiUrl}ProductStock/Product/${Id}`);
+ deleteProductId(Id: number): Observable<IProductStock> {
+  return this.http.delete<IProductStock>(`${environment.apiUrl}ProductStocks/${Id}`);
 }
 }

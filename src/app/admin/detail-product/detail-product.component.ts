@@ -11,12 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { DetailImageComponent } from '../../detail-image/detail-image.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { IProductStock } from '../../../interfaces/i-ProductStock';
 import { MatTableModule } from '@angular/material/table';
 import { IBrand } from '../../../interfaces/i-Brand';
-import { PagingComponent } from '../../components/paging/paging.component';
 import { BrandService } from '../../../services/brand/brand.service';
 import { KindproductService } from '../../../services/kindproduct/kindproduct.service';
 import { Ikindproduct } from '../../../interfaces/i-KindProduct';
@@ -29,8 +27,8 @@ import { Editor } from 'ngx-editor';
 import { ChangeDetectorRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Image } from '../../../interfaces/i-Product';
+import { forkJoin } from 'rxjs';
 import { NotificationComponent } from '../../notification/notification.component';
-import { timeout } from 'rxjs';
 import { EditProductStockComponent } from '../edit-product-stock/edit-product-stock.component';
 import { RouterLink } from '@angular/router';
 @Component({
@@ -122,6 +120,23 @@ export class DetailProductComponent implements OnInit {
   }
 
   removeProductStock(product: IProductStock): void {
+    console.log(product.id)
+    if (product.id != 0) {
+      this.productstock.deleteProductId(product.id).subscribe({
+        next: () => {
+          this.message = 'Xóa thành công';
+          setTimeout(() => {
+            this.message = '';
+          }, 2000);
+        },
+        error: (error) => {
+          this.message = 'Xóa không thành công';
+          setTimeout(() => {
+            this.message = '';
+          }, 2000);
+        },
+      });
+    }
     const index = this.productStocks.indexOf(product);
     if (index >= 0) {
       this.productStocks.splice(index, 1);
@@ -209,26 +224,31 @@ export class DetailProductComponent implements OnInit {
     });
     this.productService.updateProduct(formData, this.idProduct).subscribe({
       next: () => {
-        for (let i = 0; i < this.productStocks.length; ) {
-          this.productStocks[i].idproduct = this.idProduct;
-          console.log(this.productStocks);
-          if (this.productStocks[i].id === 0) {
-            this.productstock.insertProductStock(this.productStocks[i]).subscribe({
-              next: (res: any) => {},
-              error: (error: any) => {
-                console.error(error);
-              },
-            }); 
+        const productStockRequests = this.productStocks.map((stock) => {
+          stock.idproduct = this.idProduct;
+    
+          // Nếu `id` là 0, thì gọi API thêm mới
+          if (stock.id === 0) {
+            return this.productstock.insertProductStock(stock);
           }
-        }
-        this.message = 'Cập nhật thành công';
-        setTimeout(() => {
-          this.message = '';
-        }, 2000);
-        this.cdr.detectChanges();
+          return null; // Không làm gì nếu không cần thêm
+        }).filter(req => req !== null); // Loại bỏ các giá trị null
+    
+        // Đợi tất cả các yêu cầu thêm `ProductStock` hoàn thành
+        forkJoin(productStockRequests).subscribe({
+          next: () => {
+            this.message = 'Cập nhật thành công';
+            setTimeout(() => {
+              this.message = '';
+            }, 2000);
+          },
+          error: (error) => {
+            console.error('Lỗi khi thêm ProductStock:', error);
+          },
+        });
       },
       error: (err) => {
-        console.error('error', err);
+        console.error('Lỗi khi cập nhật sản phẩm:', err);
       },
     });
   }
