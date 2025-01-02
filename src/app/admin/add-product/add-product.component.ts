@@ -30,7 +30,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddKindProductComponent } from '../add-kind-product/add-kind-product.component';
 import { AddBrandComponent } from '../add-brand/add-brand.component';
-import { EditProductStockComponent } from "../edit-product-stock/edit-product-stock.component";
+import { EditProductStockComponent } from '../edit-product-stock/edit-product-stock.component';
 @Component({
   selector: 'app-add-product',
   standalone: true,
@@ -45,7 +45,7 @@ import { EditProductStockComponent } from "../edit-product-stock/edit-product-st
     NgxEditorModule,
     AddKindProductComponent,
     AddBrandComponent,
-],
+  ],
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -231,9 +231,10 @@ export class AddProductComponent implements OnInit, OnDestroy {
     return (
       this.Product.nameproduct &&
       this.Product.price > 0 &&
-      (this.productStocks.length > 0 &&
-      this.Product.idkindproduct !== 2)&& this.Product.description!==''&&
-      this.Product.idbrand!==0&&this.selectedImagesList.length!=0
+      this.productStocks.length > 0 &&
+      this.Product.description !== '' &&
+      this.Product.idbrand !== 0 &&
+      this.selectedImagesList.length != 0
     );
   }
 
@@ -265,5 +266,4 @@ export class AddProductComponent implements OnInit, OnDestroy {
   openModalBrand(): void {
     this.isModalBrand = true;
   }
-  
 }

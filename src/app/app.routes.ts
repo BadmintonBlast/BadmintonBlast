@@ -37,7 +37,7 @@ export const routes: Routes = [
   { path: 'sanpham', component: CategoriesComponent },
   { path: 'datsan', component: CourtComponent },
   { path: 'khachhang', component: UserComponent, canActivate: [authGuard] },
-  { path: 'menu/:index', component: MenuManagerComponent,canActivate: [adminAuthGuard]},
+  { path: 'menu/:index', component: MenuManagerComponent},
   // { path: 'giohang', component: CartComponent },
   { path: 'sanpham/:id/:name', component: CategoriesComponent },
   { path: 'sanpham/:keyword', component: CategoriesComponent },

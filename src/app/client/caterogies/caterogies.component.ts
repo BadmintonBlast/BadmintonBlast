@@ -15,6 +15,7 @@ import { Ikindproduct } from '../../../interfaces/i-KindProduct';
 import { Navigation } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-categories',
   standalone: true,
@@ -22,6 +23,7 @@ import { Router } from '@angular/router';
     HeaherComponent,
     FooterComponent,
     CommonModule,
+    FormsModule 
   ],
   templateUrl: './caterogies.component.html',
   styleUrls: ['./caterogies.component.css'],
@@ -166,7 +168,21 @@ export class CategoriesComponent {
       this.maxPrice
     );
   }
-
+  fillterPrice()
+  {
+    this.products=[]
+    console.log(this.minPrice,this.maxPrice)
+    this.getProducts(
+      this.keyword,
+      this.Idkindproduct,
+      this.pageSize,
+      this.pageIndex,
+      this.discount,
+      this.idbrand,
+      this.minPrice,
+      this.maxPrice
+    );
+  }
   detailproduct(id: number, name: string) {
     if (id === undefined || id === null) {
       console.error('ID sản phẩm không hợp lệ:', id);

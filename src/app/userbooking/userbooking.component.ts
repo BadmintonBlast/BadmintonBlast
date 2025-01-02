@@ -42,6 +42,7 @@ export class UserbookingComponent implements OnInit, OnDestroy {
   nameCustomer: string = '';
   phoneCustomer: string = '';
   messageSlot: string = '';
+  role:string=''
   constructor(
     private route: ActivatedRoute,
     private slotSelectionService: SlotSelectionService,
@@ -55,11 +56,11 @@ export class UserbookingComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.fetchExchangeRate();
     this.idCustomer = this.customerService.getClaimValue();
+    this.role =localStorage.getItem('role');
     this.slotSelectionService.selectedSlots$.subscribe((slots) => {
       this.selectedSlots = slots;
-      console.log(this.selectedSlots)
-      if(this.selectedSlots.length==0)
-      {
+      console.log(this.selectedSlots);
+      if (this.selectedSlots.length == 0) {
         this.router.navigate(['/datsan']);
       }
       this.selectedSlots.sort((a, b) => {
@@ -217,66 +218,116 @@ export class UserbookingComponent implements OnInit, OnDestroy {
       throw new Error('Invalid time format');
     }
 
-    // Load PayPal script and render the PayPal button
-    this.paypalService.loadPayPalScript().then(() => {
-      this.paypalService.renderPayPalButton(
-        'paypal-container',
-        monney,
-        (details: any) => {
-          // Once PayPal payment is successful, create the invoice
-          const invoice: IInvoiceCreate = {
-            idInvoice: 0,
-            idcustomer: this.idCustomer,
-            totalamount: this.totalAmount,
-            paymentmethod: 'PayPal', // Set payment method to PayPal
-            customername: this.nameCustomer,
-            customerphone: this.phoneCustomer,
-            transactioncode: details.transactioncode, // Use the PayPal transaction code
-            reservationdate: this.date,
-            status: true,
-          };
+    // Check if the user is Admin
+    if (this.role === 'Admin') {
+      // Directly create the invoice and reservations without PayPal
+      const invoice: IInvoiceCreate = {
+        idInvoice: 0,
+        idcustomer: this.idCustomer,
+        totalamount: this.totalAmount,
+        paymentmethod: 'Admin', // No payment required
+        customername: this.nameCustomer,
+        customerphone: this.phoneCustomer,
+        transactioncode: 'AdminTransaction', // Dummy transaction code for Admin
+        reservationdate: this.date,
+        status: true,
+      };
 
-          // Create the invoice in the database
-          this.reservationService
-            .createInvoice(invoice)
-            .forEach((createdInvoice) => {
-              let i = 0;
+      this.reservationService
+        .createInvoice(invoice)
+        .forEach((createdInvoice) => {
+          let i = 0;
 
-              // Loop through time fields for reservation
-              this.postTimeField.forEach((timefield) => {
-                const reservationData: IReservation = {
-                  idReservation: 0,
-                  idField: null,
-                  idcustomer: Number(this.idCustomer),
-                  idhourlyrates: null,
-                  starttimerates: convertToTimeString(timefield.startTime),
-                  endtimerates: convertToTimeString(timefield.endTime),
-                  namecustomer: this.nameCustomer,
-                  transactioncode: details.transactioncode, // PayPal transaction code
-                  price: 200, // Example price, can be modified
-                  namefield: timefield.field,
-                  fieldstatus: '',
-                  missingSlots: this.html,
-                  idinvoice: createdInvoice.newInvoiceId, // Link reservation to created invoice
-                };
+          this.postTimeField.forEach((timefield) => {
+            const reservationData: IReservation = {
+              idReservation: 0,
+              idField: null,
+              idcustomer: Number(this.idCustomer),
+              idhourlyrates: null,
+              starttimerates: convertToTimeString(timefield.startTime),
+              endtimerates: convertToTimeString(timefield.endTime),
+              namecustomer: this.nameCustomer,
+              transactioncode: 'AdminTransaction',
+              price: 200, // Example price
+              namefield: timefield.field,
+              fieldstatus: '',
+              missingSlots: this.html,
+              idinvoice: createdInvoice.newInvoiceId,
+            };
 
-                // Create the reservation in the database
-                this.reservationService
-                  .createReservation(reservationData)
-                  .forEach(() => {
-                    i++;
-                    if (i === this.postTimeField.length) {
-                      this.message = 'Đặt sân thành công';
-                      setTimeout(() => {
-                        this.message = '';
-                        this.router.navigate(['/datsan']);
-                      }, 2000);
-                    }
-                  });
+            this.reservationService
+              .createReservation(reservationData)
+              .forEach(() => {
+                i++;
+                if (i === this.postTimeField.length) {
+                  this.message = 'Đặt sân thành công';
+                  setTimeout(() => {
+                    this.message = '';
+                    this.router.navigate(['/datsan']);
+                  }, 2000);
+                }
               });
-            });
-        }
-      );
-    });
+          });
+        });
+    } else {
+      // Load PayPal script and render the PayPal button
+      this.paypalService.loadPayPalScript().then(() => {
+        this.paypalService.renderPayPalButton(
+          'paypal-container',
+          monney,
+          (details: any) => {
+            // Once PayPal payment is successful, create the invoice
+            const invoice: IInvoiceCreate = {
+              idInvoice: 0,
+              idcustomer: this.idCustomer,
+              totalamount: this.totalAmount,
+              paymentmethod: 'PayPal',
+              customername: this.nameCustomer,
+              customerphone: this.phoneCustomer,
+              transactioncode: details.transactioncode,
+              reservationdate: this.date,
+              status: true,
+            };
+
+            this.reservationService
+              .createInvoice(invoice)
+              .forEach((createdInvoice) => {
+                let i = 0;
+
+                this.postTimeField.forEach((timefield) => {
+                  const reservationData: IReservation = {
+                    idReservation: 0,
+                    idField: null,
+                    idcustomer: Number(this.idCustomer),
+                    idhourlyrates: null,
+                    starttimerates: convertToTimeString(timefield.startTime),
+                    endtimerates: convertToTimeString(timefield.endTime),
+                    namecustomer: this.nameCustomer,
+                    transactioncode: details.transactioncode,
+                    price: 200,
+                    namefield: timefield.field,
+                    fieldstatus: '',
+                    missingSlots: this.html,
+                    idinvoice: createdInvoice.newInvoiceId,
+                  };
+
+                  this.reservationService
+                    .createReservation(reservationData)
+                    .forEach(() => {
+                      i++;
+                      if (i === this.postTimeField.length) {
+                        this.message = 'Đặt sân thành công';
+                        setTimeout(() => {
+                          this.message = '';
+                          this.router.navigate(['/datsan']);
+                        }, 2000);
+                      }
+                    });
+                });
+              });
+          }
+        );
+      });
+    }
   }
 }

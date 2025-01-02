@@ -8,10 +8,10 @@ export const adminAuthGuard: CanActivateFn = (route, state) => {
   if (typeof window !== 'undefined' && window.localStorage) {
     const token = localStorage.getItem('user_token');
     const role = localStorage.getItem('role');
-    if (token && role === 'Quản lý') {
+    if (token && role === 'Admin') {
       return true;
     } else {
-      router.navigate(['/admin']); // Điều hướng đến trang đăng nhập nếu chưa đăng nhập
+      router.navigate(['/menu/thongke']); // Điều hướng đến trang đăng nhập nếu chưa đăng nhập
       return false;
     }
   }
@@ -27,9 +27,10 @@ export const staffAuthGuard: CanActivateFn = (route, state) => {
     const token = localStorage.getItem('user_token');
     const role = localStorage.getItem('role');
     if (token && (UpTower(role) === 'customer' || role === 'admin')) {
+      router.navigate(['/khachhang']);
       return true;
     } else {
-      router.navigate(['/admin']);
+      router.navigate(['/home']);
       return false;
     }
   }

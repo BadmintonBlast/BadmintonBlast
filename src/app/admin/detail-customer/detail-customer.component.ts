@@ -51,7 +51,10 @@ export class DetailCustomerComponent {
       })
     }
     updateCustomer() {
-      console.log(this.customer);
+      this.customerservice.getCustomerId(this.customerId).subscribe(data=>{
+        this.customer = data;
+        
+      })
     
       const formData = new FormData();
 

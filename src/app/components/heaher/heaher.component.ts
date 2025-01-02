@@ -47,15 +47,10 @@ export class HeaherComponent {
   }
   checklogin() {
     this.idcustomer = this.customerservice.getClaimValue();
-    const role = localStorage.getItem('role')?.toLowerCase();
-    if (this.idcustomer && role) {
-      if (role === 'customer') {
+    if (this.idcustomer) {
         this.router.navigate(['/khachhang']);
-      } else if (role === 'admin') {
-        this.router.navigate(['/menu/thongke']);
-      } else {       
         this.openLogin();  
-      }
+      
     } else {
       this.openLogin();
     }

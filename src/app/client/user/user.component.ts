@@ -57,7 +57,7 @@ export class UserComponent implements OnDestroy {
   bills: IBillDetail[] = []; // Mảng lưu thông tin các hóa đơn
   ordersByBillId: { [key: number]: IOrder[] } = {}; // Lưu đơn hàng theo idbill
   productOrderIds: { [key: number]: IProduct[] } = {};
-  role = localStorage.getItem('role')?.toLowerCase();
+  role = localStorage.getItem('role');
   constructor(
     private customer: CustomersService,
     private billService: BillService,

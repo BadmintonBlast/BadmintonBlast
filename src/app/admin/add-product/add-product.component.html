@@ -16,13 +16,25 @@
         maxlength="20"
         placeholder="Nhập tên sản phẩm"
       />
-      <label>Trạng thái</label>
-      <select
-      [(ngModel)]="Product.available"
-    >
-      <option class="active-status" [value]="1">Active</option>
-      <option class="inactive-status" [value]="0">Inactive</option>
-    </select>
+      <div class="dropdowns">
+        <div>
+          <label>Loại</label>
+          <select [(ngModel)]="Product.idkindproduct">
+            <option value="" disabled selected>Chọn loại sản phẩm</option>
+            <option *ngFor="let kind of Kinds" [value]="kind.idkindproduct">
+              {{ kind.nameproduct }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label>Trạng thái</label>
+          <select [(ngModel)]="Product.available">
+            <option class="active-status" [value]="1">Active</option>
+            <option class="inactive-status" [value]="0">Inactive</option>
+          </select>
+        </div>
+      </div>
+
       <div class="dropdowns">
         <div>
           <label>Loại</label>
@@ -96,8 +108,8 @@
         </div>
         @for(image of selectedImagesList; track image; let i = $index){
         <div class="image-upload-box">
-            <img [src]="getImageUrl(image)" class="" alt="Selected Image" />
-            <button (click)="removeImage(i)" class="delete-btn">x</button>
+          <img [src]="getImageUrl(image)" class="" alt="Selected Image" />
+          <button (click)="removeImage(i)" class="delete-btn">x</button>
         </div>
         }
       </div>
@@ -134,9 +146,12 @@
               <td>{{ productStock.namesize }}</td>
               <td>{{ productStock.quatity }}</td>
               <td>
-                <span class="material-symbols-outlined"(click)="removeProductStock(productStock)">
+                <span
+                  class="material-symbols-outlined"
+                  (click)="removeProductStock(productStock)"
+                >
                   delete
-                  </span>
+                </span>
               </td>
             </tr>
           </tbody>
@@ -145,11 +160,21 @@
 
       <div class="actions">
         <button class="add-product-btn" (click)="onAddProduct()">Thêm</button>
-        <button class="save-product-btn" (click)=" openModal()">Thương Hiệu</button>
-        <button class="schedule-btn" (click)="openModalBrand()">Loại</button>
+        <button class="save-product-btn" (click)="openModalBrand()">
+          Thương Hiệu
+        </button>
+        <button class="schedule-btn" (click)="openModal()">Loại</button>
       </div>
     </div>
   </div>
 </div>
-<app-add-kind-product [isModalOpen]="isModalOpen"></app-add-kind-product>
-<app-add-brand [isModalBrand]="isModalBrand"></app-add-brand>
+<app-add-kind-product
+  *ngIf="isModalOpen"
+  (closeFormEvent)="isModalOpen = false">
+</app-add-kind-product>
+
+<app-add-brand
+  *ngIf="isModalBrand"
+  (closeFormEvent)="isModalBrand = false">
+</app-add-brand>
+

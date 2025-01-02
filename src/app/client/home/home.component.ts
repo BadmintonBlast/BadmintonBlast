@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
   }
     
   getKindProductService() {
-    this.kindproductService.getKindproducts().subscribe((data) => {
+    this.kindproductService.getKindproductPage(1,10).subscribe((data) => {
       this.kindproduct = data;
     });
   }

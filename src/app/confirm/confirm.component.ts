@@ -3,7 +3,7 @@ import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-confirm',
   standalone: true,
-  imports: [NgClass],
+  imports: [],
   templateUrl: './confirm.component.html',
   styleUrl: './confirm.component.css'
 })

@@ -56,6 +56,21 @@ export class ManagerCustomerComponent implements OnDestroy {
     'Vai trò',
     'Hành động',
   ];
+  customer: ICustomer = {
+      idcustomer: 0,
+      namecustomer: '',
+      imageCustomer: '',
+      phone: '',
+      province: '',
+      district: '',
+      village: '',
+      hamlet: '',
+      email: '',
+      passwordHash: '',
+      status: false,
+      role: '',
+      birthday: new Date(),
+    };
   constructor(
     private customersService: CustomersService,
     private formBuilder: FormBuilder
@@ -160,11 +175,20 @@ export class ManagerCustomerComponent implements OnDestroy {
       },
     });
   }
-  editCustomer(customerId: number) {
-    this.selectedCustomerId = customerId;
-    this.statusUser = true;
+  editCustomer(customerId: number,status:boolean) {
+    this.customersService.getCustomerId(customerId).subscribe(data=>{
+      this.customer = data;
+      this.customer.status=status;
+      this.updateCustomer();
+    })
   }
-
+  editRoleCustomer(customerId: number,role:string)   {
+    this.customersService.getCustomerId(customerId).subscribe(data=>{
+      this.customer = data;
+      this.customer.role=role;
+      this.updateCustomer();
+    })
+  }
   exportCustomerArrayToExcel() {
     // Lọc dữ liệu và loại bỏ trường passwordHash
     const customerData: Partial<ICustomer>[] = this.dataSource.data.map(
@@ -187,6 +211,42 @@ export class ManagerCustomerComponent implements OnDestroy {
     // Trả về định dạng số điện thoại với các số giữa được thay bằng dấu *
     return `${start}*****${end}`;
   }
+
+  updateCustomer() {
+    const formData = new FormData();
+    // Thêm các giá trị vào formData từ customer
+    formData.append('idcustomer', String(this.customer.idcustomer));
+    // Các trường khác của customer
+    formData.append('namecustomer', this.customer.namecustomer || '');
+    formData.append('phone', this.customer.phone || '');
+    formData.append('province', this.customer.province || '');
+    formData.append('district', this.customer.district || '');
+    formData.append('village', this.customer.village || '');
+    formData.append('hamlet', this.customer.hamlet || '');
+    formData.append('email', this.customer.email || '');
+    formData.append('passwordHash', this.customer.passwordHash || '');
+    formData.append('status', String(this.customer.status));  // Đảm bảo status là chuỗi
+    formData.append('role', this.customer.role || '');
+   if (this.customer.birthday) {
+    // Nếu birthday là chuỗi, chuyển nó thành đối tượng Date
+    const birthdayDate = typeof this.customer.birthday === 'string' 
+      ? new Date(this.customer.birthday) 
+      : this.customer.birthday;
+  
+    // Kiểm tra xem đối tượng có phải là Date hợp lệ không
+    if (birthdayDate instanceof Date && !isNaN(birthdayDate.getTime())) {
+      formData.append('birthday', birthdayDate.toISOString().split('T')[0]);
+    }
+  
+    // Gửi request tới API
+    this.customersService.updateCustomer(this.customer.idcustomer, formData).subscribe(data => {
+      console.log('hi')
+      this.loadCustomers();
+    }, error => {
+      console.error('Error updating customer:', error);
+    });
+  }
+}
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

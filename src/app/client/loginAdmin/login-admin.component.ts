@@ -12,7 +12,7 @@ import { NotificationComponent } from '../../notification/notification.component
 import { CustomersService } from '../../../services/customer/customers.service';
 import { ILogin } from '../../../interfaces/i-Customers';
 import { Router } from '@angular/router';
-import { error } from 'node:console';
+import { switchMap } from 'rxjs';
 @Component({
   selector: 'app-login-admin',
   standalone: true,
@@ -73,20 +73,63 @@ export class LoginAdminComponent {
   checkOtpNewPassword: boolean = false;
   ngOnInit() {}
 
-  submitlogin(email: string, password: string) {
-    this.customerservice.insertlogin(email, password).subscribe((data) => {
-      this.message = data;
-      this.hidenotify = true;
-      setTimeout(() => {
-        this.hidenotify = false;
-        if (this.message == 'Đăng nhập thành công') {
-            this.router.navigate(['/khachhang'])
+  submitlogin(email: string, password: string): void {
+    this.hidenotify = false; // Reset notification state
+  
+    // Check if the email exists
+    this.customerservice.getEmail(email).subscribe(
+      (exists) => {
+        if (exists) {
+          // Proceed with login if email exists
+          this.customerservice.insertlogin(email, password).subscribe(
+            (data) => {
+              this.message = data;
+              this.hidenotify = true;
+  
+              setTimeout(() => {
+                this.hidenotify = false;
+  
+                if (this.message === 'Đăng nhập thành công') {
+                  // Navigate to the customer dashboard on successful login
+                  this.router.navigate(['/khachhang']);
+                } else {
+                  // Show "Forgot Password" option if login fails
+                  this.routerforget = 'Quên mật khẩu';
+                }
+              }, 1000);
+            },
+            (error) => {
+              // Handle error during login
+              this.message = 'Đã xảy ra lỗi trong quá trình đăng nhập. Vui lòng thử lại.';
+              this.hidenotify = true;
+  
+              setTimeout(() => {
+                this.hidenotify = false;
+              }, 2000);
+            }
+          );
         } else {
-          this.routerforget = 'Quên mật khẩu';
+          // Email does not exist
+          this.message = 'Email không tồn tại. Vui lòng kiểm tra lại.';
+          this.hidenotify = true;
+  
+          setTimeout(() => {
+            this.hidenotify = false;
+          }, 2000);
         }
-      }, 1000);
-    });
+      },
+      (error) => {
+        // Handle error during email check
+        this.message = 'Đã xảy ra lỗi khi kiểm tra email. Vui lòng thử lại.';
+        this.hidenotify = true;
+  
+        setTimeout(() => {
+          this.hidenotify = false;
+        }, 2000);
+      }
+    );
   }
+  
   checkEmail(email: string): void {
     if (email && email.trim()) {
       this.otpservice.OTPEmail(email).subscribe((response) => {
@@ -108,39 +151,36 @@ export class LoginAdminComponent {
     }
   }
   verifyOTP(email: string, otp: string): void {
-    // Check if the email exists first
-    this.customerservice.getEmail(email).subscribe((data) => {
-      if (data.length > 0) {
-        // If email exists, proceed with OTP verification
-        this.otpservice.CheckOTPEmail(email, otp).subscribe(
-          (response) => {
-            // Thành công
-            this.isDisabled = false; // Mở khóa input
-            this.changeColor = true;
-          },
-          (error) => {
-            // OTP không hợp lệ hoặc đã hết hạn
-            this.message = 'Mã OTP không hợp lệ hoặc đã hết hạn. Vui lòng thử lại.';
-            this.hidenotify = true; // Hiển thị thông báo
-      
-            // Tự động ẩn sau 2 giây
-            setTimeout(() => {
-              this.hidenotify = false;
-            }, 2000);
-          }
-        );
-      } else {
-        // Nếu email không tồn tại
-        this.message = 'Email không hợp lệ. Vui lòng kiểm tra lại.';
-        this.hidenotify = true; // Hiển thị thông báo
-      
-        // Tự động ẩn sau 2 giây
+    console.log(email);
+  
+    // Disable button and reset state during the process
+    this.isDisabled = true;
+    this.changeColor = false;
+    this.hidenotify = false;
+  
+    // Directly verify the OTP without checking email existence
+    this.otpservice.CheckOTPEmail(email, otp).subscribe(
+      (response) => {
+        // Successful OTP verification
+        this.isDisabled = false; // Unlock input
+        this.changeColor = true;
+      },
+      (error) => {
+        // OTP invalid or expired
+        this.message = 'Mã OTP không hợp lệ hoặc đã hết hạn. Vui lòng thử lại.';
+        this.hidenotify = true; // Show notification
+  
+        // Automatically hide notification after 2 seconds
         setTimeout(() => {
           this.hidenotify = false;
         }, 2000);
+  
+        // Re-enable the button in case of error
+        this.isDisabled = false;
       }
-    });
+    );
   }
+  
   
 
   register(): void {
@@ -204,11 +244,13 @@ export class LoginAdminComponent {
         .changePassword(this.login.email, this.newPassword)
         .subscribe({
           next: (response) => {
-            console.log(response);
             this.message = 'Đổi mật khẩu thành công';
             this.hidenotify = true;
             setTimeout(() => {
               this.hidenotify = false;
+              this.forget=false;
+              this.showlogin=true;
+
             }, 2000);
           },
           error: (error) => {

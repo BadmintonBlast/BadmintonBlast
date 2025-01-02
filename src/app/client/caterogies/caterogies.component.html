@@ -16,9 +16,9 @@
     </div>
     <div class="filter-group">
       <div class="filter-title">Khoảng Giá</div>
-      <input type="number" placeholder="₫ TỪ" style="width: 80px" />
-      <input type="number" placeholder="₫ ĐẾN" style="width: 80px" />
-      <button type="button">ÁP DỤNG</button>
+      <input type="number" [(ngModel)]="minPrice" placeholder="₫ TỪ" style="width: 80px" />
+      <input type="number" [(ngModel)]="maxPrice" placeholder="₫ ĐẾN" style="width: 80px" />
+      <button type="button" (click)=" fillterPrice()">ÁP DỤNG</button>
     </div>
     <div class="filter-group">
       <div class="filter-title">Sản phẩm</div>

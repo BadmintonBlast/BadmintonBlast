@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input,Output,EventEmitter } from '@angular/core';
 import { KindproductService } from '../../../services/kindproduct/kindproduct.service';
 import { Ikindproduct } from '../../../interfaces/i-KindProduct';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './add-kind-product.component.css'
 })
 export class AddKindProductComponent {
- @Input() isModalOpen = false;
+ @Input() idkindProduct :number=0;
+ @Output() closeFormEvent = new EventEmitter<void>();
   newKindProduct:Ikindproduct = {
     idkindproduct: 0,
     nameproduct: '',
@@ -53,7 +54,7 @@ onImageSelected(event: Event): void {
   }
 
   closeModal(): void {
-    this.isModalOpen = false;
+    this.closeFormEvent.emit();
     this.imagePreview = null;
     }
   }

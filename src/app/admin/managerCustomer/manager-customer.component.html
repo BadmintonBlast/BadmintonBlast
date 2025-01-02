@@ -51,7 +51,7 @@
               <select
                 [(ngModel)]="element.status"
                 [ngClass]="element.status ? 'active-status' : 'inactive-status'"
-                [disabled]="true" 
+                (ngModelChange)="editCustomer(element.idcustomer,element.status)"
               >
                 <option [value]="true" >Active</option>
                 <option [value]="false">Inactive</option>
@@ -64,8 +64,7 @@
               Vai Trò
             </th>
             <td class="table-cell" mat-cell *matCellDef="let element">
-              <select [(ngModel)]="element.role" [ngClass]="element.role" [disabled]="true">
-                <option class="Staff" value="Staff">Staff</option>
+              <select [(ngModel)]="element.role" [ngClass]="element.role" (ngModelChange)=" editRoleCustomer(element.idcustomer,element.role)" >
                 <option class="Customer" value="Customer">Customer</option>
                 <option class="Admin" value="Admin">Admin</option>
               </select>
@@ -87,7 +86,6 @@
               <mat-menu #menu="matMenu">
                 <button
                   mat-menu-item
-                  (click)="editCustomer(element.idcustomer)"
                 >
                   Details
                 </button>

@@ -7,17 +7,25 @@ import { Ikindproduct } from '../../../interfaces/i-KindProduct';
 import { KindproductService } from '../../../services/kindproduct/kindproduct.service';
 import { MatTableModule } from '@angular/material/table';
 import { PagingComponent } from '../../components/paging/paging.component';
+import { MatMenuModule, MatMenu, MatMenuTrigger } from '@angular/material/menu';
 @Component({
   selector: 'app-brand-manager',
   standalone: true,
-  imports: [ManagerHeaderComponent, MatTableModule, PagingComponent],
+  imports: [
+    ManagerHeaderComponent,
+    MatTableModule,
+    PagingComponent,
+    MatMenu,
+    MatMenuTrigger,
+    MatMenuModule,
+  ],
   templateUrl: './brand-manager.component.html',
   styleUrl: './brand-manager.component.css',
 })
 export class BrandManagerComponent {
   Math = Math;
-  displayedColumns: string[] = ['Mã nhãn hàng', 'Hình ảnh', 'Tên'];
-  displayedColumnsKind: string[] = ['Mã loại sản phẩm', 'Hình ảnh', 'Tên'];
+  displayedColumns: string[] = ['Mã nhãn hàng', 'Hình ảnh', 'Tên','Hành động'];
+  displayedColumnsKind: string[] = ['Mã loại sản phẩm', 'Hình ảnh', 'Tên','Hành động'];
   dataSource: MatTableDataSource<IBrand> = new MatTableDataSource<IBrand>();
   datakindProduct: MatTableDataSource<Ikindproduct> =
     new MatTableDataSource<Ikindproduct>();
@@ -34,6 +42,13 @@ export class BrandManagerComponent {
     private kindProductService: KindproductService
   ) {
     this.getBrand();
+    this.getKindProduct();
+    this.kindProductService.getKindproducts().subscribe((total) => {
+      this.totalKindProduct = total.length;
+    });
+    this.brandService.getAllBrands().subscribe((total) => {
+      this.totalBrand = total.length;
+    });
   }
 
   getBrand() {
@@ -42,25 +57,30 @@ export class BrandManagerComponent {
       .subscribe((data) => {
         this.dataSource.data = data;
       });
-    this.brandService.getAllBrands().subscribe((total) => {
-      this.totalBrand = total.length;
-    });
+  }
+  getKindProduct() {
     this.kindProductService
       .getKindproductPage(this.pageindexKindProduct, this.pageSizeKindProduct)
       .subscribe((data) => {
         this.datakindProduct.data = data;
       });
-    this.kindProductService.getKindproducts().subscribe((total) => {
-      this.totalBrand = total.length;
-    });
   }
   onPageChanged(newpageindex: number) {
-    this.pageindexKindProduct=newpageindex;
+    this.pageindexKindProduct = newpageindex;
+    this.getKindProduct();
+  }
+  onPageChangedBrand(newpageindex: number) {
+    this.pageindexBrand = newpageindex;
     this.getBrand();
   }
-  onPageChangedBrand(newpageindex: number)
+  editBrand(idBrand:number)
   {
-    this.pageindexBrand=newpageindex;
-    this.getBrand();
+
+  }
+  deleteBrand(idBrand:number)
+  {
+    this.brandService.deleteBrand(idBrand).subscribe(() => {
+      this.getBrand();
+    });
   }
 }

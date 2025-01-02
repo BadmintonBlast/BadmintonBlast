@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input,EventEmitter,Output} from '@angular/core';
 import { IBrand } from '../../../interfaces/i-Brand';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,8 @@ import { BrandService } from '../../../services/brand/brand.service';
   styleUrl: './add-brand.component.css',
 })
 export class AddBrandComponent {
-  @Input() isModalBrand = false; // Biến để mở modal
+  @Input() idBrand :number=0; // Biến để mở modal
+  @Output() closeFormEvent = new EventEmitter<void>();
   imagePreview: string | null = null; // Biến để lưu đường dẫn hình ảnh xem trước
   newBrand: IBrand = {
     idbrand: 0, // hoặc giá trị mặc định phù hợp
@@ -21,7 +22,9 @@ export class AddBrandComponent {
   };
 
   constructor(private brandService: BrandService) {}
-
+  ngOnInit() {
+    
+  }
   // Hàm xử lý khi chọn file
   onImageSelected(event: Event): void {
     const fileInput = event.target as HTMLInputElement;
@@ -53,7 +56,7 @@ export class AddBrandComponent {
 
   // Đóng modal
   closeModal(): void {
-    this.isModalBrand = false;
+    this.closeFormEvent.emit()
     this.imagePreview = null;
   }
 }

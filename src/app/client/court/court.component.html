@@ -10,7 +10,7 @@
       <div class="title">LỊCH ĐẶT SÂN THEO GIỜ</div>
     </div>
     <div class="date-picker-container">
-      <input *ngIf="role === ''" 
+      <input *ngIf="role !== 'Admin'" 
         type="date"
         id="date"
         [(ngModel)]="today"
@@ -21,8 +21,6 @@
         type="date"
         id="date"
         [(ngModel)]="today"
-        [min]="minDate"
-        [max]="maxDate"
         (change)="onDateChange($event)"
         class="date-input"
       />

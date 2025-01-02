@@ -211,8 +211,13 @@ export class DetailProductComponent implements OnInit {
         for (let i = 0; i < this.productStocks.length; ) {
           this.productStocks[i].idproduct = this.idProduct;
           console.log(this.productStocks);
-          if (this.productStocks[i].id == 0) {
-            this.productstock.insertProductStock(this.productStocks[i]);
+          if (this.productStocks[i].id === 0) {
+            this.productstock.insertProductStock(this.productStocks[i]).subscribe({
+              next: (res: any) => {},
+              error: (error: any) => {
+                console.error(error);
+              },
+            }); 
           }
         }
         this.message = 'Cập nhật thành công';

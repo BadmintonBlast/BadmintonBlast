@@ -1,44 +1,44 @@
-<div class="modal-overlay" *ngIf="isModalBrand">
-    <div class="container">
-      <h3>Thêm Thương Hiệu</h3>
-      <form (ngSubmit)="onSubmit()">
-        <div>
-          <label for="namebrand">Tên thương hiệu:</label>
-          <input
-            type="text"
-            id="namebrand"
-            [(ngModel)]="newBrand.namebrand"
-            name="namebrand"
-            required
-          />
-        </div>
-        <div>
-          <label for="description">Mô tả:</label>
-          <textarea
-            id="description"
-            [(ngModel)]="newBrand.description"
-            name="description"
-            rows="3"
-          ></textarea>
-        </div>
-        <div>
-          <label for="image">Ảnh:</label>
-          <input
-            type="file"
-            id="image"
-            (change)="onImageSelected($event)"
-            name="image"
-            accept="image/*"
-            required
-          />
-        </div>
-        <div *ngIf="imagePreview" class="image-preview">
-          <p>Xem trước ảnh:</p>
-          <img [src]="imagePreview" alt="Image preview" />
-        </div>
-        <button type="submit">Lưu</button>
-        <button type="button" (click)="closeModal()">Đóng</button>
-      </form>
-    </div>
+<div class="modal-overlay" >
+  <div class="container">
+    <h3>Thêm Thương Hiệu</h3>
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label for="namebrand">Tên thương hiệu:</label>
+        <input
+          type="text"
+          id="namebrand"
+          [(ngModel)]="newBrand.namebrand"
+          name="namebrand"
+          required
+        />
+      </div>
+      <div>
+        <label for="description">Mô tả:</label>
+        <input
+          type="text"
+          id="description"
+          [(ngModel)]="newBrand.description"
+          name="description"
+          rows="3"
+        />
+      </div>
+      <div>
+        <label for="image">Ảnh:</label>
+        <input
+          type="file"
+          id="image"
+          (change)="onImageSelected($event)"
+          name="image"
+          accept="image/*"
+          required
+        />
+      </div>
+      <div *ngIf="imagePreview" class="image-preview">
+        <p>Xem trước ảnh:</p>
+        <img [src]="imagePreview" alt="Image preview" />
+      </div>
+      <button type="submit">Lưu</button>
+      <button type="button" (click)="closeModal()">Đóng</button>
+    </form>
   </div>
-  
+</div>

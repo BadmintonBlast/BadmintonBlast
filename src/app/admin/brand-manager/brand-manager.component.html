@@ -34,6 +34,33 @@
               {{ element.namebrand }}
             </td>
           </ng-container>
+          <ng-container matColumnDef="Hành động">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              <span class="material-symbols-outlined" style="font-size: 22px;">
+                settings
+                </span>
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              <span
+                style="font-size: 15px; margin-left: 8px; cursor: pointer"
+                [matMenuTriggerFor]="menu"
+                class="material-symbols-outlined"
+                >more_vert</span
+              >
+              <mat-menu #menu="matMenu">
+                <button
+                  mat-menu-item
+                  (click)="editBrand(element.idbrand)"
+                >
+                  Chỉnh sửa
+                </button>
+                <button
+                  mat-menu-item
+                  (click)="deleteBrand(element.idbrand)"
+                >Xóa</button>
+              </mat-menu>
+            </td>
+          </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
@@ -80,13 +107,40 @@
               {{ element.nameproduct }}
             </td>
           </ng-container>
+          <ng-container matColumnDef="Hành động">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              <span class="material-symbols-outlined" style="font-size: 22px;">
+                settings
+                </span>
+            </th>
+            <td class="table-cell" mat-cell *matCellDef="let element">
+              <span
+                style="font-size: 15px; margin-left: 8px; cursor: pointer"
+                [matMenuTriggerFor]="menu"
+                class="material-symbols-outlined"
+                >more_vert</span
+              >
+              <mat-menu #menu="matMenu">
+                <button
+                  mat-menu-item
+                  (click)="editBrand(element.idbrand)"
+                >
+                  Chỉnh sửa
+                </button>
+                <button
+                  mat-menu-item
+                  (click)="deleteBrand(element.idbrand)"
+                >Xóa</button>
+              </mat-menu>
+            </td>
+          </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
       </div>
       <div class="change-page">
         <app-paging
-        [totalPages]="Math.ceil(totalBrand / pageSizeKindProduct)"
+        [totalPages]="Math.ceil(totalKindProduct / pageSizeKindProduct)"
         [currentPage]="pageindexKindProduct"
         (pageChanged)="onPageChanged($event)"
       ></app-paging>

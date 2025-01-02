@@ -45,9 +45,6 @@ input[type="file"] {
   font-size: 14px;
 }
 
-input[type="file"] {
-  padding: 5px;
-}
 
 button {
   padding: 10px 15px;
