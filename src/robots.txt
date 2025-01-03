@@ -6,4 +6,4 @@ Disallow: /checkout
 Allow: /home
 Allow: /sanpham
 Allow: /giohang
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://https://badmintonblast.onrender.com/sitemap.xml

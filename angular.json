@@ -19,9 +19,14 @@
             "polyfills": ["zone.js", "@angular/localize/init"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/robots.txt",
+              "src/sitemap.xml",
               {
                 "glob": "**/*",
                 "input": "public"
+                
               },
               {
                 "glob": "**/*",

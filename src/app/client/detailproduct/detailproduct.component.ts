@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../../services/product/product.service';
 import { IProduct } from '../../../interfaces/i-Product';
@@ -21,7 +21,6 @@ import { IProductStock } from '../../../interfaces/i-ProductStock';
 
 declare var FB: any;
 import { Meta, Title } from '@angular/platform-browser';
-import { error } from 'console';
 import { PreviewProductComponent } from '../preview-product/preview-product.component';
 @Component({
   selector: 'app-detailproduct',
@@ -33,11 +32,12 @@ import { PreviewProductComponent } from '../preview-product/preview-product.comp
     MatIconModule,
     NotificationComponent,
     PreviewProductComponent,
+    
   ],
   templateUrl: './detailproduct.component.html',
   styleUrl: './detailproduct.component.css',
 })
-export class DetailproductComponent {
+export class DetailproductComponent  implements AfterViewInit {
   Math = Math;
   product: IProduct | null = null;
   productKind: number = 0;
@@ -72,7 +72,45 @@ export class DetailproductComponent {
     private meta: Meta,
     private title: Title,
     private couponService: CouponService
-  ) {}
+  ) {
+    this.currentUrl =  this.router.url;
+  }
+  ngAfterViewInit(): void {
+    this.loadFacebookSDK();
+  }
+
+  loadFacebookSDK() {
+    if (typeof FB !== 'undefined') {
+      console.log("Facebook SDK loaded");
+      FB.XFBML.parse(); // Khởi tạo và phân tích các phần tử Facebook XFBML trên trang
+    } else {
+      console.error("Facebook SDK is not loaded.");
+      this.retryLoadFacebookSDK();
+    }
+  }
+
+  retryLoadFacebookSDK() {
+    // Hàm tải lại Facebook SDK nếu chưa được tải
+    window['fbAsyncInit'] = () => {
+      FB.init({
+        appId      : 'your-app-id', // (Nếu bạn có ứng dụng trên Facebook)
+        xfbml      : true,
+        version    : 'v20.0'
+      });
+      console.log("Facebook SDK initialized.");
+      FB.XFBML.parse(); // Khởi tạo XFBML sau khi SDK được tải
+    };
+
+    // Tải SDK nếu chưa tải
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/vi_VN/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  }
+  
   ngOnInit() {
     this.currentUrl = this.router.url;
     this.getCoupons();
@@ -109,6 +147,7 @@ export class DetailproductComponent {
       });
     }
   }
+ 
   coupon: ICoupons[] = [];
   getCoupons() {
     this.couponService.getCoupons().subscribe((coupons) => {
