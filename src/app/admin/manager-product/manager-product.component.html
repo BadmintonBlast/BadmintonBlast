@@ -138,7 +138,7 @@
     <app-detail-product
       *ngIf="statusDetailProduct === true"
     ></app-detail-product>
-    <app-add-product *ngIf="statusAddProduct === true"></app-add-product>
+    <app-add-product *ngIf="statusAddProduct === true" (statusAddProduct)="statusAddProduct=false"></app-add-product>
   </div>
 </div>
 <app-confirm

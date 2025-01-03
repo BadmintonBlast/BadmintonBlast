@@ -45,8 +45,7 @@ import { RouterLink } from '@angular/router';
     MatTableModule,
     NgxEditorModule,
     AddKindProductComponent,
-    AddBrandComponent,
-    RouterLink
+    AddBrandComponent,    
   ],
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css'],
@@ -55,7 +54,7 @@ import { RouterLink } from '@angular/router';
 export class AddProductComponent implements OnInit, OnDestroy {
   Math = Math;
   idProduct: number = 0;
-
+  @Output() closeFormEvent = new EventEmitter<void>();
   Product: IProductInsert = {
     idproduct: 0,
     idbrand: 0,
@@ -71,7 +70,6 @@ export class AddProductComponent implements OnInit, OnDestroy {
     image: [],
   };
 
-  @Output() selectedImages: EventEmitter<File[]> = new EventEmitter<File[]>();
   Brands: IBrand[] = [];
   Kinds: Ikindproduct[] = [];
   allImages: boolean = false;
@@ -123,7 +121,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     });
   }
   addProductStock(): void {
-    if (this.newSize && this.newColor && this.newQuantity) {
+    if (this.newColor && this.newQuantity) {
       // this.checkStock = true;
       const newProduct: IProductStock = {
         id: 0, // Giả sử Id tự đ��ng tăng
@@ -163,7 +161,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.selectedImagesList.splice(index, 1);
   }
   closeAddproduct() {
-    this.statusAddProduct.emit(false);
+    this.statusAddProduct.emit();
   }
   updateBrandName() {
     const selectedBrand = this.Brands.find(
