@@ -10,6 +10,7 @@ import { ProductService } from '../../../services/product/product.service';
 import { IProductStatic } from '../../../interfaces/i-Product';
 import { MatTableDataSource } from '@angular/material/table';
 import {IStatisticalInvoice} from '../../../interfaces/i-StatiscalResult';
+import { CustomersService } from '../../../services/customer/customers.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -24,6 +25,7 @@ export class DashboardComponent {
   StaticalProduct: IProductSalesDTO;
   statisticalReservation:IStatisticalInvoice;
   totalProduct: number = 0;
+  totalCustomer:number=0;
   Product : MatTableDataSource<IProductStatic> =
   new MatTableDataSource<IProductStatic>();
   dataSource: MatTableDataSource<IProductStatic> =
@@ -32,11 +34,18 @@ export class DashboardComponent {
     private billService: BillService,
     private staticalResultService: StaticalResultService,
     private productService: ProductService,
+    private customerService: CustomersService,
   ) {
     // Gọi hàm getStatical với dateStart và dateEnd
-    this.getStatical(this.dateStart, this.dateEnd);
+   
+    
   }
-
+  ngOnInit(): void {
+    this.getStatical(this.dateStart, this.dateEnd);
+    this.customerService.getTotalCustomers('').subscribe((data)=>{
+      this.totalCustomer=data
+    })
+  }
   // Hàm định dạng ngày theo "yyyy-MM-dd"
   formatDate(date: Date): string {
     const year = date.getFullYear();

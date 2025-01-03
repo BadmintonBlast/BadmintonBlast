@@ -1,4 +1,4 @@
-import { Component,OnDestroy } from '@angular/core';
+import { Component,OnDestroy,ChangeDetectorRef } from '@angular/core';
 import { Subject,forkJoin} from 'rxjs';
 import { takeUntil,switchMap,map} from 'rxjs/operators';
 import { HeaherComponent } from '../../components/heaher/heaher.component';
@@ -16,6 +16,7 @@ import { IProduct } from '../../../interfaces/i-Product';
 import { PreviewComponent } from "../preview/preview.component";
 import { PreviewService } from '../../../services/preview/preview.service';
 import { Router } from '@angular/router';
+import { of,catchError } from 'rxjs';
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -64,6 +65,7 @@ export class UserComponent implements OnDestroy {
     private productService: ProductService,
     private previewService: PreviewService,
     private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {
     this.adcustomer.idcustomer = this.customer.getClaimValue();
     if (this.adcustomer.idcustomer) {
@@ -123,40 +125,43 @@ export class UserComponent implements OnDestroy {
   }
   // Phương thức lấy danh sách đơn hàng
   billStatuses: { [idbill: number]: boolean } = {};
-  loadBills(status: number): void {
-    this.bills = []; // Reset danh sách bills
-    this.billStatuses = {}; // Reset trạng thái của các bill
-  
-    this.billService.getBillsByCustomer(this.adcustomer.idcustomer, status).pipe(
-      takeUntil(this.destroy$), // Hủy các yêu cầu khi component bị hủy
-      switchMap((bills) => {
-        this.bills = [...bills].reverse(); // Lật lại danh sách hóa đơn
-  
-        // Tạo một mảng các yêu cầu preview cho mỗi bill
-        const previewRequests = this.bills.map(bill =>
-          this.previewService.getidBillPreview(bill.idbill).pipe(
-            map((data) => {
-              if (data && data.length !== 0) {
-                this.billStatuses[bill.idbill] = true;  // Có dữ liệu
-              } else {
-                this.billStatuses[bill.idbill] = false;  // Không có dữ liệu
-              }
-            })
-          )
-        );
-  
-        // Sử dụng forkJoin để chờ tất cả các yêu cầu preview hoàn thành
-        return previewRequests.length ? forkJoin(previewRequests) : [];
-      })
-    ).subscribe({
-      next: () => {
-        console.log(this.billStatuses);
-      },
-      error: (error) => {
-        console.error( error);
-      }
-    });
-  }
+    loadBills(status: number): void {
+      this.bills = []; // Reset danh sách bills
+      this.billStatuses = {}; // Reset trạng thái của các bill
+    
+      this.billService.getBillsByCustomer(this.adcustomer.idcustomer, status).pipe(
+        takeUntil(this.destroy$), // Hủy các yêu cầu khi component bị hủy
+        switchMap((bills) => {
+          this.bills = [...bills].reverse(); // Lật lại danh sách hóa đơn
+    
+          // Tạo một mảng các yêu cầu preview cho mỗi bill
+          const previewRequests = this.bills.map(bill =>
+            this.previewService.getidBillPreview(bill.idbill).pipe(
+              map((data) => {
+                if (data && data.length !== 0) {
+                  this.billStatuses[bill.idbill] = true;  // Có dữ liệu
+                } else {
+                  this.billStatuses[bill.idbill] = false;  // Không có dữ liệu
+                }
+              }),
+              catchError(() => {
+                // Nếu có lỗi khi lấy dữ liệu preview, bỏ qua mà không thông báo lỗi
+                this.billStatuses[bill.idbill] = false;
+                return of(null); // Trả về một observable hoàn thành để tiếp tục
+              })
+            )
+          );
+    
+          // Sử dụng forkJoin để chờ tất cả các yêu cầu preview hoàn thành
+          return previewRequests.length ? forkJoin(previewRequests) : [];
+        })
+      ).subscribe({
+        next: () => {
+          // Xử lý khi tất cả các yêu cầu đã hoàn thành
+        }
+      });
+    }
+    
   // Hàm để ẩn các số giữa của số điện thoại
   maskPhoneNumber(phoneNumber: string): string {
     if (phoneNumber.length < 7) return phoneNumber; // Kiểm tra nếu số quá ngắn

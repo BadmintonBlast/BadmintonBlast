@@ -22,8 +22,7 @@ import { ImageService } from '../../../services/image/image.service';
 import { ProductService } from '../../../services/product/product.service';
 import { IProduct } from '../../../interfaces/i-Product';
 import { ProductstockService } from '../../../services/productstock/productstock.service';
-import { NgxEditorModule } from 'ngx-editor';
-import { Editor } from 'ngx-editor';
+import { NgxEditorModule } from 'ngx-editor';import { Editor } from 'ngx-editor';
 import { ChangeDetectorRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Image } from '../../../interfaces/i-Product';
@@ -120,7 +119,6 @@ export class DetailProductComponent implements OnInit {
   }
 
   removeProductStock(product: IProductStock): void {
-    console.log(product.id)
     if (product.id != 0) {
       this.productstock.deleteProductId(product.id).subscribe({
         next: () => {

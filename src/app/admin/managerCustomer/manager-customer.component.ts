@@ -224,7 +224,6 @@ export class ManagerCustomerComponent implements OnDestroy {
     formData.append('village', this.customer.village || '');
     formData.append('hamlet', this.customer.hamlet || '');
     formData.append('email', this.customer.email || '');
-    formData.append('passwordHash', this.customer.passwordHash || '');
     formData.append('status', String(this.customer.status));  // Đảm bảo status là chuỗi
     formData.append('role', this.customer.role || '');
    if (this.customer.birthday) {

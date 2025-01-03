@@ -19,8 +19,8 @@ export class CouponService {
   {
     return this.http.post<ICoupons>(`${environment.apiUrl}Coupons/Insert`, coupons);
   }
-  updateCoupon(id: number, coupon: ICoupons): Observable<any> {
-    return this.http.put(`${environment.apiUrl}/${id}`, coupon);
+  updateCoupon(coupon: ICoupons): Observable<any> {
+    return this.http.put(`${environment.apiUrl}Coupons/${coupon.idcoupon}`, coupon);
   }
   getIdCoupons(id: number): Observable<ICoupons>
   {

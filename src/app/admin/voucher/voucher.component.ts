@@ -86,5 +86,6 @@ export class VoucherComponent {
   idcoupon: number = 0;
   detail(id: number) {
     this.idcoupon = id;
+    this.getCoupons();
   }
 }

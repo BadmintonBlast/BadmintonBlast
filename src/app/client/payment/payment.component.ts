@@ -17,12 +17,14 @@ import { BillService } from '../../../services/bill/bill.service';
 import { IOrder } from '../../../interfaces/i-Order';
 import { IBill } from '../../../interfaces/i-Bill';
 import { ICoupons } from '../../../interfaces/i-Coupon';
-import { CouponService } from '../../../services/coupon/coupon.service';
 import { NotificationComponent } from '../../notification/notification.component';
 import { Router, Navigation } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { ProductstockService } from '../../../services/productstock/productstock.service';
 import { IProductStock } from '../../../interfaces/i-ProductStock';
+import { concatMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { CouponService } from '../../../services/coupon/coupon.service';
 @Component({
   selector: 'app-payment',
   standalone: true,
@@ -47,9 +49,9 @@ export class PaymentComponent {
     private paypalService: PaypalService,
     private orderService: OrderService,
     private billService: BillService,
-    private couponService: CouponService,
     private router: Router,
-    private productStockService: ProductstockService
+    private productStockService: ProductstockService,
+    private couponService:CouponService
   ) {}
   exchangeRate: number = 0;
   databuy: boolean[] = [];
@@ -203,6 +205,7 @@ export class PaymentComponent {
       this.idBill = idBill.idBill;
       let i = 0;
       if (this.idBill !== 0) {
+        // Dùng concatMap để xử lý tuần tự các yêu cầu
         this.productBuy.forEach((item) => {
           this.productOrderIds[item.idproduct].forEach((pro) => {
             const order: IOrder = {
@@ -216,28 +219,50 @@ export class PaymentComponent {
               quatity: item.quatity,
               dateOrder: new Date().toISOString(),
             };
-
-            this.orderService.insertOrder(order).subscribe((res) => {
-              i++;
-              this.cartService.deleteCart(item.idcart).subscribe((value) => {
-                this.productStockService
-                  .getIdProductStock(item.idproductstock)
-                  .subscribe((data) => {
-                    this.productStock=data;
-                    this.productStock.quatity=this.productStock.quatity -item.quatity;
-                  });
-                this.productStockService.updateProductStock(this.productStock);
+  
+            this.orderService.insertOrder(order).pipe(
+              concatMap(() => {
+                // Xóa giỏ hàng sau khi đơn hàng được thêm thành công
+                return this.cartService.deleteCart(item.idcart);
+              }),
+              concatMap(() => {
+                // Lấy thông tin sản phẩm trong kho
+                return this.productStockService.getIdProductStock(item.idproductstock);
+              }),
+              concatMap((data) => {
+                // Cập nhật kho sản phẩm
+                this.productStock = data;
+                this.productStock.quatity -= item.quatity;
+                return this.productStockService.updateProductStock(this.productStock);
+              }),
+              concatMap(() => {
+                // Cập nhật voucher: trừ đi 1 số lượng voucher
+                if (this.bill.idcoupon) {
+                  this.dataCoupon.quality-=1;
+                  return this.couponService.updateCoupon(this.dataCoupon);
+                } else {
+                  return of(null); // Nếu không có voucher, trả về một observable rỗng
+                }
+              })
+            ).subscribe({
+              next: () => {
+                i++;
+                // Khi tất cả các đơn hàng đã được xử lý và kho cập nhật, điều hướng đến trang khách hàng
                 if (this.productBuy.length === i) {
                   this.router.navigate(['/khachhang']);
                 }
-              });
+              },
+              error: (error) => {
+                console.error('Error processing order:', error);
+              }
             });
           });
         });
       }
     });
   }
-
+  
+  
   getProductId(idproduct: number): void {
     this.productService.getProductById(idproduct).subscribe((data) => {
       if (!this.productOrderIds[data.idproduct]) {

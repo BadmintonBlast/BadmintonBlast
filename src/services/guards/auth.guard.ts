@@ -7,7 +7,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   // Kiểm tra nếu đang chạy trên môi trường trình duyệt (client)
   if (typeof window !== 'undefined' && window.localStorage) {
     const token = localStorage.getItem('user-token');
-    console.log(token);
     if (token) {
       return true;
     } else {

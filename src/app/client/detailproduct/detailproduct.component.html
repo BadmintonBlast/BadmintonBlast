@@ -54,7 +54,7 @@
           class="option-button"
           *ngFor="let stock of product.productstocks; let i = index"
           [ngClass]="{ selected: selectedIndex === i }"
-          (click)="selectButton(i)"
+          (click)="selectButton(i,stock.quatity)"
         >
           {{ stock.namesize }}
           <span *ngIf="stock.namecolor">-{{ stock.namecolor }}</span>
@@ -64,9 +64,9 @@
     <div class="quantity">
       <span>Số Lượng</span>
       <button class="quantity-button" (click)="quantity('-')">-</button>
-      <input type="text" [value]="this.quantityValue" class="quantity-input" />
+      <input type="text" [value]="this.quantityValue" [max]="quantitymax" class="quantity-input" />
       <button class="quantity-button" (click)="quantity('+')">+</button>
-      <span>158084 sản phẩm có sẵn</span>
+      <span *ngIf="quantitymax!=0">{{quantitymax}} sản phẩm có sẵn</span>
     </div>
     <div class="action-buttons">
       <button class="add-to-cart" (click)="addCart('')">Thêm Vào Giỏ Hàng</button>
@@ -82,13 +82,13 @@
     </div>
   </div>
   <div class="info-section">
-    <div class="info-item liked">
+    <!-- <div class="info-item liked">
       <img src="/api/placeholder/20/20" alt="Heart" />
       <span>Đã thích (330)</span>
-    </div>
+    </div> -->
     <div class="info-item guarantee">
-      <img src="/api/placeholder/20/20" alt="Shield" />
-      <span>Bảo Hành</span>
+      <!-- <img src="/api/placeholder/20/20" alt="Shield" /> -->
+      <span>Bảo Hành 6 tháng cho các sản phẩm giày</span>
     </div>
     <div class="info-item return-policy">
       <span>Trả hàng miễn phí 15 ngày</span>

@@ -193,16 +193,19 @@ export class DetailproductComponent {
   quantityValue: number = 1;
   quantity(value: string) {
     if (value === '-') {
-      if (this.quantityValue === 0) {
-        return;
+      if (this.quantityValue > 0) {
+        this.quantityValue = this.quantityValue - 1;
       }
-      this.quantityValue = this.quantityValue - 1;
     } else if (value === '+') {
-      this.quantityValue = this.quantityValue + 1;
+      if (this.quantityValue < this.quantitymax) {
+        this.quantityValue = this.quantityValue + 1;
+      }
     }
   }
-  selectButton(i: number) {
+  quantitymax:number=0
+  selectButton(i: number,quantity:number) {
     this.selectedIndex = i;
+    this.quantitymax=quantity;
   }
   total: number = 0;
   pageSize: number = 8; // Default page size

@@ -1,4 +1,4 @@
-import { Component,Input,Output,EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ICoupons } from '../../../interfaces/i-Coupon';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import { CouponService } from '../../../services/coupon/coupon.service';
 })
 export class AddVoucherComponent {
   showModal: boolean = false;
-  @Input() idcoupon=0;
+  @Input() idcoupon = 0;
   @Output() closeFormEvent = new EventEmitter<void>();
   coupon: ICoupons = {
     idcoupon: 0,
@@ -24,8 +24,7 @@ export class AddVoucherComponent {
   };
   constructor(private couponService: CouponService) {}
   ngOnInit() {
-    if(this.idcoupon>0)
-    {
+    if (this.idcoupon > 0) {
       this.couponService.getIdCoupons(this.idcoupon).subscribe((coupon) => {
         this.coupon = coupon;
         if (this.coupon.startdate) {
@@ -38,20 +37,33 @@ export class AddVoucherComponent {
     }
   }
 
-  closeModal() {  
-      this.closeFormEvent.emit();
+  closeModal() {
+    this.closeFormEvent.emit();
   }
 
   insertCoupon() {
-    this.couponService.insertCoupons(this.coupon).subscribe((response) => {
-      console.log(response);
-    });
-    if(this.idcoupon) { 
-      this.couponService.updateCoupon(this.idcoupon,this.coupon).subscribe((response) => {
+    // Kiểm tra xem tất cả các thông tin cần thiết đã được nhập chưa
+    if (!this.coupon.promotion || !this.coupon.description || !this.coupon.enddate||!this.coupon.startdate||!this.coupon.quality) {
+      // Hiển thị thông báo lỗi nếu thiếu thông tin
+      alert('Vui lòng điền đầy đủ thông tin coupon.');
+      return;  // Dừng hàm nếu thông tin không đầy đủ
+    }
+  
+    // Nếu coupon không có idcoupon, thực hiện thêm mới
+    if (!this.idcoupon) {
+      this.couponService.insertCoupons(this.coupon).subscribe((response) => {
+        console.log(response);
+      });
+    } else {
+      // Nếu có idcoupon, thực hiện cập nhật
+      this.coupon.idcoupon = this.idcoupon;
+      this.couponService.updateCoupon(this.coupon).subscribe((response) => {
         console.log(response);
       });
     }
+  
+    // Đóng modal sau khi hoàn thành
     this.closeModal();
   }
-}
   
+}
