@@ -40,15 +40,6 @@
               {{ element.reservationdate | date : "dd/MM/yyyy" }}
             </td>
           </ng-container>
-
-          <!-- Trạng thái -->
-          <ng-container matColumnDef="status">
-            <th class="table-header" mat-header-cell *matHeaderCellDef>Trạng thái</th>
-            <td class="table-cell" mat-cell *matCellDef="let element">
-              {{ element.status || 'Không xác định' }}
-            </td>
-          </ng-container>
-
           <!-- Hành động -->
           <ng-container matColumnDef="actions">
             <th class="table-header" mat-header-cell *matHeaderCellDef>

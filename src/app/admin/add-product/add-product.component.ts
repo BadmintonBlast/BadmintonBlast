@@ -121,11 +121,11 @@ export class AddProductComponent implements OnInit, OnDestroy {
     });
   }
   addProductStock(): void {
-    if (this.newColor && this.newQuantity) {
+    if (this.newQuantity) {
       // this.checkStock = true;
       const newProduct: IProductStock = {
         id: 0, // Giả sử Id tự đ��ng tăng
-        namesize: this.newSize,
+        namesize: this.newSize, 
         namecolor: this.newColor,
         quatity: this.newQuantity,
       };

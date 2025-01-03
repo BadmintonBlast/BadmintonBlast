@@ -137,7 +137,7 @@
     </div>
     <app-detail-product
       *ngIf="statusDetailProduct === true"
-    ></app-detail-product>
+      (statusAddProduct)="statusDetailProduct=false" ></app-detail-product>
     <app-add-product *ngIf="statusAddProduct === true" (statusAddProduct)="statusAddProduct=false"></app-add-product>
   </div>
 </div>

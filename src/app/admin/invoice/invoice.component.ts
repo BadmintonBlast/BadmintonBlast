@@ -40,7 +40,7 @@ export class InvoiceComponent {
   keyword: string | null = '';
   totalInvoice: number = 0; // Tổng số hóa đơn để tính toán số trang
 
-  displayedColumns = ['idInvoice', 'idcustomer','customername', 'totalAmount', 'reservationDate', 'status', 'actions'];
+  displayedColumns = ['idInvoice', 'idcustomer','customername', 'totalAmount', 'reservationDate', 'actions'];
 
 
   // Hàm lấy danh sách hóa đơn
@@ -55,6 +55,7 @@ export class InvoiceComponent {
       )
       .subscribe((data) => {
         this.dataSource.data = data; // Giả định API trả về { items, total }
+        console.log(data);
       });
     this.invoiceService.getInvoiceTotal( this.dateStart,
       this.dateEnd,

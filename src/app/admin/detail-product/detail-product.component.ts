@@ -29,7 +29,7 @@ import { Image } from '../../../interfaces/i-Product';
 import { forkJoin } from 'rxjs';
 import { NotificationComponent } from '../../notification/notification.component';
 import { EditProductStockComponent } from '../edit-product-stock/edit-product-stock.component';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-detail-product',
   standalone: true,
@@ -43,8 +43,7 @@ import { RouterLink } from '@angular/router';
     MatTableModule,
     NgxEditorModule,
     NotificationComponent,
-    EditProductStockComponent,
-    RouterLink 
+    EditProductStockComponent, 
   ],
   templateUrl: './detail-product.component.html',
   styleUrl: './detail-product.component.css',
@@ -77,6 +76,8 @@ export class DetailProductComponent implements OnInit {
   newColor: string = '';
   newQuantity: number = 0;
   checkStock: number = 0;
+  @Output() statusAddProduct: EventEmitter<boolean> =
+  new EventEmitter<boolean>();
   ngOnDestroy(): void {
     if (this.editor) {
       this.editor.destroy();
@@ -89,7 +90,8 @@ export class DetailProductComponent implements OnInit {
     private productService: ProductService,
     private productstock: ProductstockService,
     private cdr: ChangeDetectorRef,
-    private routes: ActivatedRoute
+    private routes: ActivatedRoute,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.editor = new Editor();
@@ -103,7 +105,7 @@ export class DetailProductComponent implements OnInit {
     });
   }
   addProductStock(): void {
-    if (this.newSize && this.newColor && this.newQuantity) {
+    if (this.newQuantity) {
       // this.checkStock = true;
       const newProduct: IProductStock = {
         id: 0, // Giả sử Id tự đ��ng tăng
@@ -174,10 +176,13 @@ export class DetailProductComponent implements OnInit {
   }
   getAllKind() {
     this.kindsService.getKindproducts().subscribe((data) => {
-      this.Kinds = data;
+      this.Kinds = data;  
     });
   }
-
+  closeAddproduct() {
+    this.router.navigate(['/menu/sanpham',]);
+    this.statusAddProduct.emit();
+  }
   getIdProduct(idProduct: number) {
     this.productService.getProductById(idProduct).subscribe({
       next: (product) => {

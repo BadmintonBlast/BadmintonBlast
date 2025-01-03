@@ -56,8 +56,8 @@
           [ngClass]="{ selected: selectedIndex === i }"
           (click)="selectButton(i,stock.quatity)"
         >
-          {{ stock.namesize }}
-          <span *ngIf="stock.namecolor">-{{ stock.namecolor }}</span>
+          {{ stock.namesize }}-
+          <span *ngIf="stock.namecolor">{{ stock.namecolor }}</span>
         </button>
       </div>
     </div>
