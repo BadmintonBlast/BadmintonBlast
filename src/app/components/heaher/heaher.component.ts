@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrandService } from '../../../services/brand/brand.service';
 import { IBrand } from '../../../interfaces/i-Brand';
-import { FooterComponent } from '../footer/footer.component';
-import { CategoriesComponent } from '../../client/caterogies/caterogies.component';
-import { ActivatedRoute } from '@angular/router';
 import { LoginAdminComponent } from '../../client/loginAdmin/login-admin.component';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
@@ -57,7 +54,7 @@ export class HeaherComponent {
   }
     cart() {
     this.idcustomer = this.customerservice.getClaimValue();
-    if (this.idcustomer) {
+    if (this.idcustomer!==0) {
       this.router.navigate(['/giohang']);
     } else {
       this.hidenotify = true;

@@ -165,8 +165,11 @@ export class DetailproductComponent  implements AfterViewInit {
   
   datacart: ICart;
   addCart(kind: string) {
+    if(this.product.available===0) {
+      this.showMessage('Tạm thời hết hàng', false);
+      return;
+    }
     this.idcustomer = this.customerService.getClaimValue();
-
     if (this.idcustomer === 0) {
       this.showMessage('Vui lòng đăng nhập', false);
       return;
