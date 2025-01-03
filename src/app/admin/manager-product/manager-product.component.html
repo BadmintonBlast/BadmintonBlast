@@ -79,9 +79,9 @@
             <!-- Actions Column -->
             <ng-container matColumnDef="Hành động">
               <th class="table-header" mat-header-cell *matHeaderCellDef>
-                <span class="material-symbols-outlined" style="font-size: 22px;">
+                <span class="material-symbols-outlined" style="font-size: 22px">
                   settings
-                  </span>
+                </span>
               </th>
               <td class="table-cell" mat-cell *matCellDef="let element">
                 <span
@@ -101,7 +101,7 @@
                     mat-menu-item
                     (click)="showNotification(element.idproduct)"
                   >
-                   Xóa
+                    Xóa
                   </button>
                 </mat-menu>
               </td>
@@ -141,5 +141,9 @@
     <app-add-product *ngIf="statusAddProduct === true"></app-add-product>
   </div>
 </div>
-<app-confirm *ngIf="notification" (closeFormEvent)="notification=false" (executeEvent)="removeProduct()"></app-confirm>
-<app-notification *ngIf="message!=''" [message]="message"></app-notification>
+<app-confirm
+  *ngIf="notification"
+  (closeFormEvent)="notification = false"
+  (executeEvent)="removeProduct()"
+></app-confirm>
+<app-notification *ngIf="message != ''" [message]="message"></app-notification>

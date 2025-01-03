@@ -43,7 +43,6 @@
               {{ element.phone }}
             </td>
           </ng-container>
-
           <!-- Tổng tiền -->
           <ng-container matColumnDef="totalamount">
             <th class="table-header" mat-header-cell *matHeaderCellDef>
@@ -127,6 +126,10 @@
     </div>
     <!-- Phân trang -->
     <div class="change-page">
+      <button class="report" (click)="exportBillArrayToExcel()">
+        <span class="material-symbols-outlined"> print_error </span>Xuất báo
+        cáo
+      </button>
       <app-paging
         [totalPages]="Math.ceil(totalBills / pageSize)"
         [currentPage]="pageIndex"

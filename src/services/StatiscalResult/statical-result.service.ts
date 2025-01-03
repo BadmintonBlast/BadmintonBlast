@@ -48,4 +48,15 @@ export class StaticalResultService {
 
     return this.http.get<IInvoice[]>(`${environment.apiUrl}Invoice`, { params });
   }
+  getInvoiceTotal( dateStart: string,
+    dateEnd: string,
+    customerName: string)
+  {
+    const params = new HttpParams()
+      .set('DateStart', dateStart)
+      .set('DateEnd', dateEnd)
+      .set('CustomerName', customerName);
+
+    return this.http.get<number>(`${environment.apiUrl}Invoice/total`,{params});
+  }
 } 

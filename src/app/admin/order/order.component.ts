@@ -12,7 +12,6 @@ import { FormsModule } from '@angular/forms';
 import { MatMenuModule, MatMenu } from '@angular/material/menu';
 import { ManagerHeaderComponent } from '../manager-header/manager-header.component';
 import { NotificationComponent } from '../../notification/notification.component';
-import { timeout } from 'rxjs';
 @Component({
   selector: 'app-order',
   standalone: true,

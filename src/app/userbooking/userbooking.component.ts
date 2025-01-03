@@ -56,6 +56,10 @@ export class UserbookingComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.fetchExchangeRate();
     this.idCustomer = this.customerService.getClaimValue();
+    this.customerService.getCustomerId(this.idCustomer).subscribe((data) => {
+      this.nameCustomer = data.namecustomer;
+      this.phoneCustomer = data.phone;
+    });
     this.role =localStorage.getItem('role');
     this.slotSelectionService.selectedSlots$.subscribe((slots) => {
       this.selectedSlots = slots;
@@ -241,7 +245,7 @@ export class UserbookingComponent implements OnInit, OnDestroy {
             const reservationData: IReservation = {
               idReservation: 0,
               idField: null,
-              idcustomer: Number(this.idCustomer),
+              idcustomer: this.idCustomer,
               idhourlyrates: null,
               starttimerates: convertToTimeString(timefield.startTime),
               endtimerates: convertToTimeString(timefield.endTime),
@@ -297,12 +301,12 @@ export class UserbookingComponent implements OnInit, OnDestroy {
                   const reservationData: IReservation = {
                     idReservation: 0,
                     idField: null,
-                    idcustomer: Number(this.idCustomer),
+                    idcustomer: this.idCustomer,
                     idhourlyrates: null,
                     starttimerates: convertToTimeString(timefield.startTime),
                     endtimerates: convertToTimeString(timefield.endTime),
                     namecustomer: this.nameCustomer,
-                    transactioncode: details.transactioncode,
+                    transactioncode: 'Paypal',
                     price: 200,
                     namefield: timefield.field,
                     fieldstatus: '',

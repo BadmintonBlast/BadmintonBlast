@@ -158,4 +158,63 @@ select {
 }
 
 
+/* Container tổng */
+.date-filter-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f9f9f9; /* Màu nền nhạt */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+
+/* Nhãn */
+.date-filter-container label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Input ngày */
+.date-input {
+  margin-right: 10px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.date-input:focus {
+  border-color: #007bff; /* Đổi viền màu xanh khi focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Hiệu ứng đổ bóng khi focus */
+}
+
+/* Nút lọc */
+.filter-button {
+  margin-left: 15px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff; /* Màu xanh */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.filter-button:hover {
+  background-color: #0056b3; /* Đổi màu khi hover */
+}
+
+.filter-button:active {
+  background-color: #004494; /* Đổi màu khi nhấn */
+  transform: scale(0.98); /* Hiệu ứng nhấn nút */
+}
+
+
+
 
